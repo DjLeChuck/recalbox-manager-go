@@ -1,0 +1,27 @@
+doctype html
+html(lang="fr")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title= .Title
+    link(rel="stylesheet" href="./css/bootstrap.min.css")
+  body
+    div(class="container-fluid")
+      div(class="row")
+        div(class="col-sm-3 col-md-2 sidebar")
+          ul(class="nav flex-column")
+            li(class="nav-item")
+              a(class="nav-link active" href="#") Active
+            li(class="nav-item")
+              a(class="nav-link" href="#") Link
+            li(class="nav-item")
+              a(class="nav-link" href="#") Link
+            li(class="nav-item")
+              a(class="nav-link disabled" href="#") Disabled
+
+        div(class="col-sm-9 col-md-10")
+          {{ yield }}
+
+    script(src="./js/jquery-3.3.1.min.js")
+    script(src="./js/bootstrap.bundle.min.js")
