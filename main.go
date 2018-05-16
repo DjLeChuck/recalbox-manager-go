@@ -28,5 +28,5 @@ func main() {
     ctx.View("views/home.pug")
   })
 
-  app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed))
+  app.Run(iris.Addr(":8888"), iris.WithoutServerError(iris.ErrServerClosed))
 }
