@@ -6,22 +6,57 @@ html(lang="fr")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title= .Title
     link(rel="stylesheet" href="./css/bootstrap.min.css")
+    link(rel="stylesheet" href="./css/style.css")
   body
-    div(class="container-fluid")
-      div(class="row")
-        div(class="col-sm-3 col-md-2 sidebar")
-          ul(class="nav flex-column")
-            li(class="nav-item")
-              a(class="nav-link active" href="#") Active
-            li(class="nav-item")
-              a(class="nav-link" href="#") Link
-            li(class="nav-item")
-              a(class="nav-link" href="#") Link
-            li(class="nav-item")
-              a(class="nav-link disabled" href="#") Disabled
+    header
+      nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
+        a.navbar-brand(href="#") Fixed navbar
+        button.navbar-toggler(
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        )
+          span.navbar-toggler-icon
 
-        div(class="col-sm-9 col-md-10")
+        #navbarCollapse.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item.active
+              a.nav-link(href="#") Home
+                span(class="sr-only") (current)
+            li.nav-item
+              a.nav-link(href="#") Link
+            li.nav-item
+              a.nav-link.disabled(href="#") Disabled
+          form.form-inline.mt-2.mt-md-0
+            input.form-control.mr-sm-2(
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+            )
+            button.btn.btn-outline-success.my-2.my-sm-0(type="submit") Search
+
+    main.container
+      .row
+        .col-sm-3.col-md-2.sidebar
+          ul.nav.flex-column
+            li.nav-item
+              a.nav-link.active(href="#") Active
+            li.nav-item
+              a.nav-link(href="#") Link
+            li.nav-item
+              a.nav-link(href="#") Link
+            li.nav-item
+              a.nav-link.disabled(href="#") Disabled
+
+        .col-sm-9.col-md-10
           {{ yield }}
+
+    footer.footer
+      .container
+        span.text-muted Hello World!
 
     script(src="./js/jquery-3.3.1.min.js")
     script(src="./js/bootstrap.bundle.min.js")
