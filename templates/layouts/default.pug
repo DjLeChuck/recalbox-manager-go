@@ -21,8 +21,10 @@ html(lang="fr")
           ) {{ .CurrentLang }}
 
           .dropdown-menu(aria-labelledby="languageMenuLink")
-            each _, locale in .AvailableLang
-              a.dropdown-item(href="#")= locale
+            {{range $locale, $_ := .AvailableLang}}
+              {{ $url := (printf "/?lang=%v" $locale) }}
+              a.dropdown-item(href={{$url}})= $locale
+            {{end}}
 
         button.navbar-toggler(
           type="button"
