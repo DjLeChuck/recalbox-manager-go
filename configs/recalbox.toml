@@ -1,0 +1,7 @@
+[app]
+  debug = true
+  logLevel = "debug"
+
+[auth]
+  path = "/recalbox/share/system/.config/manager-web/"
+  file = "credentials.auth"

@@ -7,6 +7,8 @@ import (
 	"github.com/kataras/iris/middleware/i18n"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
+
+	"github.com/spf13/viper"
 )
 
 // MenuItem represent an entry of the menu.
@@ -21,11 +23,27 @@ type HomeTile struct {
 }
 
 func main() {
+	// Load configuration file
+	viper.SetConfigName("recalbox")
+	viper.SetConfigType("toml")
+	viper.AddConfigPath("./configs")
+
+	err := viper.ReadInConfig() // Find and read the config file
+
+	if err != nil { // Handle errors reading the config file
+		panic(err.Error())
+	}
+
+	isDebug := viper.GetBool("app.debug")
+
 	app := iris.New()
-	app.Logger().SetLevel("debug")
+	app.Logger().SetLevel(viper.GetString("app.logLevel"))
 
 	app.Use(recover.New()) // recover from any http-relative panics
-	app.Use(logger.New())  // log the requests to the terminal.
+
+	if isDebug {
+		app.Use(logger.New()) // log the requests to the terminal.
+	}
 
 	availableLanguages := map[string]string{
 		"en-US": "./locales/en.ini",
@@ -34,7 +52,7 @@ func main() {
 	}
 
 	globalLocale := i18n.New(i18n.Config{
-		Default:      "zh-CN",
+		Default:      "en-US",
 		URLParameter: "lang",
 		Languages:    availableLanguages})
 	app.Use(globalLocale)
@@ -44,7 +62,7 @@ func main() {
 	app.StaticWeb("/img", "./assets/img")
 
 	tmpl := iris.Pug("./templates", ".pug")
-	tmpl.Reload(true) // reload templates on each request (development mode)
+	tmpl.Reload(isDebug) // reload templates on each request (development mode)
 
 	app.RegisterView(tmpl)
 
