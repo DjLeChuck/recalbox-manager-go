@@ -9,11 +9,13 @@ import (
 	"github.com/kataras/iris/middleware/recover"
 )
 
+// MenuItem represent an entry of the menu.
 type MenuItem struct {
 	Link, Glyph, Label string
 	Children           []MenuItem
 }
 
+// HomeTile represent a tile on the homepage.
 type HomeTile struct {
 	Link, Image, Label string
 }
@@ -90,5 +92,6 @@ func main() {
 		ctx.View("views/home.pug")
 	})
 
+	app.Configure(iris.WithConfiguration(iris.TOML("./configs/iris.tml")))
 	app.Run(iris.Addr(":8888"), iris.WithoutServerError(iris.ErrServerClosed))
 }
