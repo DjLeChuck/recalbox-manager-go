@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/kataras/iris"
+	"os"
 
+	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/i18n"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
@@ -10,6 +11,11 @@ import (
 
 type MenuItem struct {
 	Link, Glyph, Label string
+	Children           []MenuItem
+}
+
+type HomeTile struct {
+	Link, Image, Label string
 }
 
 func main() {
@@ -33,6 +39,7 @@ func main() {
 
 	app.StaticWeb("/css", "./assets/css")
 	app.StaticWeb("/js", "./assets/js")
+	app.StaticWeb("/img", "./assets/img")
 
 	tmpl := iris.Pug("./templates", ".pug")
 	tmpl.Reload(true) // reload templates on each request (development mode)
@@ -41,28 +48,20 @@ func main() {
 
 	app.Use(func(ctx iris.Context) {
 		menuEntries := []MenuItem{
-			{"/monitoring", "signal", ctx.Translate("Monitoring")},
-			{"/audio", "volume-up", ctx.Translate("Audio")},
-			{"/bios", "cd", ctx.Translate("BIOS")},
-			{"/controllers", "phone", ctx.Translate("Contrôleurs")},
-			{"/systems", "hdd", ctx.Translate("Systèmes")},
-			{"/configuration", "cog", ctx.Translate("Configuration")},
-			{"/roms", "floppy-disk", ctx.Translate("ROMs")},
-			{"/screenshots", "picture", ctx.Translate("Screenshots")},
-
-			// const secondMenuEntries = [{
-			//   link: '/logs',
-			//   glyph: 'file',
-			//   label: t('Logs'),
-			// }, {
-			//   link: '/recalbox-conf',
-			//   glyph: 'file',
-			//   label: 'recalbox.conf',
-			// }, {
-			//   link: '/help',
-			//   glyph: 'question-sign',
-			//   label: t('Dépannage'),
-			// }];
+			{Link: "/", Glyph: "home", Label: ctx.Translate("Accueil")},
+			{Link: "/monitoring", Glyph: "signal", Label: ctx.Translate("Monitoring")},
+			{Link: "/audio", Glyph: "volume-up", Label: ctx.Translate("Audio")},
+			{Link: "/bios", Glyph: "cd", Label: ctx.Translate("BIOS")},
+			{Link: "/controllers", Glyph: "phone", Label: ctx.Translate("Contrôleurs")},
+			{Link: "/systems", Glyph: "hdd", Label: ctx.Translate("Systèmes")},
+			{Link: "/configuration", Glyph: "cog", Label: ctx.Translate("Configuration")},
+			{Link: "/roms", Glyph: "floppy-disk", Label: ctx.Translate("ROMs")},
+			{Link: "/screenshots", Glyph: "picture", Label: ctx.Translate("Screenshots")},
+			{Link: "/help", Glyph: "question-sign", Label: ctx.Translate("Dépannage"), Children: []MenuItem{
+				{Link: "/logs", Glyph: "file", Label: ctx.Translate("Logs")},
+				{Link: "/recalbox-conf", Glyph: "file", Label: "recalbox.conf"},
+				{Link: "/help", Glyph: "question-sign", Label: ctx.Translate("Dépannage")},
+			}},
 		}
 
 		ctx.ViewLayout("layouts/default.pug")
@@ -75,6 +74,19 @@ func main() {
 	})
 
 	app.Handle("GET", "/", func(ctx iris.Context) {
+		hostname, err := os.Hostname()
+
+		if err != nil {
+			panic(err)
+		}
+
+		ctx.ViewData("PageTitle", ctx.Translate("Accueil"))
+		ctx.ViewData("Tiles", []HomeTile{
+			{"//" + hostname + ":8080/gamepad.html?analog", "/img/gamepad.png", ctx.Translate("Utiliser le gamepad virtuel")},
+			{"//" + hostname + ":8080/keyboard.html", "/img/keyboard.png", ctx.Translate("Utiliser le clavier virtuel")},
+			{"//" + hostname + ":8080/touchepad.html", "/img/touchpad.png", ctx.Translate("Utiliser le touchpad virtuel")},
+		})
+
 		ctx.View("views/home.pug")
 	})
 

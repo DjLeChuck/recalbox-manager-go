@@ -9,7 +9,7 @@ html(lang="fr")
     link(rel="stylesheet" href="./css/style.css")
   body
     header
-      nav.navbar.navbar-expand-lg.navbar-dark.fixed-top.bg-dark
+      nav.navbar.navbar-expand-xl.navbar-dark.fixed-top.bg-dark
         a.navbar-brand(href="#") {{ .RecalboxManagerTitle }}
 
         button.navbar-toggler(
@@ -42,15 +42,31 @@ html(lang="fr")
           .navbar-nav
             {{range $entry := .MenuEntries}}
               li.nav-item
-                a.nav-link(href={{$entry.Link}}) {{$entry.Label}}
+                if $entry.Children
+                  li.nav-item.dropdown
+                    a#helpMenuLink.nav-link.dropdown-toggle(
+                      href="#"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    ) {{$entry.Label}}
+
+                    .dropdown-menu(aria-labelledby="helpMenuLink")
+                      {{range $subEntry := $entry.Children}}
+                        a.dropdown-item(href={{$subEntry.Link}}) {{$subEntry.Label}}
+                      {{end}}
+                else
+                  a.nav-link(href={{$entry.Link}}) {{$entry.Label}}
             {{end}}
 
     main.container
       {{ yield }}
 
     footer.footer
-      .container
-        span.text-muted Hello World!
+      nav.navbar.navbar-light.bg-light
+        span.navbar-text
+          em v2.2.2
 
     script(src="./js/jquery-3.3.1.min.js")
     script(src="./js/bootstrap.bundle.min.js")
