@@ -92,6 +92,20 @@ func main() {
 		ctx.View("views/home.pug")
 	})
 
+	app.Handle("GET", "/audio", func(ctx iris.Context) {
+		ctx.ViewData("PageTitle", ctx.Translate("Audio"))
+		ctx.ViewData("Tr", map[string]string{
+			"Note":         ctx.Translate("SoundNote"),
+			"SoundTitle":   ctx.Translate("SoundTitle"),
+			"SoundWarning": ctx.Translate("SoundWarning"),
+			"VolumeTitle":  ctx.Translate("Volume du son"),
+			"DeviceTitle":  ctx.Translate("Sortie audio"),
+			"BtnSave":      ctx.Translate("BtnSave"),
+		})
+
+		ctx.View("views/audio.pug")
+	})
+
 	app.Configure(iris.WithConfiguration(iris.TOML("./configs/iris.tml")))
 	app.Run(iris.Addr(":8888"), iris.WithoutServerError(iris.ErrServerClosed))
 }
