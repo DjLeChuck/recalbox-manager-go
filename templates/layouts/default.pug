@@ -11,20 +11,6 @@ html(lang="fr")
     header
       nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
         a.navbar-brand(href="#") {{ .RecalboxManagerTitle }}
-        .dropdown.show
-          a#languageMenuLink.btn.btn-secondary.btn-sm.dropdown-toggle(
-            href="#"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          ) {{ .CurrentLang }}
-
-          .dropdown-menu(aria-labelledby="languageMenuLink")
-            {{range $locale, $_ := .AvailableLang}}
-              {{ $url := (printf "/?lang=%v" $locale) }}
-              a.dropdown-item(href={{$url}})= $locale
-            {{end}}
 
         button.navbar-toggler(
           type="button"
@@ -37,30 +23,37 @@ html(lang="fr")
           span.navbar-toggler-icon
 
         #navbarCollapse.collapse.navbar-collapse
-          ul.navbar-nav.mr-auto
-            li.nav-item.active
-              a.nav-link(href="#") Home
-                span(class="sr-only") (current)
-            li.nav-item
-              a.nav-link(href="#") Link
-            li.nav-item
-              a.nav-link.disabled(href="#") Disabled
+          .navbar-nav.mr-auto
+            li.nav-item.dropdown
+              a#languageMenuLink.nav-link.dropdown-toggle(
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              ) {{ .CurrentLang }}
+
+              .dropdown-menu(aria-labelledby="languageMenuLink")
+                {{range $locale, $_ := .AvailableLang}}
+                  {{ $url := (printf "/?lang=%v" $locale) }}
+                  a.dropdown-item(href={{$url}})= $locale
+                {{end}}
+
+            {{range $entry := .MenuEntries}}
+              li.nav-item
+                a.nav-link(href={{$entry.Link}}) {{$entry.Label}}
+            {{end}}
+
+//- li.nav-item.active
+//-   a.nav-link(href="#") Home
+//-     span(class="sr-only") (current)
+//- li.nav-item
+//-   a.nav-link(href="#") Link
+//- li.nav-item
+//-   a.nav-link.disabled(href="#") Disabled
 
     main.container
-      .row
-        .col-sm-3.col-md-2.sidebar
-          ul.nav.flex-column
-            li.nav-item
-              a.nav-link.active(href="#") Active
-            li.nav-item
-              a.nav-link(href="#") Link
-            li.nav-item
-              a.nav-link(href="#") Link
-            li.nav-item
-              a.nav-link.disabled(href="#") Disabled
-
-        .col-sm-9.col-md-10
-          {{ yield }}
+      {{ yield }}
 
     footer.footer
       .container

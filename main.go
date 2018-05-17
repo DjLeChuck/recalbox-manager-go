@@ -8,6 +8,10 @@ import (
 	"github.com/kataras/iris/middleware/recover"
 )
 
+type MenuItem struct {
+	Link, Glyph, Label string
+}
+
 func main() {
 	app := iris.New()
 	app.Logger().SetLevel("debug")
@@ -36,8 +40,34 @@ func main() {
 	app.RegisterView(tmpl)
 
 	app.Use(func(ctx iris.Context) {
+		menuEntries := []MenuItem{
+			{"/monitoring", "signal", ctx.Translate("Monitoring")},
+			{"/audio", "volume-up", ctx.Translate("Audio")},
+			{"/bios", "cd", ctx.Translate("BIOS")},
+			{"/controllers", "phone", ctx.Translate("Contrôleurs")},
+			{"/systems", "hdd", ctx.Translate("Systèmes")},
+			{"/configuration", "cog", ctx.Translate("Configuration")},
+			{"/roms", "floppy-disk", ctx.Translate("ROMs")},
+			{"/screenshots", "picture", ctx.Translate("Screenshots")},
+
+			// const secondMenuEntries = [{
+			//   link: '/logs',
+			//   glyph: 'file',
+			//   label: t('Logs'),
+			// }, {
+			//   link: '/recalbox-conf',
+			//   glyph: 'file',
+			//   label: 'recalbox.conf',
+			// }, {
+			//   link: '/help',
+			//   glyph: 'question-sign',
+			//   label: t('Dépannage'),
+			// }];
+		}
+
 		ctx.ViewLayout("layouts/default.pug")
 		ctx.ViewData("RecalboxManagerTitle", ctx.Translate("Recalbox Manager"))
+		ctx.ViewData("MenuEntries", menuEntries)
 		ctx.ViewData("CurrentLang", ctx.Values().GetString(ctx.Application().ConfigurationReadOnly().GetTranslateLanguageContextKey()))
 		ctx.ViewData("AvailableLang", availableLanguages)
 
