@@ -40,4 +40,6 @@ func PostAudioHandler(ctx iris.Context) {
 		ctx.StatusCode(iris.StatusInternalServerError)
 		ctx.WriteString(err.Error())
 	}
+
+	ctx.Redirect("/audio", 303)
 }

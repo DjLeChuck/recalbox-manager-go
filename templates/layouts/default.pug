@@ -12,7 +12,8 @@ html(lang="fr")
   body
     header
       nav.navbar.navbar-expand-xl.navbar-dark.fixed-top.bg-dark
-        a.navbar-brand(href="/") {{ .RecalboxManagerTitle }}
+        {{ $url := urlpath "home" }}
+        a.navbar-brand(href={{$url}}) {{ .RecalboxManagerTitle }}
 
         button.navbar-toggler(
           type="button"
@@ -37,7 +38,7 @@ html(lang="fr")
 
               .dropdown-menu(aria-labelledby="languageMenuLink")
                 {{range $locale, $_ := .AvailableLang}}
-                  {{ $url := (printf "/?lang=%v" $locale) }}
+                  {{ $url := (printf "%v?lang=%v" (urlpath "home") $locale) }}
                   a.dropdown-item(href={{$url}})= $locale
                 {{end}}
 

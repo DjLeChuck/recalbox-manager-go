@@ -6,8 +6,8 @@ import (
 
 // Configure registers the necessary routes to the app.
 func Configure(app *iris.Application) {
-	app.Get("/", GetHomeHandler)
+	app.Get("/", GetHomeHandler).Name = "home"
 
-	app.Get("/audio", GetAudioHandler)
+	app.Get("/audio", GetAudioHandler).Name = "audio"
 	app.Post("/audio", PostAudioHandler)
 }

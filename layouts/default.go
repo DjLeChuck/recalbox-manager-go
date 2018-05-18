@@ -17,9 +17,9 @@ type MenuItem struct {
 func New(app *iris.Application) iris.Handler {
 	return func(ctx iris.Context) {
 		menuEntries := []MenuItem{
-			{Link: "/", Glyph: "home", Label: ctx.Translate("Accueil")},
+			{Link: app.GetRoute("home").FormattedPath, Glyph: "home", Label: ctx.Translate("Accueil")},
 			{Link: "/monitoring", Glyph: "signal", Label: ctx.Translate("Monitoring")},
-			{Link: "/audio", Glyph: "volume-up", Label: ctx.Translate("Audio")},
+			{Link: app.GetRoute("audio").FormattedPath, Glyph: "volume-up", Label: ctx.Translate("Audio")},
 			{Link: "/bios", Glyph: "cd", Label: ctx.Translate("BIOS")},
 			{Link: "/controllers", Glyph: "phone", Label: ctx.Translate("Contrôleurs")},
 			{Link: "/systems", Glyph: "hdd", Label: ctx.Translate("Systèmes")},
