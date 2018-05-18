@@ -2,27 +2,4 @@ h1.mt-4.mb-4.border-bottom= .PageTitle
 
 p.important {{ .Tr.SoundNote }}
 
-form
-  .card.mb-4
-    .card-header {{ .Tr.SoundTitle }}
-    .card-body
-      .alert.alert-warning(role="alert") {{ .Tr.SoundWarning }}
-      SwitchInput id="audio-bgmusic" field="audio.bgmusic"
-
-  .card.mb-4
-    .card-header {{ .Tr.VolumeTitle }}
-    .card-body
-      SliderInput id="audio-volume" field="audio.volume" step={1} max={100} min={0} tooltip="always" extraClass="top30"
-
-  .card.mb-4
-    .card-header {{ .Tr.DeviceTitle }}
-    .card-body
-      .form-group
-        select#audio-device.form-control
-          option 1
-          option 2
-          option 3
-          option 4
-          option 5
-
-  button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
+{{ template "form-audio" . }}
