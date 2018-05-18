@@ -2,6 +2,11 @@
   debug = true
   logLevel = "debug"
 
+[availableLanguages]
+  en-US = "./locales/en.ini"
+  fr-FR = "./locales/fr.ini"
+  zh-CN = "./locales/zh.ini"
+
 [auth]
   path = "/recalbox/share/system/.config/manager-web/"
   file = "credentials.auth"

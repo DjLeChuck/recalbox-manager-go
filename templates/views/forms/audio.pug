@@ -1,30 +1,27 @@
 {{define "form-audio"}}
-form
+form(method="post")
   .card.mb-4
     .card-header {{ .Tr.SoundTitle }}
     .card-body
       .alert.alert-warning(role="alert") {{ .Tr.SoundWarning }}
       span.switch
-        input#audio-bgmusic.switch(type="checkbox")
+        input#audio-bgmusic.switch(type="checkbox" name="audio-bgmusic")
         label(for="audio-bgmusic")
 
   .card.mb-4
     .card-header {{ .Tr.VolumeTitle }}
     .card-body
       input#audio-volume.custom-range(
-        type="range"
-        min="0"
-        max="100"
-        step="1"
-        value="14"
+        type="range" name="audio-volume"
+        min="0" max="100" step="1"
       )
 
   .card.mb-4
     .card-header {{ .Tr.DeviceTitle }}
     .card-body
       .form-group
-        select#audio-device.form-control
-          {{range $key, $value := .DevicesList}}
+        select#audio-device.form-control(name="audio-device")
+          {{range $key, $value := .Tr.DevicesList}}
             option(value={{$key}}) {{$value}}
           {{end}}
 
