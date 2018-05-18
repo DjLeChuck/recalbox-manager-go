@@ -66,6 +66,8 @@ func main() {
 
 	app.RegisterView(tmpl)
 
+	app.Favicon("./assets/favicon.png")
+
 	app.Use(func(ctx iris.Context) {
 		menuEntries := []MenuItem{
 			{Link: "/", Glyph: "home", Label: ctx.Translate("Accueil")},
