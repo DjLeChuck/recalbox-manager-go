@@ -8,6 +8,8 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/spf13/viper"
+
+	"github.com/djlechuck/recalbox-manager/store"
 )
 
 // FormData represents the submitted data of a form.
@@ -15,7 +17,10 @@ type FormData map[string]interface{}
 
 // GetAudioHandler handles the GET requests on /audio.
 func GetAudioHandler(ctx iris.Context) {
+	sess := store.Sessions.Start(ctx)
+
 	ctx.ViewData("PageTitle", ctx.Translate("Audio"))
+	ctx.ViewData("FormSended", sess.GetFlashString("formSended"))
 	ctx.ViewData("Tr", map[string]interface{}{
 		"Note":         ctx.Translate("SoundNote"),
 		"SoundTitle":   ctx.Translate("SoundTitle"),
@@ -69,6 +74,9 @@ func PostAudioHandler(ctx iris.Context) {
 	}
 
 	fmt.Println(string(output))
+
+	sess := store.Sessions.Start(ctx)
+	sess.SetFlash("formSended", ctx.Translate("ConfigurationSaved"))
 
 	ctx.Redirect("/audio", 303)
 }
