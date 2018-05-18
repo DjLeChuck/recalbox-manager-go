@@ -38,6 +38,7 @@ func New(app *iris.Application) iris.Handler {
 		ctx.ViewData("MenuEntries", menuEntries)
 		ctx.ViewData("CurrentLang", ctx.Values().GetString(ctx.Application().ConfigurationReadOnly().GetTranslateLanguageContextKey()))
 		ctx.ViewData("AvailableLang", viper.GetStringMapString("availableLanguages"))
+		ctx.ViewData("AppVersion", viper.GetString("app.version"))
 
 		ctx.Next()
 	}

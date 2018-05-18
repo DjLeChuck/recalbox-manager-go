@@ -1,6 +1,7 @@
 [app]
   debug = true
   logLevel = "debug"
+  version = "v2.3.0"
 
 [availableLanguages]
   en-US = "./locales/en.ini"
