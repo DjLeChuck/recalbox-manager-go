@@ -2,15 +2,15 @@ h1.mt-4.mb-4.border-bottom= .PageTitle
 
 .container
   .row.justify-content-around
-    {{range $tile := .Tiles}}
+    {{range .Tiles}}
       .col-sm.text-center.mb-3
         .card
           .card-body
-            a(href={{$tile.Link}} target="_blank")
+            a(href={{.Link}} target="_blank")
               img.img-fluid.mb-3(
-                src={{$tile.Image}}
-                alt={{$tile.Label}}
+                src={{.Image}}
+                alt={{.Label}}
               )
               br
-              {{$tile.Label}}
+              {{.Label}}
     {{end}}

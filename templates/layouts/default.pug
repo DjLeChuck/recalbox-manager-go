@@ -3,7 +3,7 @@ html(lang="fr")
   head
     meta(charset="utf-8")
     meta(http-equiv="x-ua-compatible" content="ie=edge")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
     link(rel="shortcut icon" href="./favicon.png")
     title= .RecalboxManagerTitle
     link(rel="stylesheet" href="./css/bootstrap.min.css")
@@ -12,7 +12,7 @@ html(lang="fr")
   body
     header
       nav.navbar.navbar-expand-xl.navbar-dark.fixed-top.bg-dark
-        a.navbar-brand(href="#") {{ .RecalboxManagerTitle }}
+        a.navbar-brand(href="/") {{ .RecalboxManagerTitle }}
 
         button.navbar-toggler(
           type="button"
@@ -42,9 +42,9 @@ html(lang="fr")
                 {{end}}
 
           .navbar-nav
-            {{range $entry := .MenuEntries}}
+            {{range .MenuEntries}}
               li.nav-item
-                if $entry.Children
+                if .Children
                   li.nav-item.dropdown
                     a#helpMenuLink.nav-link.dropdown-toggle(
                       href="#"
@@ -52,14 +52,14 @@ html(lang="fr")
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                    ) {{$entry.Label}}
+                    ) {{.Label}}
 
                     .dropdown-menu(aria-labelledby="helpMenuLink")
-                      {{range $subEntry := $entry.Children}}
-                        a.dropdown-item(href={{$subEntry.Link}}) {{$subEntry.Label}}
+                      {{range .Children}}
+                        a.dropdown-item(href={{.Link}}) {{.Label}}
                       {{end}}
                 else
-                  a.nav-link(href={{$entry.Link}}) {{$entry.Label}}
+                  a.nav-link(href={{.Link}}) {{.Label}}
             {{end}}
 
     main.container
