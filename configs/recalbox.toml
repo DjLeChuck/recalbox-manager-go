@@ -10,3 +10,7 @@
 [auth]
   path = "/recalbox/share/system/.config/manager-web/"
   file = "credentials.auth"
+
+[recalbox]
+  pythonSettingsFile = "/usr/lib/python2.7/site-packages/configgen/settings/recalboxSettings.pyc"
+  configScript = "/recalbox/scripts/recalbox-config.sh"

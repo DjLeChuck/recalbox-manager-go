@@ -5,7 +5,11 @@ form(method="post")
     .card-body
       .alert.alert-warning(role="alert") {{ .Tr.SoundWarning }}
       span.switch
-        input#audio-bgmusic.switch(type="checkbox" name="audio-bgmusic")
+        input#audio-bgmusic.switch(
+          type="checkbox"
+          name="audio-bgmusic"
+          value="1"
+        )
         label(for="audio-bgmusic")
 
   .card.mb-4

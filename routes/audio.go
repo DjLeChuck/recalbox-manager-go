@@ -1,15 +1,17 @@
 package routes
 
 import (
+	"fmt"
+	"os/exec"
+	"strings"
+
 	"github.com/kataras/iris"
+
+	"github.com/spf13/viper"
 )
 
-// AudioForm represents the form Audio.
-type AudioForm struct {
-	AudioBgmusic bool   `form:"audio-bgmusic"`
-	AudioVolume  int    `form:"audio-volume"`
-	AudioDevice  string `form:"audio-device"`
-}
+// FormData represents the submitted data of a form.
+type FormData map[string]interface{}
 
 // GetAudioHandler handles the GET requests on /audio.
 func GetAudioHandler(ctx iris.Context) {
@@ -33,13 +35,40 @@ func GetAudioHandler(ctx iris.Context) {
 
 // PostAudioHandler handles the POST requests on /audio.
 func PostAudioHandler(ctx iris.Context) {
-	formData := AudioForm{}
+	formData := FormData{}
 	err := ctx.ReadForm(&formData)
 
 	if err != nil {
 		ctx.StatusCode(iris.StatusInternalServerError)
 		ctx.WriteString(err.Error())
 	}
+
+	// Specific case for bgMusic
+	if _, ok := formData["audio-bgmusic"]; !ok {
+		formData["audio-bgmusic"] = "0"
+	}
+
+	pythonFile := viper.GetString("recalbox.pythonSettingsFile")
+
+	for k, v := range formData {
+		normalizedKey := strings.Replace(k, "-", ".", -1)
+		output, cErr := exec.Command("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", v.(string)).CombinedOutput()
+
+		if cErr != nil {
+			fmt.Println(cErr.Error())
+		}
+
+		fmt.Println(string(output))
+	}
+
+	configScript := viper.GetString("recalbox.configScript")
+	output, err := exec.Command(configScript, "volume", formData["audio-volume"].(string)).CombinedOutput()
+	fmt.Println(configScript)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	fmt.Println(string(output))
 
 	ctx.Redirect("/audio", 303)
 }
