@@ -54,5 +54,5 @@ func main() {
 	app.Favicon("./assets/favicon.png")
 
 	app.Configure(iris.WithConfiguration(iris.TOML("./configs/iris.tml")), layouts.Configure, routes.Configure)
-	app.Run(iris.Addr(":8888"), iris.WithoutServerError(iris.ErrServerClosed))
+	app.Run(iris.Addr(":"+viper.GetString("app.port")), iris.WithoutServerError(iris.ErrServerClosed))
 }
