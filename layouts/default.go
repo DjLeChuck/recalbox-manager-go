@@ -20,16 +20,16 @@ func New(app *iris.Application) iris.Handler {
 			{Link: app.GetRoute("home").FormattedPath, Glyph: "home", Label: ctx.Translate("Accueil")},
 			{Link: "/monitoring", Glyph: "signal", Label: ctx.Translate("Monitoring")},
 			{Link: app.GetRoute("audio").FormattedPath, Glyph: "volume-up", Label: ctx.Translate("Audio")},
-			{Link: "/bios", Glyph: "cd", Label: ctx.Translate("BIOS")},
-			{Link: "/controllers", Glyph: "phone", Label: ctx.Translate("Contrôleurs")},
+			{Link: "/bios", Glyph: "compact-disc", Label: ctx.Translate("BIOS")},
+			{Link: "/controllers", Glyph: "gamepad", Label: ctx.Translate("Contrôleurs")},
 			{Link: "/systems", Glyph: "hdd", Label: ctx.Translate("Systèmes")},
 			{Link: "/configuration", Glyph: "cog", Label: ctx.Translate("Configuration")},
-			{Link: "/roms", Glyph: "floppy-disk", Label: ctx.Translate("ROMs")},
-			{Link: "/screenshots", Glyph: "picture", Label: ctx.Translate("Screenshots")},
-			{Link: "/help", Glyph: "question-sign", Label: ctx.Translate("Dépannage"), Children: []MenuItem{
+			{Link: "/roms", Glyph: "save", Label: ctx.Translate("ROMs")},
+			{Link: "/screenshots", Glyph: "images", Label: ctx.Translate("Screenshots")},
+			{Link: "/help", Glyph: "question-circle", Label: ctx.Translate("Dépannage"), Children: []MenuItem{
 				{Link: "/logs", Glyph: "file", Label: ctx.Translate("Logs")},
 				{Link: "/recalbox-conf", Glyph: "file", Label: "recalbox.conf"},
-				{Link: "/help", Glyph: "question-sign", Label: ctx.Translate("Dépannage")},
+				{Link: "/help", Glyph: "question-circle", Label: ctx.Translate("Dépannage")},
 			}},
 		}
 

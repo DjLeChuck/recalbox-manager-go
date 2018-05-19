@@ -8,6 +8,7 @@ html(lang="fr")
     title= .RecalboxManagerTitle
     link(rel="stylesheet" href="./css/bootstrap.min.css")
     link(rel="stylesheet" href="./css/bootstrap4-switch.css")
+    link(rel="stylesheet" href="./css/fa-svg-with-js.css")
     link(rel="stylesheet" href="./css/style.css")
   body
     header
@@ -44,6 +45,7 @@ html(lang="fr")
 
           .navbar-nav
             {{range .MenuEntries}}
+              {{ $glyph := printf "fas fa-%v fa-sm" .Glyph }}
               li.nav-item
                 if .Children
                   li.nav-item.dropdown
@@ -53,14 +55,21 @@ html(lang="fr")
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                    ) {{.Label}}
+                    )
+                      i(class={{$glyph}})
+                      {{.Label}}
 
                     .dropdown-menu(aria-labelledby="helpMenuLink")
                       {{range .Children}}
-                        a.dropdown-item(href={{.Link}}) {{.Label}}
+                        {{ $glyph := printf "fas fa-%v fa-sm" .Glyph }}
+                        a.dropdown-item(href={{.Link}})
+                          i(class={{$glyph}})
+                          {{.Label}}
                       {{end}}
                 else
-                  a.nav-link(href={{.Link}}) {{.Label}}
+                  a.nav-link(href={{.Link}})
+                    i(class={{$glyph}})
+                    {{.Label}}
             {{end}}
 
     main.container
@@ -73,3 +82,5 @@ html(lang="fr")
 
     script(src="./js/jquery-3.3.1.min.js")
     script(src="./js/bootstrap.bundle.min.js")
+    script(src="./js/fontawesome.min.js")
+    script(src="./js/fa-solid.min.js")
