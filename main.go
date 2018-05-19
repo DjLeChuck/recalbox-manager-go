@@ -76,6 +76,10 @@ func main() {
 
 	app.Favicon("./assets/favicon.png")
 
+	app.OnAnyErrorCode(func(ctx iris.Context) {
+		ctx.View("views/error.pug")
+	})
+
 	app.Configure(iris.WithConfiguration(iris.TOML("./configs/iris.tml")), layouts.Configure, routes.Configure)
 	app.Run(iris.Addr(":"+viper.GetString("app.port")), iris.WithoutServerError(iris.ErrServerClosed))
 }
