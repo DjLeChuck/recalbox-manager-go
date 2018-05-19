@@ -12,5 +12,6 @@ func Configure(app *iris.Application) {
 	app.Post("/audio", PostAudioHandler).Name = "audio_form"
 
 	app.Get("/bios", GetBiosHandler).Name = "bios"
-	app.Post("/upload/bios", iris.LimitRequestBodySize(256<<20), PostBiosUploadHandler).Name = "bios_form"
+	app.Get("/bios/check", GetBiosCheckHandler).Name = "bios_check"
+	app.Post("/bios/upload", iris.LimitRequestBodySize(256<<20), PostBiosUploadHandler).Name = "bios_form"
 }

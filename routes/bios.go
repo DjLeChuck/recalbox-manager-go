@@ -10,6 +10,7 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/djlechuck/recalbox-manager/structs"
 	"github.com/djlechuck/recalbox-manager/utils"
 )
 
@@ -59,6 +60,27 @@ func GetBiosHandler(ctx iris.Context) {
 	ctx.View("views/bios.pug")
 }
 
+// GetBiosCheckHandler handles the GET requests on /bios/check.
+func GetBiosCheckHandler(ctx iris.Context) {
+	biosPath := viper.GetString("recalbox.bios.filesPath")
+	md5File := viper.GetString("recalbox.bios.md5FilePath")
+	biosList := utils.GetBiosList(md5File)
+	fileName := ctx.URLParam("file")
+	biosFile := structs.BiosFile{}
+
+	// Init BIOS file and check MD5
+	for k, b := range biosList {
+		if b.Name == fileName {
+			biosFile = biosList[k]
+			fileMd5 := utils.GetFileMd5(biosPath + fileName)
+			biosFile.IsPresent = true
+			biosFile.IsValid = b.CheckValidity(fileMd5)
+		}
+	}
+
+	ctx.JSON(iris.Map{"success": true, "data": biosFile})
+}
+
 // PostBiosUploadHandler handles the POST requests on /bios/upload.
 func PostBiosUploadHandler(ctx iris.Context) {
 	biosPath := viper.GetString("recalbox.bios.filesPath")
@@ -74,7 +96,7 @@ func PostBiosUploadHandler(ctx iris.Context) {
 	fname := info.Filename
 
 	// Create a file with the same name
-	out, err := os.OpenFile(biosPath+fname, os.O_WRONLY|os.O_CREATE, 0666)
+	out, err := os.OpenFile(biosPath+fname, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0666)
 
 	if err != nil {
 		ctx.JSON(iris.Map{"success": false, "error": err.Error()})
