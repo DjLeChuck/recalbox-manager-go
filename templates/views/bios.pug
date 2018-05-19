@@ -1,0 +1,33 @@
+h1.mt-4.mb-4.border-bottom= .PageTitle
+
+p= .Tr.Text1
+
+p.
+  {{ .Tr.Text2 }}
+  #[code {{ .BiosPath }}]
+
+p= .Tr.Text3
+
+table.table.table-striped
+  thead
+    tr
+      th(scope="col")= .Tr.TableHeader.Bios
+      th(scope="col")= .Tr.TableHeader.Md5
+      th.text-center(scope="col")= .Tr.TableHeader.Valid
+      th(scope="col")= .Tr.TableHeader.Action
+  tbody
+    {{range .BiosList}}
+      tr
+        td.align-middle {{ .Name }}
+        td
+          ul.list-unstyled.mb-0
+            {{range .Md5}}
+              li {{ . }}
+            {{end}}
+        td.text-center
+          if .IsValid
+            i.fas.fa-check.fa-sm.text-success
+          else
+            i.fas.fa-times-circle.fa-sm.text-danger
+        td @todo
+    {{end}}

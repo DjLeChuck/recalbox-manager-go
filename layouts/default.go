@@ -16,39 +16,48 @@ func New(app *iris.Application) iris.Handler {
 			{
 				Link:  app.GetRoute("home").FormattedPath,
 				Glyph: "home",
-				Label: ctx.Translate("Accueil")},
+				Label: ctx.Translate("Accueil"),
+			},
 			{
 				Link:  "/monitoring",
 				Glyph: "signal",
-				Label: ctx.Translate("Monitoring")},
+				Label: ctx.Translate("Monitoring"),
+			},
 			{
 				Link:  app.GetRoute("audio").FormattedPath,
 				Glyph: "volume-up",
-				Label: ctx.Translate("Audio")},
+				Label: ctx.Translate("Audio"),
+			},
 			{
-				Link:  "/bios",
+				Link:  app.GetRoute("bios").FormattedPath,
 				Glyph: "compact-disc",
-				Label: ctx.Translate("BIOS")},
+				Label: ctx.Translate("BIOS"),
+			},
 			{
 				Link:  "/controllers",
 				Glyph: "gamepad",
-				Label: ctx.Translate("Contrôleurs")},
+				Label: ctx.Translate("Contrôleurs"),
+			},
 			{
 				Link:  "/systems",
 				Glyph: "hdd",
-				Label: ctx.Translate("Systèmes")},
+				Label: ctx.Translate("Systèmes"),
+			},
 			{
 				Link:  "/configuration",
 				Glyph: "cog",
-				Label: ctx.Translate("Configuration")},
+				Label: ctx.Translate("Configuration"),
+			},
 			{
 				Link:  "/roms",
 				Glyph: "save",
-				Label: ctx.Translate("ROMs")},
+				Label: ctx.Translate("ROMs"),
+			},
 			{
 				Link:  "/screenshots",
 				Glyph: "images",
-				Label: ctx.Translate("Screenshots")},
+				Label: ctx.Translate("Screenshots"),
+			},
 			{
 				Link:  "/help",
 				Glyph: "question-circle",
@@ -56,7 +65,8 @@ func New(app *iris.Application) iris.Handler {
 					{
 						Link:  "/logs",
 						Glyph: "file",
-						Label: ctx.Translate("Logs")},
+						Label: ctx.Translate("Logs"),
+					},
 					{
 						Link:  "/recalbox-conf",
 						Glyph: "file",
@@ -64,7 +74,8 @@ func New(app *iris.Application) iris.Handler {
 					{
 						Link:  "/help",
 						Glyph: "question-circle",
-						Label: ctx.Translate("Dépannage")},
+						Label: ctx.Translate("Dépannage"),
+					},
 				}},
 		}
 

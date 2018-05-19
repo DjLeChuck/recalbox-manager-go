@@ -10,4 +10,6 @@ func Configure(app *iris.Application) {
 
 	app.Get("/audio", GetAudioHandler).Name = "audio"
 	app.Post("/audio", PostAudioHandler)
+
+	app.Get("/bios", GetBiosHandler).Name = "bios"
 }
