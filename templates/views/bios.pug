@@ -25,9 +25,12 @@ table.table.table-striped
               li {{ . }}
             {{end}}
         td.text-center
-          if .IsValid
+          {{ if not .IsPresent }}
+            i.fas.fa-question.fa-sm.text-secondary
+          {{ else if .IsValid }}
             i.fas.fa-check.fa-sm.text-success
-          else
+          {{ else }}
             i.fas.fa-times-circle.fa-sm.text-danger
+          {{ end }}
         td @todo
     {{end}}

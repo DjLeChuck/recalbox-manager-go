@@ -4,10 +4,12 @@ import (
 	"bufio"
 	"os"
 	"regexp"
+
+	"github.com/djlechuck/recalbox-manager/structs"
 )
 
-// GetBiosMD5List returns list of all BIOS file with their valid MD5.
-func GetBiosMD5List(md5File string) map[string][]string {
+// GetBiosList returns list of all BIOS file with their valid MD5.
+func GetBiosList(md5File string) []structs.BiosFile {
 	re := regexp.MustCompile("^([a-f0-9]{32})[ ]+(.*)$")
 	file, err := os.Open(md5File)
 
@@ -18,7 +20,8 @@ func GetBiosMD5List(md5File string) map[string][]string {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-	list := map[string][]string{}
+	list := []structs.BiosFile{}
+	tmp := map[string][]string{}
 
 	for scanner.Scan() {
 		m := re.FindStringSubmatch(scanner.Text())
@@ -28,11 +31,16 @@ func GetBiosMD5List(md5File string) map[string][]string {
 		}
 
 		// m[1] -> MD5 ; m[2] -> BIOS name
-		list[m[2]] = append(list[m[2]], m[1])
+		tmp[m[2]] = append(tmp[m[2]], m[1])
 	}
 
 	if err := scanner.Err(); err != nil {
 		panic(err)
+	}
+
+	// k -> BIOS name ; v -> MD5 list
+	for k, v := range tmp {
+		list = append(list, structs.BiosFile{Name: k, Md5: v})
 	}
 
 	return list

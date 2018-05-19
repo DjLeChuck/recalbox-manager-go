@@ -2,9 +2,9 @@ package structs
 
 // BiosFile represents a BIOS file.
 type BiosFile struct {
-	Name    string
-	Md5     []string
-	IsValid bool
+	Name               string
+	Md5                []string
+	IsPresent, IsValid bool
 }
 
 // CheckValidity checks if the given MD5 is correct.
