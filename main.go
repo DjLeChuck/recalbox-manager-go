@@ -77,6 +77,13 @@ func main() {
 	app.Favicon("./assets/favicon.png")
 
 	app.OnAnyErrorCode(func(ctx iris.Context) {
+		message := "Please, go to #[strong the Support page] and execute #[strong recalbox-support.sh]"
+
+		if ctx.GetStatusCode() == 404 {
+			message = "The page you requested was not found."
+		}
+
+		ctx.ViewData("Message", message)
 		ctx.View("views/error.pug")
 	})
 
