@@ -8,6 +8,12 @@ p.
 
 p= .Tr.Text3
 
+{{ $url := urlpath "bios_form" }}
+form#upload-bios.dropzone(method="post" action={{$url}})
+  .fallback
+    input(name="file" type="file" multiple)
+    input(type="submit" value="Upload")
+
 table.table.table-striped
   thead
     tr
@@ -24,7 +30,7 @@ table.table.table-striped
             {{range .Md5}}
               li {{ . }}
             {{end}}
-        td.text-center
+        td.text-center.align-middle
           {{ if not .IsPresent }}
             i.fas.fa-question.fa-sm.text-secondary
           {{ else if .IsValid }}

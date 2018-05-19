@@ -1,5 +1,6 @@
 {{define "form-audio"}}
-form(method="post")
+{{ $url := urlpath "audio_form" }}
+form(method="post" action={{$url}})
   .card.mb-4
     .card-header {{ .Tr.SoundTitle }}
     .card-body

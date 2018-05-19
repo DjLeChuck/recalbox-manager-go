@@ -1,7 +1,9 @@
 package routes
 
 import (
+	"io"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"github.com/kataras/iris"
@@ -55,4 +57,38 @@ func GetBiosHandler(ctx iris.Context) {
 	})
 
 	ctx.View("views/bios.pug")
+}
+
+// PostBiosUploadHandler handles the POST requests on /bios/upload.
+func PostBiosUploadHandler(ctx iris.Context) {
+	biosPath := viper.GetString("recalbox.bios.filesPath")
+	file, info, err := ctx.FormFile("file")
+
+	if err != nil {
+		ctx.JSON(iris.Map{"success": false, "error": err.Error()})
+
+		return
+	}
+
+	defer file.Close()
+	fname := info.Filename
+
+	// Create a file with the same name
+	out, err := os.OpenFile(biosPath+fname, os.O_WRONLY|os.O_CREATE, 0666)
+
+	if err != nil {
+		ctx.JSON(iris.Map{"success": false, "error": err.Error()})
+
+		return
+	}
+
+	defer out.Close()
+
+	if _, err := io.Copy(out, file); err != nil {
+		ctx.JSON(iris.Map{"success": false, "error": err.Error()})
+
+		return
+	}
+
+	ctx.JSON(iris.Map{"success": true})
 }
