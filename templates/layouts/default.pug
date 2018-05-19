@@ -38,9 +38,9 @@ html(lang="fr")
               ) {{ .CurrentLang }}
 
               .dropdown-menu(aria-labelledby="languageMenuLink")
-                {{range $locale, $_ := .AvailableLang}}
+                {{range $locale, $name := .AvailableLang}}
                   {{ $url := (printf "%v?lang=%v" (urlpath "home") $locale) }}
-                  a.dropdown-item(href={{$url}})= $locale
+                  a.dropdown-item(href={{$url}})= $name
                 {{end}}
 
           .navbar-nav

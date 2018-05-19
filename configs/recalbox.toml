@@ -4,10 +4,20 @@
   logLevel = "error"
   version = "v2.3.0"
 
-[availableLanguages]
-  en-US = "./locales/en.ini"
-  fr-FR = "./locales/fr.ini"
-  zh-CN = "./locales/zh.ini"
+[[availableLanguages]]
+  Locale = "en-US"
+  Name = "English"
+  File = "./locales/en.ini"
+
+[[availableLanguages]]
+  Locale = "fr-FR"
+  Name = "Français"
+  File = "./locales/fr.ini"
+
+[[availableLanguages]]
+  Locale = "zh-CN"
+  Name = "中國語文"
+  File = "./locales/zh.ini"
 
 [auth]
   path = "/recalbox/share/system/.config/manager-web/"

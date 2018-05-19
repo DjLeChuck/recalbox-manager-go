@@ -12,6 +12,7 @@ import (
 
 	"github.com/djlechuck/recalbox-manager/layouts"
 	"github.com/djlechuck/recalbox-manager/routes"
+	"github.com/djlechuck/recalbox-manager/structs"
 )
 
 func main() {
@@ -31,7 +32,7 @@ func main() {
 		err = viper.MergeInConfig()
 
 		if err != nil { // Handle errors reading the config file
-			panic(err.Error())
+			panic(err)
 		}
 	}
 
@@ -46,11 +47,22 @@ func main() {
 		app.Use(logger.New()) // log the requests to the terminal.
 	}
 
-	availableLanguages := viper.GetStringMapString("availableLanguages")
+	irisLanguages := make(map[string]string)
+	languages := []structs.Language{}
+	lErr := viper.UnmarshalKey("availableLanguages", &languages)
+
+	if lErr != nil {
+		panic(lErr)
+	}
+
+	for _, v := range languages {
+		irisLanguages[v.Locale] = v.File
+	}
+
 	globalLocale := i18n.New(i18n.Config{
 		Default:      "en-US",
 		URLParameter: "lang",
-		Languages:    availableLanguages})
+		Languages:    irisLanguages})
 	app.Use(globalLocale)
 
 	app.StaticWeb("/css", "./assets/css")
