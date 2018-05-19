@@ -1,7 +1,7 @@
 [app]
-  port = 8888
-  debug = true
-  logLevel = "debug"
+  port = 80
+  debug = false
+  logLevel = "error"
   version = "v2.3.0"
 
 [availableLanguages]

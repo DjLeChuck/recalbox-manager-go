@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/i18n"
 	"github.com/kataras/iris/middleware/logger"
@@ -22,6 +24,15 @@ func main() {
 
 	if err != nil { // Handle errors reading the config file
 		panic(err.Error())
+	}
+
+	if _, err := os.Stat("./configs/recalbox.dev.toml"); err == nil {
+		viper.SetConfigName("recalbox.dev")
+		err = viper.MergeInConfig()
+
+		if err != nil { // Handle errors reading the config file
+			panic(err.Error())
+		}
 	}
 
 	isDebug := viper.GetBool("app.debug")
