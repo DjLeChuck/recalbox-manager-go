@@ -1,5 +1,23 @@
 package structs
 
+// BiosFile represents a BIOS file.
+type BiosFile struct {
+	Name    string
+	Md5     []string
+	IsValid bool
+}
+
+// CheckValidity checks if the given MD5 is correct.
+func (b BiosFile) CheckValidity(md5 string) bool {
+	for _, m := range b.Md5 {
+		if m == md5 {
+			return true
+		}
+	}
+
+	return false
+}
+
 // HomeTile represents a tile on the homepage.
 type HomeTile struct {
 	Link, Image, Label string
