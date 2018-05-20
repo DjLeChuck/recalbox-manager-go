@@ -1,4 +1,4 @@
-package utils
+package md5
 
 import (
 	"crypto/md5"
@@ -8,11 +8,11 @@ import (
 )
 
 // GetFileMd5 calculates the MD5 of a file and returns it.
-func GetFileMd5(filePath string) string {
+func GetFileMd5(filePath string) (checksum string, err error) {
 	file, err := os.Open(filePath)
 
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 
 	defer file.Close()
@@ -21,8 +21,8 @@ func GetFileMd5(filePath string) string {
 	_, err = io.Copy(hasher, file)
 
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 
-	return hex.EncodeToString(hasher.Sum(nil))
+	return hex.EncodeToString(hasher.Sum(nil)), nil
 }

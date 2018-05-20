@@ -11,15 +11,24 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/djlechuck/recalbox-manager/structs"
-	"github.com/djlechuck/recalbox-manager/utils"
+	"github.com/djlechuck/recalbox-manager/utils/bios"
+	"github.com/djlechuck/recalbox-manager/utils/md5"
 )
 
 // GetBiosHandler handles the GET requests on /bios.
 func GetBiosHandler(ctx iris.Context) {
 	biosPath := viper.GetString("recalbox.bios.filesPath")
-	md5File := viper.GetString("recalbox.bios.md5FilePath")
-	biosList := utils.GetBiosList(md5File)
 	files, err := ioutil.ReadDir(biosPath)
+
+	if err != nil {
+		ctx.Values().Set("error", err)
+		ctx.StatusCode(500)
+
+		return
+	}
+
+	md5File := viper.GetString("recalbox.bios.md5FilePath")
+	biosList, err := bios.GetList(md5File)
 
 	if err != nil {
 		ctx.Values().Set("error", err)
@@ -37,7 +46,15 @@ func GetBiosHandler(ctx iris.Context) {
 		// Init BIOS file and check MD5
 		for k, b := range biosList {
 			if b.Name == file.Name() {
-				fileMd5 := utils.GetFileMd5(biosPath + file.Name())
+				fileMd5, err := md5.GetFileMd5(biosPath + file.Name())
+
+				if err != nil {
+					ctx.Values().Set("error", err)
+					ctx.StatusCode(500)
+
+					return
+				}
+
 				biosList[k].IsPresent = true
 				biosList[k].IsValid = b.CheckValidity(fileMd5)
 			}
@@ -68,7 +85,15 @@ func GetBiosHandler(ctx iris.Context) {
 func GetBiosCheckHandler(ctx iris.Context) {
 	biosPath := viper.GetString("recalbox.bios.filesPath")
 	md5File := viper.GetString("recalbox.bios.md5FilePath")
-	biosList := utils.GetBiosList(md5File)
+	biosList, err := bios.GetList(md5File)
+
+	if err != nil {
+		ctx.Values().Set("error", err)
+		ctx.StatusCode(500)
+
+		return
+	}
+
 	fileName := ctx.URLParam("file")
 	biosFile := structs.BiosFile{}
 
@@ -76,7 +101,15 @@ func GetBiosCheckHandler(ctx iris.Context) {
 	for k, b := range biosList {
 		if b.Name == fileName {
 			biosFile = biosList[k]
-			fileMd5 := utils.GetFileMd5(biosPath + fileName)
+			fileMd5, err := md5.GetFileMd5(biosPath + fileName)
+
+			if err != nil {
+				ctx.Values().Set("error", err)
+				ctx.StatusCode(500)
+
+				return
+			}
+
 			biosFile.IsPresent = true
 			biosFile.IsValid = b.CheckValidity(fileMd5)
 		}
