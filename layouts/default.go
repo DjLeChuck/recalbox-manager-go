@@ -84,7 +84,10 @@ func New(app *iris.Application) iris.Handler {
 		err := viper.UnmarshalKey("availableLanguages", &languages)
 
 		if err != nil {
-			panic(err)
+			ctx.Values().Set("errorMessage", err.Error())
+			ctx.StatusCode(500)
+
+			return
 		}
 
 		for _, v := range languages {

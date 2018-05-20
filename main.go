@@ -24,7 +24,7 @@ func main() {
 	err := viper.ReadInConfig() // Find and read the config file
 
 	if err != nil { // Handle errors reading the config file
-		panic(err.Error())
+		panic(err)
 	}
 
 	if _, err := os.Stat("./configs/recalbox.dev.toml"); err == nil {
@@ -78,8 +78,19 @@ func main() {
 
 	app.OnAnyErrorCode(func(ctx iris.Context) {
 		ctx.ViewLayout(iris.NoLayout)
-		ctx.ViewData("Is404", 404 == ctx.GetStatusCode())
-		ctx.View("views/error.pug")
+
+		errorMessage := ctx.Values().GetStringDefault("errorMessage", "Something went wrong.")
+
+		if ctx.IsAjax() {
+			ctx.JSON(iris.Map{
+				"success": false,
+				"error":   errorMessage,
+			})
+		} else {
+			ctx.ViewData("Is404", 404 == ctx.GetStatusCode())
+			ctx.ViewData("ErrorMessage", errorMessage)
+			ctx.View("layouts/error.pug")
+		}
 	})
 
 	app.Configure(iris.WithConfiguration(iris.TOML("./configs/iris.tml")), layouts.Configure, routes.Configure)

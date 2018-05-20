@@ -13,7 +13,10 @@ func GetHomeHandler(ctx iris.Context) {
 	hostname, err := os.Hostname()
 
 	if err != nil {
-		panic(err)
+		ctx.Values().Set("errorMessage", err.Error())
+		ctx.StatusCode(500)
+
+		return
 	}
 
 	ctx.ViewData("PageTitle", ctx.Translate("Accueil"))
