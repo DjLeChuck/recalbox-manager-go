@@ -77,7 +77,7 @@ func ProcessRecalboxSettingsForm(data iris.Map, checkboxes []string) (err error)
 
 	for k, v := range data {
 		normalizedKey := strings.Replace(k, "-", ".", -1)
-		_, err := exec.Command("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", v.(string)).CombinedOutput()
+		_, err = exec.Command("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", v.(string)).CombinedOutput()
 
 		if err != nil {
 			return err
