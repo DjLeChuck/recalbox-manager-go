@@ -34,7 +34,7 @@ func New(app *iris.Application) iris.Handler {
 				Label: ctx.Translate("BIOS"),
 			},
 			{
-				Link:  "/controllers",
+				Link:  app.GetRoute("controllers").FormattedPath,
 				Glyph: "gamepad",
 				Label: ctx.Translate("Contrôleurs"),
 			},
