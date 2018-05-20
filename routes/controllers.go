@@ -1,15 +1,10 @@
 package routes
 
 import (
-	"fmt"
-	"os/exec"
-	"strings"
-
 	"github.com/kataras/iris"
 
-	"github.com/spf13/viper"
-
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/utils/recalbox"
 )
 
 // GetControllersHandler handles the GET requests on /controller.
@@ -70,26 +65,24 @@ func PostControllersHandler(ctx iris.Context) {
 	err := ctx.ReadForm(&formData)
 
 	if err != nil {
-		ctx.StatusCode(iris.StatusInternalServerError)
-		ctx.WriteString(err.Error())
+		ctx.Values().Set("error", err)
+		ctx.StatusCode(500)
+
+		return
 	}
 
-	// Specific case for bgMusic
-	if _, ok := formData["audio-bgmusic"]; !ok {
-		formData["audio-bgmusic"] = "0"
-	}
+	err = recalbox.ProcessRecalboxSettingsForm(formData, []string{
+		"controllers-db9-enabled",
+		"controllers-gamecon-enabled",
+		"controllers-gpio-enabled",
+		"controllers-ps3-enabled",
+	})
 
-	pythonFile := viper.GetString("recalbox.pythonSettingsFile")
+	if err != nil {
+		ctx.Values().Set("error", err)
+		ctx.StatusCode(500)
 
-	for k, v := range formData {
-		normalizedKey := strings.Replace(k, "-", ".", -1)
-		output, cErr := exec.Command("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", v.(string)).CombinedOutput()
-
-		if cErr != nil {
-			fmt.Println(cErr.Error())
-		}
-
-		fmt.Println(string(output))
+		return
 	}
 
 	sess := store.Sessions.Start(ctx)
