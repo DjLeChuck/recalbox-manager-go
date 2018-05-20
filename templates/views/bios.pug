@@ -8,12 +8,23 @@ p.
 
 p= .Tr.Text3
 
-{{ $url := urlpath "bios_form" }}
-{{ $urlCheck := urlpath "bios_check" }}
-form#upload-bios.dropzone(method="post" action={{$url}} data-url-check={{$urlCheck}})
-  .fallback
-    input(name="file" type="file" multiple)
-    input(type="submit" value="Upload")
+p
+  button.btn.btn-primary(
+    type="button"
+    data-toggle="collapse"
+    data-target="#collapseExample"
+    aria-expanded="false"
+    aria-controls="collapseExample"
+  ) {{ .Tr.UploadBiosBtn }}
+
+#collapseExample.collapse
+  .card.card-body
+    {{ $url := urlpath "bios_form" }}
+    {{ $urlCheck := urlpath "bios_check" }}
+    form#upload-bios.dropzone(method="post" action={{$url}} data-url-check={{$urlCheck}})
+      .fallback
+        input(name="file" type="file" multiple)
+        input(type="submit" value="Upload")
 
 table.table.table-striped
   thead

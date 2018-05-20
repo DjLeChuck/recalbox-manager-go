@@ -49,9 +49,10 @@ func GetBiosHandler(ctx iris.Context) {
 	ctx.ViewData("BiosPath", biosPath)
 	ctx.ViewData("BiosList", biosList)
 	ctx.ViewData("Tr", map[string]interface{}{
-		"Text1": ctx.Translate("Bios.Text1"),
-		"Text2": ctx.Translate("Bios.Text2"),
-		"Text3": ctx.Translate("Bios.Text3"),
+		"Text1":         ctx.Translate("Bios.Text1"),
+		"Text2":         ctx.Translate("Bios.Text2"),
+		"Text3":         ctx.Translate("Bios.Text3"),
+		"UploadBiosBtn": ctx.Translate("Bios.UploadBtn"),
 		"TableHeader": map[string]string{
 			"Bios":   ctx.Translate("BIOS"),
 			"Md5":    ctx.Translate("MD5 attendu"),
