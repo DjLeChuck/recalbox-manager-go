@@ -19,14 +19,14 @@ type FormData map[string]interface{}
 func GetAudioHandler(ctx iris.Context) {
 	sess := store.Sessions.Start(ctx)
 
-	ctx.ViewData("PageTitle", ctx.Translate("Audio"))
+	ctx.ViewData("PageTitle", ctx.Translate("Audio.Title"))
 	ctx.ViewData("FormSended", sess.GetFlashString("formSended"))
 	ctx.ViewData("Tr", map[string]interface{}{
-		"Note":         ctx.Translate("SoundNote"),
-		"SoundTitle":   ctx.Translate("SoundTitle"),
-		"SoundWarning": ctx.Translate("SoundWarning"),
-		"VolumeTitle":  ctx.Translate("Volume du son"),
-		"DeviceTitle":  ctx.Translate("Sortie audio"),
+		"Note":        ctx.Translate("Audio.Note"),
+		"BgMusic":     ctx.Translate("Audio.BgMusic"),
+		"Warning":     ctx.Translate("Audio.Warning"),
+		"VolumeTitle": ctx.Translate("Volume du son"),
+		"DeviceTitle": ctx.Translate("Sortie audio"),
 		"DevicesList": map[string]string{
 			"automatic": ctx.Translate("Automatique"),
 			"hdmi":      ctx.Translate("Prise HDMI"),

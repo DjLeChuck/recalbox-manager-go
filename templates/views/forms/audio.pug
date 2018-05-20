@@ -2,9 +2,9 @@
 {{ $url := urlpath "audio_form" }}
 form(method="post" action={{$url}})
   .card.mb-4
-    .card-header {{ .Tr.SoundTitle }}
+    .card-header {{ .Tr.BgMusic }}
     .card-body
-      .alert.alert-warning(role="alert") {{ .Tr.SoundWarning }}
+      .alert.alert-warning(role="alert") {{ .Tr.Warning }}
       span.switch
         input#audio-bgmusic.switch(
           type="checkbox"
