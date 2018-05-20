@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/djlechuck/recalbox-manager/structs"
+	"github.com/djlechuck/recalbox-manager/utils/errors"
 )
 
 // New returns a new handler which adds some headers and view data
@@ -84,7 +85,7 @@ func New(app *iris.Application) iris.Handler {
 		err := viper.UnmarshalKey("availableLanguages", &languages)
 
 		if err != nil {
-			ctx.Values().Set("error", err)
+			ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
 			ctx.StatusCode(500)
 
 			return

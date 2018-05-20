@@ -89,9 +89,9 @@ func main() {
 		errorMessage := "Something went wrong."
 
 		if err != nil {
-			errorMessage = err.(error).Error()
+			errorMessage = err.(string)
 
-			app.Logger().Error(errors.FormatErrorForLog(ctx, err.(error)))
+			app.Logger().Error(err)
 		}
 
 		if ctx.IsAjax() {

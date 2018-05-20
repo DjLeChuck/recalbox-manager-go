@@ -6,6 +6,7 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/djlechuck/recalbox-manager/structs"
+	"github.com/djlechuck/recalbox-manager/utils/errors"
 )
 
 // GetHomeHandler handles the GET requests on /.
@@ -13,7 +14,7 @@ func GetHomeHandler(ctx iris.Context) {
 	hostname, err := os.Hostname()
 
 	if err != nil {
-		ctx.Values().Set("error", err)
+		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
 		ctx.StatusCode(500)
 
 		return

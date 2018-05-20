@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/utils/errors"
 	"github.com/djlechuck/recalbox-manager/utils/recalbox"
 )
 
@@ -65,7 +66,7 @@ func PostControllersHandler(ctx iris.Context) {
 	err := ctx.ReadForm(&formData)
 
 	if err != nil {
-		ctx.Values().Set("error", err)
+		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
 		ctx.StatusCode(500)
 
 		return
@@ -79,7 +80,7 @@ func PostControllersHandler(ctx iris.Context) {
 	})
 
 	if err != nil {
-		ctx.Values().Set("error", err)
+		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
 		ctx.StatusCode(500)
 
 		return

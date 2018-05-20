@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/utils/errors"
 	"github.com/djlechuck/recalbox-manager/utils/recalbox"
 )
 
@@ -37,7 +38,7 @@ func PostAudioHandler(ctx iris.Context) {
 	err := ctx.ReadForm(&formData)
 
 	if err != nil {
-		ctx.Values().Set("error", err)
+		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
 		ctx.StatusCode(500)
 
 		return
@@ -46,7 +47,7 @@ func PostAudioHandler(ctx iris.Context) {
 	err = recalbox.ProcessRecalboxSettingsForm(formData, []string{"audio-bgmusic"})
 
 	if err != nil {
-		ctx.Values().Set("error", err)
+		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
 		ctx.StatusCode(500)
 
 		return
