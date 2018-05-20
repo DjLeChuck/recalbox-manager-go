@@ -14,7 +14,7 @@ form(method="post" action={{$url}})
           label(for="db9-enabled") {{ .Tr.Db9.Label.Enabled }}
       .form-group
         label(for="db9-args") {{ .Tr.Global.Label.Args }}
-        input#db9-args.form-control(type="text" name="controllers.db9.args")
+        input#db9-args.form-control(type="text" name="controllers-db9-args")
 
   .card.mb-4
     .card-header {{ .Tr.Gamecon.Title }}
