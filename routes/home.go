@@ -13,7 +13,7 @@ func GetHomeHandler(ctx iris.Context) {
 	hostname, err := os.Hostname()
 
 	if err != nil {
-		ctx.Values().Set("errorMessage", err.Error())
+		ctx.Values().Set("error", err)
 		ctx.StatusCode(500)
 
 		return

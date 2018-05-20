@@ -6,16 +6,20 @@ import (
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/i18n"
 	"github.com/kataras/iris/middleware/logger"
-	"github.com/kataras/iris/middleware/recover"
 
 	"github.com/spf13/viper"
 
 	"github.com/djlechuck/recalbox-manager/layouts"
 	"github.com/djlechuck/recalbox-manager/routes"
 	"github.com/djlechuck/recalbox-manager/structs"
+	"github.com/djlechuck/recalbox-manager/utils/errors"
 )
 
 func main() {
+	f := errors.NewLogFile()
+
+	defer f.Close()
+
 	// Load configuration file
 	viper.SetConfigName("recalbox")
 	viper.SetConfigType("toml")
@@ -41,7 +45,9 @@ func main() {
 	app := iris.New()
 	app.Logger().SetLevel(viper.GetString("app.logLevel"))
 
-	app.Use(recover.New()) // recover from any http-relative panics
+	if !isDebug {
+		app.Logger().SetOutput(errors.NewLogFile())
+	}
 
 	if isDebug {
 		app.Use(logger.New()) // log the requests to the terminal.
@@ -79,7 +85,14 @@ func main() {
 	app.OnAnyErrorCode(func(ctx iris.Context) {
 		ctx.ViewLayout(iris.NoLayout)
 
-		errorMessage := ctx.Values().GetStringDefault("errorMessage", "Something went wrong.")
+		err := ctx.Values().Get("error")
+		errorMessage := "Something went wrong."
+
+		if err != nil {
+			errorMessage = err.(error).Error()
+
+			app.Logger().Error(errors.FormatErrorForLog(ctx, err.(error)))
+		}
 
 		if ctx.IsAjax() {
 			ctx.JSON(iris.Map{

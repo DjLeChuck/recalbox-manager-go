@@ -22,7 +22,7 @@ func GetBiosHandler(ctx iris.Context) {
 	files, err := ioutil.ReadDir(biosPath)
 
 	if err != nil {
-		ctx.Values().Set("errorMessage", err.Error())
+		ctx.Values().Set("error", err)
 		ctx.StatusCode(500)
 
 		return
@@ -91,7 +91,7 @@ func PostBiosUploadHandler(ctx iris.Context) {
 	file, info, err := ctx.FormFile("file")
 
 	if err != nil {
-		ctx.Values().Set("errorMessage", err.Error())
+		ctx.Values().Set("error", err)
 		ctx.StatusCode(500)
 
 		return
@@ -104,7 +104,7 @@ func PostBiosUploadHandler(ctx iris.Context) {
 	out, err := os.OpenFile(biosPath+fname, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0666)
 
 	if err != nil {
-		ctx.Values().Set("errorMessage", err.Error())
+		ctx.Values().Set("error", err)
 		ctx.StatusCode(500)
 
 		return
@@ -113,7 +113,7 @@ func PostBiosUploadHandler(ctx iris.Context) {
 	defer out.Close()
 
 	if _, err := io.Copy(out, file); err != nil {
-		ctx.Values().Set("errorMessage", err.Error())
+		ctx.Values().Set("error", err)
 		ctx.StatusCode(500)
 
 		return

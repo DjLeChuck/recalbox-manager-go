@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"os/exec"
 	"strings"
 
@@ -42,39 +41,55 @@ func PostAudioHandler(ctx iris.Context) {
 	err := ctx.ReadForm(&formData)
 
 	if err != nil {
-		ctx.StatusCode(iris.StatusInternalServerError)
-		ctx.WriteString(err.Error())
+		ctx.Values().Set("error", err)
+		ctx.StatusCode(500)
+
+		return
 	}
 
-	// Specific case for bgMusic
-	if _, ok := formData["audio-bgmusic"]; !ok {
-		formData["audio-bgmusic"] = "0"
-	}
+	err = ProcessRecalboxSettingsForm(formData, []string{"audio-bgmusic"})
 
-	pythonFile := viper.GetString("recalbox.pythonSettingsFile")
-
-	for k, v := range formData {
-		normalizedKey := strings.Replace(k, "-", ".", -1)
-		output, cErr := exec.Command("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", v.(string)).CombinedOutput()
-
-		if cErr != nil {
-			fmt.Println(cErr.Error())
-		}
-
-		fmt.Println(string(output))
-	}
-
-	configScript := viper.GetString("recalbox.configScript")
-	output, err := exec.Command(configScript, "volume", formData["audio-volume"].(string)).CombinedOutput()
-	fmt.Println(configScript)
 	if err != nil {
-		fmt.Println(err.Error())
-	}
+		ctx.Values().Set("error", err)
+		ctx.StatusCode(500)
 
-	fmt.Println(string(output))
+		return
+	}
 
 	sess := store.Sessions.Start(ctx)
 	sess.SetFlash("formSended", ctx.Translate("ConfigurationSaved"))
 
 	ctx.Redirect("/audio", 303)
+}
+
+// ProcessRecalboxSettingsForm loops through the form data and update the
+// config of Recalbox by calling the config script.
+// checkboxes represents checkboxes on the page. When submitted uncheckek,
+// they have no value, so we force one.
+func ProcessRecalboxSettingsForm(data iris.Map, checkboxes []string) (err error) {
+	for _, c := range checkboxes {
+		if _, ok := data[c]; !ok {
+			data[c] = "0"
+		}
+	}
+
+	pythonFile := viper.GetString("recalbox.pythonSettingsFile")
+
+	for k, v := range data {
+		normalizedKey := strings.Replace(k, "-", ".", -1)
+		_, err := exec.Command("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", v.(string)).CombinedOutput()
+
+		if err != nil {
+			return err
+		}
+	}
+
+	configScript := viper.GetString("recalbox.configScript")
+	_, err = exec.Command(configScript, "volume", data["audio-volume"].(string)).CombinedOutput()
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
