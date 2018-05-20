@@ -12,9 +12,6 @@ import (
 	"github.com/djlechuck/recalbox-manager/store"
 )
 
-// FormData represents the submitted data of a form.
-type FormData map[string]interface{}
-
 // GetAudioHandler handles the GET requests on /audio.
 func GetAudioHandler(ctx iris.Context) {
 	sess := store.Sessions.Start(ctx)
@@ -28,6 +25,7 @@ func GetAudioHandler(ctx iris.Context) {
 		"VolumeTitle": ctx.Translate("Volume du son"),
 		"DeviceTitle": ctx.Translate("Sortie audio"),
 		"DevicesList": map[string]string{
+			"":          "-",
 			"automatic": ctx.Translate("Automatique"),
 			"hdmi":      ctx.Translate("Prise HDMI"),
 			"jack":      ctx.Translate("Prise Jack"),
@@ -40,7 +38,7 @@ func GetAudioHandler(ctx iris.Context) {
 
 // PostAudioHandler handles the POST requests on /audio.
 func PostAudioHandler(ctx iris.Context) {
-	formData := FormData{}
+	formData := iris.Map{}
 	err := ctx.ReadForm(&formData)
 
 	if err != nil {
