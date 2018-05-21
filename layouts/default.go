@@ -40,7 +40,7 @@ func New(app *iris.Application) iris.Handler {
 				Label: ctx.Translate("Contrôleurs"),
 			},
 			{
-				Link:  "/systems",
+				Link:  app.GetRoute("systems").FormattedPath,
 				Glyph: "hdd",
 				Label: ctx.Translate("Systèmes"),
 			},

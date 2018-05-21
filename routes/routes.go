@@ -17,4 +17,7 @@ func Configure(app *iris.Application) {
 
 	app.Get("/controllers", GetControllersHandler).Name = "controllers"
 	app.Post("/controllers", PostControllersHandler).Name = "controllers_form"
+
+	app.Get("/systems", GetSystemsHandler).Name = "systems"
+	app.Post("/systems", PostSystemsHandler).Name = "systems_form"
 }

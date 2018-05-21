@@ -1,0 +1,131 @@
+{{define "form-systems"}}
+{{ $url := urlpath "systems_form" }}
+form(method="post" action={{$url}})
+  .card.mb-4
+    .card-header Ratio de l'écran
+    .card-body
+      .form-group
+        select#global-ratio.form-control(name="global-ratio")
+
+  .card.mb-4
+    .card-header Set de shaders
+    .card-body
+      .alert.alert-warning(role="alert")
+        h4.alert-heading Shaders disponibles :
+        ul
+          li
+            strong scanlines
+            | active les scanlines sur tous les emulateurs
+          li
+            strong retro
+            | sélectionne le "meilleur" shader pour chaque système, choisi par
+            | la communauté.
+            br
+            | Il vous apportera l'expérience de jeu la plus proche de
+            | l'expérience originale
+          li
+            strong none
+            | ne met aucun shaders.
+      .form-group
+        select#global-shaderset.form-control(name="global-shaderset")
+
+  .card.mb-4
+    .card-header Lissage des jeux
+    .card-body
+      .form-group
+        span.switch
+          input#global-smooth.switch(
+            type="checkbox"
+            name="global-smooth"
+            value="1"
+          )
+          label(for="global-smooth")
+
+  .card.mb-4
+    .card-header Rembobinage des jeux
+    .card-body
+      p L'option rembobinage vous autorise à effectuer des retours dans le temps lors de votre partie.
+      .alert.alert-warning(role="alert")
+        | Cela peut ralentir certains émulateurs (snes, psx) si vous l'activez par défaut.
+      .form-group
+        span.switch
+          input#global-rewind.switch(
+            type="checkbox"
+            name="global-rewind"
+            value="1"
+          )
+          label(for="global-rewind")
+
+  .card.mb-4
+    .card-header Sauvegarde / Chargement automatique
+    .card-body
+      p Cette option vous permet de créer une sauvegarde automatique de votre jeu quand vous le quittez, puis de la charger à nouveau quand vous le relancerez.
+      p Une fois le jeu lancé et la sauvegarde chargée, si vous souhaitez revenir à l'écran titre du jeu, utilisez la commande spéciale de reset.
+      .form-group
+        span.switch
+          input#global-autosave.switch(
+            type="checkbox"
+            name="global-autosave"
+            value="1"
+          )
+          label(for="global-autosave")
+
+  .card.mb-4
+    .card-header Pixel perfect
+    .card-body
+      p Une fois activée, votre écran sera rognée, et vous aure un rendu "pixel perfect" dans vos jeux.
+      .form-group
+        span.switch
+          input#global-integerscale.switch(
+            type="checkbox"
+            name="global-integerscale"
+            value="1"
+          )
+          label(for="global-integerscale")
+
+  .card.mb-4
+    .card-header Retroachievements
+    .card-body
+      p RetroAchievements.org (%s) est un site communautaire qui permet de gagner des haut-faits sur mesure dans les jeux d'arcade grâce à l'émulation.
+      p Les haut-faits sont conçus par et pour la communauté.
+      .form-group
+        span.switch
+          input#global-retroachievements.switch(
+            type="checkbox"
+            name="global-retroachievements"
+            value="1"
+          )
+          label(for="global-retroachievements")
+
+      .form-group
+        label(for="retroachievements-username") Login
+        input#retroachievements-username.form-control(
+          type="text"
+          name="global-retroachievements-username"
+        )
+
+      .form-group
+        label(for="retroachievements-password") Mot de passe
+        input#retroachievements-password.form-control(
+          type="password"
+          name="global-retroachievements-password"
+        )
+
+      .alert.alert-warning(role="alert")
+        | Le mode Hardcore désactive *toutes* les possibilités de sauvegarder
+        | dans l'émulateur : vous ne pourrez ni sauvegarder ni recharger votre partie en cours de jeu.
+        br
+        | Vous devrez compléter le jeu et obtenir les hauts-faits du premier
+        | coup, comme c'était le cas sur la console originale !
+
+      .form-group
+          span.switch
+            input#global-retroachievements-hardcore.switch(
+              type="checkbox"
+              name="global-retroachievements-hardcore"
+              value="1"
+            )
+            label(for="global-retroachievements-hardcore") Activer le mode Hardcore
+
+  button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
+{{end}}
