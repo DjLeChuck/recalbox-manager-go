@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/structs/forms"
 	"github.com/djlechuck/recalbox-manager/utils/errors"
 	"github.com/djlechuck/recalbox-manager/utils/recalbox"
 )
@@ -14,13 +15,13 @@ func GetAudioHandler(ctx iris.Context) {
 
 	ctx.ViewData("PageTitle", ctx.Translate("Audio.Title"))
 	ctx.ViewData("FormSended", sess.GetFlashString("formSended"))
-	ctx.ViewData("Tr", map[string]interface{}{
+	ctx.ViewData("Tr", iris.Map{
 		"Note":        ctx.Translate("Audio.Note"),
 		"BgMusic":     ctx.Translate("Audio.BgMusic"),
 		"Warning":     ctx.Translate("Audio.Warning"),
 		"VolumeTitle": ctx.Translate("Volume du son"),
 		"DeviceTitle": ctx.Translate("Sortie audio"),
-		"DevicesList": map[string]string{
+		"DevicesList": iris.Map{
 			"":          "-",
 			"automatic": ctx.Translate("Automatique"),
 			"hdmi":      ctx.Translate("Prise HDMI"),
@@ -34,8 +35,8 @@ func GetAudioHandler(ctx iris.Context) {
 
 // PostAudioHandler handles the POST requests on /audio.
 func PostAudioHandler(ctx iris.Context) {
-	formData := iris.Map{}
-	err := ctx.ReadForm(&formData)
+	form := forms.Audio{}
+	err := ctx.ReadForm(&form)
 
 	if err != nil {
 		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
@@ -44,7 +45,8 @@ func PostAudioHandler(ctx iris.Context) {
 		return
 	}
 
-	err = recalbox.ProcessRecalboxSettingsForm(formData, []string{"audio-bgmusic"})
+	data := recalbox.FormatFormData(&form)
+	err = recalbox.ProcessRecalboxSettingsForm(data)
 
 	if err != nil {
 		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))

@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/structs/forms"
 	"github.com/djlechuck/recalbox-manager/utils/errors"
 	"github.com/djlechuck/recalbox-manager/utils/recalbox"
 )
@@ -24,8 +25,8 @@ func GetSystemsHandler(ctx iris.Context) {
 
 // PostSystemsHandler handles the POST requests on /systems.
 func PostSystemsHandler(ctx iris.Context) {
-	formData := iris.Map{}
-	err := ctx.ReadForm(&formData)
+	form := forms.Systems{}
+	err := ctx.ReadForm(&form)
 
 	if err != nil {
 		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
@@ -34,7 +35,8 @@ func PostSystemsHandler(ctx iris.Context) {
 		return
 	}
 
-	err = recalbox.ProcessRecalboxSettingsForm(formData, []string{})
+	data := recalbox.FormatFormData(&form)
+	err = recalbox.ProcessRecalboxSettingsForm(data)
 
 	if err != nil {
 		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))

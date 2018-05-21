@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/structs/forms"
 	"github.com/djlechuck/recalbox-manager/utils/errors"
 	"github.com/djlechuck/recalbox-manager/utils/recalbox"
 )
@@ -62,8 +63,8 @@ func GetControllersHandler(ctx iris.Context) {
 
 // PostControllersHandler handles the POST requests on /controllers.
 func PostControllersHandler(ctx iris.Context) {
-	formData := iris.Map{}
-	err := ctx.ReadForm(&formData)
+	form := forms.Controllers{}
+	err := ctx.ReadForm(&form)
 
 	if err != nil {
 		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
@@ -72,12 +73,8 @@ func PostControllersHandler(ctx iris.Context) {
 		return
 	}
 
-	err = recalbox.ProcessRecalboxSettingsForm(formData, []string{
-		"controllers-db9-enabled",
-		"controllers-gamecon-enabled",
-		"controllers-gpio-enabled",
-		"controllers-ps3-enabled",
-	})
+	data := recalbox.FormatFormData(&form)
+	err = recalbox.ProcessRecalboxSettingsForm(data)
 
 	if err != nil {
 		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
