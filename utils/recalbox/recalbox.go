@@ -3,28 +3,61 @@ package recalbox
 import (
 	"fmt"
 	"os/exec"
+	"reflect"
 	"strings"
 
 	"github.com/spf13/viper"
 )
 
-// ProcessRecalboxSettingsForm loops through the form data and update the
-// config of Recalbox by calling the config script.
-// checkboxes represents checkboxes on the page. When submitted unchecked,
-// they have no value, so we force one.
-func ProcessRecalboxSettingsForm(data map[string]interface{}, checkboxes []string) (err error) {
-	for _, c := range checkboxes {
-		if _, ok := data[c]; !ok {
-			data[c] = "0"
+// convertToSimpleType takes a reflect Value and convert it into a
+// "simple type" like string or int.
+func convertToSimpleType(v reflect.Value) interface{} {
+	switch v.Interface().(type) {
+	case string:
+		return v.String()
+	case int32, int64:
+		return v.Int()
+	case bool:
+		if v.Bool() == true {
+			return 1
 		}
+
+		return 0
+	default:
+		return ""
+	}
+}
+
+// FormatFormData takes a form struct and convert it into an iterable map of
+// key: value for making others processings.
+func FormatFormData(form interface{}) (data map[string]interface{}) {
+	data = make(map[string]interface{})
+	s := reflect.ValueOf(form).Elem()
+	typeOfT := s.Type()
+
+	for i := 0; i < s.NumField(); i++ {
+		v := s.Field(i)
+		data[typeOfT.Field(i).Tag.Get("form")] = convertToSimpleType(v)
 	}
 
+	return data
+}
+
+// ProcessRecalboxSettingsForm loops through the form data and update the
+// config of Recalbox by calling the config script.
+func ProcessRecalboxSettingsForm(data map[string]interface{}) (err error) {
 	pythonFile := viper.GetString("recalbox.pythonSettingsFile")
 
 	for k, v := range data {
+		value := fmt.Sprintf("%v", v)
+
+		if _, ok := v.(string); ok {
+			value = "'" + v.(string) + "'"
+		}
+
 		normalizedKey := strings.Replace(k, "-", ".", -1)
-		_, err = exec.Command("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", "'"+v.(string)+"'").CombinedOutput()
-		fmt.Println("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", "'"+v.(string)+"'")
+		_, err = exec.Command("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", value).CombinedOutput()
+
 		if err != nil {
 			return err
 		}
@@ -32,7 +65,7 @@ func ProcessRecalboxSettingsForm(data map[string]interface{}, checkboxes []strin
 
 	if data["audio-volume"] != nil {
 		configScript := viper.GetString("recalbox.configScript")
-		_, err = exec.Command(configScript, "volume", data["audio-volume"].(string)).CombinedOutput()
+		_, err = exec.Command(configScript, "volume", fmt.Sprintf("%v", data["audio-volume"])).CombinedOutput()
 
 		if err != nil {
 			return err
