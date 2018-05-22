@@ -52,6 +52,7 @@ form(method="post" action={{$url}})
     .card-body
       p L'option rembobinage vous autorise à effectuer des retours dans le temps lors de votre partie.
       .alert.alert-warning(role="alert")
+        i.fas.fa-exclamation-triangle.fa-sm
         | Cela peut ralentir certains émulateurs (snes, psx) si vous l'activez par défaut.
       .form-group
         span.switch
@@ -118,6 +119,7 @@ form(method="post" action={{$url}})
         )
 
       .alert.alert-warning(role="alert")
+        i.fas.fa-exclamation-triangle.fa-sm
         | Le mode Hardcore désactive *toutes* les possibilités de sauvegarder
         | dans l'émulateur : vous ne pourrez ni sauvegarder ni recharger votre partie en cours de jeu.
         br

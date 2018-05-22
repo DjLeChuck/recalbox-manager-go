@@ -4,7 +4,9 @@ form(method="post" action={{$url}})
   .card.mb-4
     .card-header {{ .Tr.BgMusic }}
     .card-body
-      .alert.alert-warning(role="alert") {{ .Tr.Warning }}
+      .alert.alert-warning(role="alert")
+        i.fas.fa-exclamation-triangle.fa-sm
+        {{ .Tr.Warning }}
       span.switch
         input#audio-bgmusic.switch(
           type="checkbox"
