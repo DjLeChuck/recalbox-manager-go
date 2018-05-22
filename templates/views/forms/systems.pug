@@ -95,45 +95,55 @@ form(method="post" action={{$url}})
     .card-body
       p RetroAchievements.org (%s) est un site communautaire qui permet de gagner des haut-faits sur mesure dans les jeux d'arcade grâce à l'émulation.
       p Les haut-faits sont conçus par et pour la communauté.
-      .form-group
-        span.switch
-          input#global-retroachievements.switch(
-            type="checkbox"
-            name="global-retroachievements"
-            value="1"
-          )
-          label(for="global-retroachievements")
-
-      .form-group
-        label(for="retroachievements-username") Login
-        input#retroachievements-username.form-control(
-          type="text"
-          name="global-retroachievements-username"
-        )
-
-      .form-group
-        label(for="retroachievements-password") Mot de passe
-        input#retroachievements-password.form-control(
-          type="password"
-          name="global-retroachievements-password"
-        )
-
-      .alert.alert-warning(role="alert")
-        i.fas.fa-exclamation-triangle.fa-sm
-        | Le mode Hardcore désactive *toutes* les possibilités de sauvegarder
-        | dans l'émulateur : vous ne pourrez ni sauvegarder ni recharger votre partie en cours de jeu.
-        br
-        | Vous devrez compléter le jeu et obtenir les hauts-faits du premier
-        | coup, comme c'était le cas sur la console originale !
-
-      .form-group
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="global-retroachievements")
+          | Activer RetroAchivements
+        .col-sm-8
           span.switch
-            input#global-retroachievements-hardcore.switch(
+            input#global-retroachievements.switch(
               type="checkbox"
-              name="global-retroachievements-hardcore"
+              name="global-retroachievements"
               value="1"
             )
-            label(for="global-retroachievements-hardcore") Activer le mode Hardcore
+            label(for="global-retroachievements")
+
+      .card.bg-light
+        .card-body
+          .form-group.row
+            label.col-sm-4.col-form-label.text-right(for="retroachievements-username") Login
+            .col-sm-8
+              input#retroachievements-username.form-control(
+                type="text"
+                name="global-retroachievements-username"
+              )
+
+          .form-group.row
+            label.col-sm-4.col-form-label.text-right(for="retroachievements-password") Mot de passe
+            .col-sm-8
+              input#retroachievements-password.form-control(
+                type="password"
+                name="global-retroachievements-password"
+              )
+
+          .alert.alert-warning(role="alert")
+            i.fas.fa-exclamation-triangle.fa-sm
+            | Le mode Hardcore désactive *toutes* les possibilités de sauvegarder
+            | dans l'émulateur : vous ne pourrez ni sauvegarder ni recharger votre partie en cours de jeu.
+            br
+            | Vous devrez compléter le jeu et obtenir les hauts-faits du premier
+            | coup, comme c'était le cas sur la console originale !
+
+          .form-group.row
+              label.col-sm-4.col-form-label.text-right(data-switch="global-retroachievements-hardcore")
+                | Activer le mode Hardcore
+              .col-sm-8
+                span.switch
+                  input#global-retroachievements-hardcore.switch(
+                    type="checkbox"
+                    name="global-retroachievements-hardcore"
+                    value="1"
+                  )
+                  label(for="global-retroachievements-hardcore")
 
   button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
 {{end}}

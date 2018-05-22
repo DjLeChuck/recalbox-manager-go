@@ -22,8 +22,7 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## Systems
-* Horizontal form
-* RetroAchivements fieldset
+* *DONE*
 
 ## Configuration
 * ALL
