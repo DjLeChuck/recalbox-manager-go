@@ -47,7 +47,7 @@ html(lang="fr")
           .navbar-nav
             {{range .MenuEntries}}
               {{ $glyph := printf "fas fa-%v fa-sm" .Glyph }}
-              li.nav-item
+              li.nav-item(class={{.ActiveClass}})
                 if .Children
                   li.nav-item.dropdown
                     a#helpMenuLink.nav-link.dropdown-toggle(

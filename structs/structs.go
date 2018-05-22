@@ -30,6 +30,7 @@ type Language struct {
 
 // MenuItem represents an entry of the menu.
 type MenuItem struct {
-	Link, Glyph, Label string
-	Children           []MenuItem
+	Link, Glyph, Label, ActiveClass string
+	Children                        []MenuItem
+	IsActive                        bool
 }
