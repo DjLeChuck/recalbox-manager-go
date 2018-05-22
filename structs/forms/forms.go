@@ -32,3 +32,30 @@ type Systems struct {
 	RetroachievementsPassword        string `form:"global-retroachievements-password"`
 	RetroachievementsHardcoreEnabled bool   `form:"global-retroachievements-hardcore"`
 }
+
+// Configuration represents the form on /configuration page.
+type Configuration struct {
+	SystemLanguage                 string `form:"system-language"`
+	SystemKblayout                 string `form:"system-kblayout"`
+	SystemTimezone                 string `form:"system-timezone"`
+	SystemHostname                 string `form:"system-hostname"`
+	WifiEnabled                    bool   `form:"wifi.enabled"`
+	WifiSsid                       string `form:"wifi-ssid"`
+	WifiKey                        string `form:"wifi-key"`
+	WifiSsid2                      string `form:"wifi-ssid2"`
+	WifiKey2                       string `form:"wifi-key2"`
+	WifiSsid3                      string `form:"wifi-ssid3"`
+	WifiKey3                       string `form:"wifi-key3"`
+	KodiEnabled                    bool   `form:"kodi-enabled"`
+	KodiAtStartup                  bool   `form:"kodi-atstartup"`
+	KodiXButton                    bool   `form:"kodi-xbutton"`
+	SystemEsMenu                   string `form:"system-es-menu"`
+	EmulationStationSelectedSystem string `form:"emulationstation-selectedsystem"`
+	EmulationStationBootOnGamelist bool   `form:"emulationstation-bootongamelist"`
+	EmulationStationHideSystemView bool   `form:"emulationstation-hidesystemview"`
+	EmulationStationGamelistOnly   bool   `form:"emulationstation-gamelistonly"`
+	SystemEmulatorsSpecialKeys     string `form:"system-emulators-specialkeys"`
+	SystemAPIEnabled               bool   `form:"system-api-enabled"`
+	UpdatesEnabled                 bool   `form:"updates-enabled"`
+	UpdatesType                    string `form:"updates-type"`
+}

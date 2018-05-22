@@ -4,6 +4,7 @@ List of things not implemented compared to the actual manager.
 
 ## Global
 * Translations
+* Set forms default values
 
 ## Home
 * *DONE*
@@ -25,7 +26,7 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## Configuration
-* ALL
+* Add select data
 
 ## ROMs
 * ALL

@@ -20,4 +20,7 @@ func Configure(app *iris.Application) {
 
 	app.Get("/systems", GetSystemsHandler).Name = "systems"
 	app.Post("/systems", PostSystemsHandler).Name = "systems_form"
+
+	app.Get("/configuration", GetConfigurationHandler).Name = "configuration"
+	app.Post("/configuration", PostConfigurationHandler).Name = "configuration_form"
 }

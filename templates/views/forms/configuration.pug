@@ -1,0 +1,295 @@
+{{define "form-configuration"}}
+{{ $url := urlpath "configuration_form" }}
+form(method="post" action={{$url}})
+  .card.mb-4
+    .card-header Options système
+    .card-body
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="system-language")
+          | Langue du système
+        .col-sm-8
+          select#system-language.form-control(name="system-language")
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="system-kblayout")
+          | Layout du clavier
+        .col-sm-8
+          select#system-kblayout.form-control(name="system-kblayout")
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="system-timezone")
+          | Timezone
+        .col-sm-8
+          select#system-timezone.form-control(name="system-timezone")
+
+  .card.mb-4
+    .card-header Options réseau
+    .card-body
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="system-hostname")
+          | Nom d'hôte
+        .col-sm-8
+          input#system-hostname.form-control(type="text" name="system-hostname")
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="wifi-enabled")
+          | Activer le wifi
+        .col-sm-8
+          span.switch
+            input#wifi-enabled.switch(
+              type="checkbox"
+              name="wifi-enabled"
+              value="1"
+            )
+            label(for="wifi-enabled")
+
+      .alert.alert-warning(role="alert")
+        i.fas.fa-exclamation-triangle.fa-sm
+        | Attention, si vous vous trompez dans vos informations vous risquez de ne plus pouvoir accéder à votre recalbox par le wifi.
+        br
+        | Les clés sont cryptées et ne sont donc pas réaffichées dans les champs. Cela ne veut pas dire que la valeur n'est pas renseignée !
+        br
+        | Si vous renseignez une valeur, cela écrasera la précédente.
+
+      ul#test.nav.nav-tabs(role="tablist")
+        li.nav-item
+          a#tab-wifi-1.nav-link.active(
+            data-toggle="tab"
+            href="#pan-wifi-1"
+            role="tab"
+            aria-controls="wifi-1"
+            aria-selected="true"
+          ) Paramétrer le wifi 1
+        li.nav-item
+          a#tab-wifi-2.nav-link(
+            data-toggle="tab"
+            href="#pan-wifi-2"
+            role="tab"
+            aria-controls="wifi-2"
+            aria-selected="false"
+          ) Paramétrer le wifi 2
+        li.nav-item
+          a#tab-wifi-3.nav-link(
+            data-toggle="tab"
+            href="#pan-wifi-3"
+            role="tab"
+            aria-controls="wifi-3"
+            aria-selected="false"
+          ) Paramétrer le wifi 3
+
+      .tab-content
+        #pan-wifi-1.tab-pane.fade.show.active(role="tabpanel" aria-labelledby="tab-wifi-1")
+          .card.bg-light
+            .card-body
+              .form-group.row
+                label.col-sm-4.col-form-label.text-right(for="wifi-ssid") SSID
+                .col-sm-8
+                  input#wifi-ssid.form-control(type="text" name="wifi-ssid")
+
+              .form-group.row
+                label.col-sm-4.col-form-label.text-right(for="wifi-key") Mot de passe
+                .col-sm-8
+                  input#wifi-key.form-control(type="password" name="wifi-key")
+        #pan-wifi-2.tab-pane.fade(role="tabpanel" aria-labelledby="tab-wifi-2")
+          .card.bg-light
+            .card-body
+              .form-group.row
+                label.col-sm-4.col-form-label.text-right(for="wifi-ssid2") SSID
+                .col-sm-8
+                  input#wifi-ssid2.form-control(type="text" name="wifi-ssid2")
+
+              .form-group.row
+                label.col-sm-4.col-form-label.text-right(for="wifi-key2") Mot de passe
+                .col-sm-8
+                  input#wifi-key2.form-control(type="password" name="wifi-key2")
+        #pan-wifi-3.tab-pane.fade(role="tabpanel" aria-labelledby="tab-wifi-3")
+          .card.bg-light
+            .card-body
+              .form-group.row
+                label.col-sm-4.col-form-label.text-right(for="wifi-ssid3") SSID
+                .col-sm-8
+                  input#wifi-ssid3.form-control(type="text" name="wifi-ssid3")
+
+              .form-group.row
+                label.col-sm-4.col-form-label.text-right(for="wifi-key3") Mot de passe
+                .col-sm-8
+                  input#wifi-key3.form-control(type="password" name="wifi-key3")
+
+  .card.mb-4
+    .card-header Options Kodi
+    .card-body
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="kodi-enabled")
+          | Activer Kodi
+        .col-sm-8
+          span.switch
+            input#kodi-enabled.enabled.switch(
+              type="checkbox"
+              name="kodi-enabled"
+              value="1"
+            )
+            label(for="kodi-enabled")
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="kodi-atstartup")
+          | Lancer Kodi au démarrage
+        .col-sm-8
+          span.switch
+            input#kodi-atstartup.enabled.switch(
+              type="checkbox"
+              name="kodi-atstartup"
+              value="1"
+            )
+            label(for="kodi-atstartup")
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="kodi-xbutton")
+          | Lancer Kodi via la touche <kbd>X</kbd>
+        .col-sm-8
+          span.switch
+            input#kodi-xbutton.enabled.switch(
+              type="checkbox"
+              name="kodi-xbutton"
+              value="1"
+            )
+            label(for="kodi-xbutton")
+
+  .card.mb-4
+    .card-header EmulationStation
+    .card-body
+      .bd-callout.bd-callout-warning.mb-4
+        h5 Options disponibles :
+        ul
+          li
+            strong default
+            | correspond au menu de base avec toutes les options,
+          li
+            strong none
+            | n'offre aucun menu excepté celui de recherche de jeux,
+          li
+            strong bartop
+            | comporte peu de menu, seulement ceux nécessaires pour les bartops.
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="system-es-menu")
+          | Choix du style de menu
+        .col-sm-8
+          select#system-es-menu.form-control(name="system-es-menu")
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="emulationstation-selectedsystem")
+          | Système sélectionné par défaut
+        .col-sm-8
+          select#emulationstation-selectedsystem.form-control(name="emulationstation-selectedsystem")
+
+      .alert.alert-warning(role="alert")
+        i.fas.fa-exclamation-triangle.fa-sm
+        | ES se lancera et affichera directement la liste de jeux du premier système (ou celui sélectionné).
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="emulationstation-bootongamelist")
+          | Démarrer sur la liste de jeux du premier système (ou de celui sélectionné)
+        .col-sm-8
+          span.switch
+            input#emulationstation-bootongamelist.switch(
+              type="checkbox"
+              name="emulationstation-bootongamelist"
+              value="1"
+            )
+            label(for="emulationstation-bootongamelist")
+
+      .alert.alert-warning(role="alert")
+        i.fas.fa-exclamation-triangle.fa-sm
+        | ES se lancera et n'affichera QUE le premier système (ou celui sélectionné).
+      
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="emulationstation-hidesystemview")
+          | Désactiver la sélection des systèmes.
+        .col-sm-8
+          span.switch
+            input#emulationstation-hidesystemview.switch(
+              type="checkbox"
+              name="emulationstation-hidesystemview"
+              value="1"
+            )
+            label(for="emulationstation-hidesystemview")
+
+      .alert.alert-warning(role="alert")
+        i.fas.fa-exclamation-triangle.fa-sm
+        | ES n'affichera que les jeux listés dans les fichiers gamelist.xml (accélère les temps d'affichage).
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="emulationstation-gamelistonly")
+          | N'afficher que les jeux parsés.
+        .col-sm-8
+          span.switch
+            input#emulationstation-gamelistonly.switch(
+              type="checkbox"
+              name="emulationstation-gamelistonly"
+              value="1"
+            )
+            label(for="emulationstation-gamelistonly")
+
+  .card.mb-4
+    .card-header Touche spéciale
+    .card-body
+      h5.card-title Choix du comportement de la touche spéciale dans les émulateurs
+      
+      .bd-callout.bd-callout-warning.mb-4
+        h5 Options disponibles :
+        ul
+          li
+            strong default
+            | correspond au fonctionnement de base avec toutes les possibilités,
+          li
+            strong nomenu
+            | désactive l'affichage du menu,
+          li
+            strong none
+            | désactive la touche spéciale.
+
+      .form-group
+        select#system-emulators-specialkeys.form-control(name="system-emulators-specialkeys")
+
+  .card.mb-4
+    .card-header API REST
+    .card-body
+      .alert.alert-warning(role="alert")
+        i.fas.fa-exclamation-triangle.fa-sm
+        | Cette modification nécessite de redémarrer votre recalbox pour être prise en compte.
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="system-api-enabled")
+          | Activer l'option de recalbox qui permet d'interagir avec via une API REST
+        .col-sm-8
+          span.switch
+            input#system-api-enabled.switch(
+              type="checkbox"
+              name="system-api-enabled"
+              value="1"
+            )
+            label(for="system-api-enabled")
+
+  .card.mb-4
+    .card-header Mise à jour
+    .card-body
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="updates-enabled")
+          | Vérifier les mises à jours au démarrage du système
+        .col-sm-8
+          span.switch
+            input#updates-enabled.switch(
+              type="checkbox"
+              name="updates-enabled"
+              value="1"
+            )
+            label(for="updates-enabled")
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="updates-type")
+          | Type de version
+        .col-sm-8
+          select#updates-type.form-control(name="updates-type")
+
+  button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
+{{end}}
