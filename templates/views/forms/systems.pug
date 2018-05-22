@@ -6,6 +6,9 @@ form(method="post" action={{$url}})
     .card-body
       .form-group
         select#global-ratio.form-control(name="global-ratio")
+          {{range $key, $value := .Tr.RatioList}}
+            option(value={{$key}}) {{$value}}
+          {{end}}
 
   .card.mb-4
     .card-header Set de shaders
@@ -28,6 +31,9 @@ form(method="post" action={{$url}})
             | ne met aucun shaders.
       .form-group
         select#global-shaderset.form-control(name="global-shaderset")
+          {{range $key, $value := .Tr.ShadersetList}}
+            option(value={{$key}}) {{$value}}
+          {{end}}
 
   .card.mb-4
     .card-header Lissage des jeux

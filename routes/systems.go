@@ -18,6 +18,20 @@ func GetSystemsHandler(ctx iris.Context) {
 	ctx.ViewData("Tr", iris.Map{
 		"Note":    ctx.Translate("Controllers.Note"),
 		"BtnSave": ctx.Translate("BtnSave"),
+		"RatioList": iris.Map{
+			"":       "-",
+			"auto":   ctx.Translate("Automatique"),
+			"4/3":    "4/3",
+			"16/9":   "16/9",
+			"16/10":  "16/10",
+			"custom": ctx.Translate("Personnalisé"),
+		},
+		"ShadersetList": iris.Map{
+			"":          "-",
+			"none":      ctx.Translate("Aucun"),
+			"retro":     ctx.Translate("Retro"),
+			"scanlines": ctx.Translate("Scanlines"),
+		},
 	})
 
 	ctx.View("views/systems.pug")
