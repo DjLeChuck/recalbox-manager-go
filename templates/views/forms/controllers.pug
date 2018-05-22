@@ -4,64 +4,85 @@ form(method="post" action={{$url}})
   .card.mb-4
     .card-header {{ .Tr.Db9.Title }}
     .card-body
-      .form-group
-        span.switch
-          input#db9-enabled.switch(
-            type="checkbox"
-            name="controllers-db9-enabled"
-            value="1"
-          )
-          label(for="db9-enabled") {{ .Tr.Db9.Label.Enabled }}
-      .form-group
-        label(for="db9-args") {{ .Tr.Global.Label.Args }}
-        input#db9-args.form-control(type="text" name="controllers-db9-args")
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="db9-enabled")
+          {{ .Tr.Db9.Label.Enabled }}
+        .col-sm-8
+          span.switch
+            input#db9-enabled.switch(
+              type="checkbox"
+              name="controllers-db9-enabled"
+              value="1"
+            )
+            label(for="db9-enabled")
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="db9-args")
+          {{ .Tr.Global.Label.Args }}
+        .col-sm-8
+          input#db9-args.form-control(type="text" name="controllers-db9-args")
 
   .card.mb-4
     .card-header {{ .Tr.Gamecon.Title }}
     .card-body
-      .form-group
-        span.switch
-          input#gamecon-enabled.switch(
-            type="checkbox"
-            name="controllers-gamecon-enabled"
-            value="1"
-          )
-          label(for="gamecon-enabled") {{ .Tr.Gamecon.Label.Enabled }}
-      .form-group
-        label(for="gamecon-args") {{ .Tr.Global.Label.Args }}
-        input#gamecon-args.form-control(type="text" name="controllers-gamecon-args")
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="gamecon-enabled")
+          {{ .Tr.Gamecon.Label.Enabled }}
+        .col-sm-8
+          span.switch
+            input#gamecon-enabled.switch(
+              type="checkbox"
+              name="controllers-gamecon-enabled"
+              value="1"
+            )
+            label(for="gamecon-enabled")
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="gamecon-args")
+          {{ .Tr.Global.Label.Args }}
+        .col-sm-8
+          input#gamecon-args.form-control(type="text" name="controllers-gamecon-args")
 
   .card.mb-4
     .card-header {{ .Tr.Gpio.Title }}
     .card-body
-      .form-group
-        span.switch
-          input#gpio-enabled.switch(
-            type="checkbox"
-            name="controllers-gpio-enabled"
-            value="1"
-          )
-          label(for="gpio-enabled") {{ .Tr.Gpio.Label.Enabled }}
-      .form-group
-        label(for="gpio-args") {{ .Tr.Global.Label.Args }}
-        input#gpio-args.form-control(type="text" name="controllers-gpio-args")
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="gpio-enabled")
+          {{ .Tr.Gpio.Label.Enabled }}
+        .col-sm-8
+          span.switch
+            input#gpio-enabled.switch(
+              type="checkbox"
+              name="controllers-gpio-enabled"
+              value="1"
+            )
+            label(for="gpio-enabled")
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="gpio-args")
+          {{ .Tr.Global.Label.Args }}
+        .col-sm-8
+          input#gpio-args.form-control(type="text" name="controllers-gpio-args")
 
   .card.mb-4
     .card-header {{ .Tr.Ps3.Title }}
     .card-body
-      .form-group
-        span.switch
-          input#ps3-enabled.switch(
-            type="checkbox"
-            name="controllers-ps3-enabled"
-            value="1"
-          )
-          label(for="ps3-enabled") {{ .Tr.Ps3.Label.Enabled }}
-      .form-group
-        select#ps3-driver.form-control(name="controllers-ps3-driver")
-          {{range $key, $value := .Tr.Ps3.DriversList}}
-            option(value={{$key}}) {{$value}}
-          {{end}}
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(data-switch="ps3-enabled")
+          {{ .Tr.Ps3.Label.Enabled }}
+        .col-sm-8
+          span.switch
+            input#ps3-enabled.switch(
+              type="checkbox"
+              name="controllers-ps3-enabled"
+              value="1"
+            )
+            label(for="ps3-enabled")
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="ps3-driver")
+          {{ .Tr.Ps3.Label.DriverToUse }}
+        .col-sm-8
+          select#ps3-driver.form-control(name="controllers-ps3-driver")
+            {{range $key, $value := .Tr.Ps3.DriversList}}
+              option(value={{$key}}) {{$value}}
+            {{end}}
 
   button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
 {{end}}

@@ -19,7 +19,7 @@ List of things not implemented compared to the actual manager.
 * Add **Action** column actions
 
 ## Controllers
-* Horizontal form
+* *DONE*
 
 ## Systems
 * Horizontal form

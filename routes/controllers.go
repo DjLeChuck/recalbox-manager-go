@@ -34,14 +34,12 @@ func GetControllersHandler(ctx iris.Context) {
 			"Title": ctx.Translate("Controllers.Gamecon.Title"),
 			"Label": iris.Map{
 				"Enabled": ctx.Translate("Controllers.Gamecon.Label.Enabled"),
-				"Args":    ctx.Translate("Controllers.Gamecon.Label.Args"),
 			},
 		},
 		"Gpio": iris.Map{
 			"Title": ctx.Translate("Controllers.Gpio.Title"),
 			"Label": iris.Map{
 				"Enabled": ctx.Translate("Controllers.Gpio.Label.Enabled"),
-				"Args":    ctx.Translate("Controllers.Gpio.Label.Args"),
 			},
 		},
 		"Ps3": iris.Map{
@@ -53,7 +51,8 @@ func GetControllersHandler(ctx iris.Context) {
 				"bluez":    ctx.Translate("Bluez 5"),
 			},
 			"Label": iris.Map{
-				"Enabled": ctx.Translate("Controllers.Ps3.Label.Enabled"),
+				"Enabled":     ctx.Translate("Controllers.Ps3.Label.Enabled"),
+				"DriverToUse": ctx.Translate("Controllers.Ps3.Label.DriverToUse"),
 			},
 		},
 	})
