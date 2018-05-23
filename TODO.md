@@ -26,7 +26,7 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## Configuration
-* Add select data
+* Add select data on "emulationstation-selectedsystem"
 
 ## ROMs
 * ALL

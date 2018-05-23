@@ -9,18 +9,30 @@ form(method="post" action={{$url}})
           | Langue du système
         .col-sm-8
           select#system-language.form-control(name="system-language")
+            option(value="") –
+            {{range $value := .SelectData.SystemLocales}}
+              option(value={{.id}}) {{.text}}
+            {{end}}
 
       .form-group.row
         label.col-sm-4.col-form-label.text-right(for="system-kblayout")
           | Layout du clavier
         .col-sm-8
           select#system-kblayout.form-control(name="system-kblayout")
+            option(value="") –
+            {{range $value := .SelectData.KeyboardLayouts}}
+              option(value={{.id}}) {{.text}}
+            {{end}}
 
       .form-group.row
         label.col-sm-4.col-form-label.text-right(for="system-timezone")
           | Timezone
         .col-sm-8
           select#system-timezone.form-control(name="system-timezone")
+            option(value="") –
+            {{range $value := .SelectData.Timezones}}
+              option(value={{$value}}) {{$value}}
+            {{end}}
 
   .card.mb-4
     .card-header Options réseau
@@ -175,6 +187,10 @@ form(method="post" action={{$url}})
           | Choix du style de menu
         .col-sm-8
           select#system-es-menu.form-control(name="system-es-menu")
+            option(value="") –
+            {{range $value := .SelectData.EsMenus}}
+              option(value={{.}}) {{.}}
+            {{end}}
 
       .form-group.row
         label.col-sm-4.col-form-label.text-right(for="emulationstation-selectedsystem")
@@ -250,6 +266,10 @@ form(method="post" action={{$url}})
 
       .form-group
         select#system-emulators-specialkeys.form-control(name="system-emulators-specialkeys")
+          option(value="") –
+          {{range $value := .SelectData.EmulatorsSpecialkeys}}
+            option(value={{.}}) {{.}}
+          {{end}}
 
   .card.mb-4
     .card-header API REST
@@ -290,6 +310,10 @@ form(method="post" action={{$url}})
           | Type de version
         .col-sm-8
           select#updates-type.form-control(name="updates-type")
+            option(value="") –
+            {{range $key, $value := .SelectData.UpdatesTypes}}
+              option(value={{$key}}) {{$value}}
+            {{end}}
 
   button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
 {{end}}

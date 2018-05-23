@@ -3,6 +3,8 @@ package routes
 import (
 	"github.com/kataras/iris"
 
+	"github.com/spf13/viper"
+
 	"github.com/djlechuck/recalbox-manager/store"
 	"github.com/djlechuck/recalbox-manager/structs/forms"
 	"github.com/djlechuck/recalbox-manager/utils/errors"
@@ -15,6 +17,19 @@ func GetConfigurationHandler(ctx iris.Context) {
 
 	ctx.ViewData("PageTitle", ctx.Translate("Configuration"))
 	ctx.ViewData("FormSended", sess.GetFlashString("formSended"))
+
+	ctx.ViewData("SelectData", iris.Map{
+		"EsMenus":              viper.Get("recalbox.esMenus"),
+		"EmulatorsSpecialkeys": viper.Get("recalbox.emulatorsSpecialkeys"),
+		"KeyboardLayouts":      viper.Get("recalbox.keyboardlayouts"),
+		"SystemLocales":        viper.Get("recalbox.systemlocales"),
+		"Timezones":            viper.Get("recalbox.timezones"),
+		"UpdatesTypes": iris.Map{
+			"stable":   ctx.Translate("Stable"),
+			"beta":     ctx.Translate("Bêta"),
+			"unstable": ctx.Translate("Instable"),
+		},
+	})
 
 	ctx.ViewData("Tr", iris.Map{
 		"Note":    ctx.Translate("Configuration.Note"),
