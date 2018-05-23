@@ -6,14 +6,13 @@ h1.mt-4.mb-4.border-bottom= .PageTitle
     p.card-text Le bouton ci-dessous vous permet de prendre une capture d'écran de l'affichage actuel de recalbox.
     p.card-text Le résultat sera sauvegardé dans le dossier %s.
     p
-      button.btn.btn-success Faire une capture
+      {{ $url := urlpath "screenshots_take" }}
+      a.btn.btn-success(role="button" href={{$url}}) Faire une capture
 
 .card-columns
-  {{$hostname := .Hostname}}
-  {{$port := .Port}}
   {{range $i := .Images}}
-    {{$viewUrl := print "//" $hostname ":" $port "/screenshots/viewer/" .}}
-    {{$deleteUrl := print "//" $hostname ":" $port "/screenshots/delete/" .}}
+    {{$viewUrl := print "//" $.Hostname ":" $.Port "/screenshots/viewer/" .}}
+    {{$deleteUrl := print "//" $.Hostname ":" $.Port "/screenshots/delete/" .}}
     .card
       img.card-img-top(src={{$viewUrl}} alt={{.}})
       a.btn.btn-danger.btn-sm.text-white.btn-delete-screenshot(

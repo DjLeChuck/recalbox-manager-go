@@ -5,6 +5,7 @@ List of things not implemented compared to the actual manager.
 ## Global
 * Translations
 * Set forms default values
+* Add flash messages on actions (file deleted, catchable errors, etc.)
 
 ## Home
 * *DONE*
@@ -32,7 +33,7 @@ List of things not implemented compared to the actual manager.
 * ALL
 
 ## Screenshots
-* Add the **Take a screenshot** functionality
+* *DONE*
 
 ## Logs
 * ALL

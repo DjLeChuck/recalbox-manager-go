@@ -56,3 +56,16 @@ func GetScreenshotsDeleteHandler(ctx iris.Context) {
 
 	ctx.Redirect("/screenshots")
 }
+
+// GetScreenshotsTakeHandler handles the GET requests on /screenshots/take.
+func GetScreenshotsTakeHandler(ctx iris.Context) {
+	err := screenshots.TakeScreenshot(viper.GetString("recalbox.screenshotsPath"))
+	if err != nil {
+		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
+		ctx.StatusCode(500)
+
+		return
+	}
+
+	ctx.Redirect("/screenshots")
+}
