@@ -64,10 +64,10 @@ func New(app *iris.Application) iris.Handler {
 				IsActive: false,
 			},
 			{
-				Link:     "/screenshots",
+				Link:     app.GetRoute("screenshots").FormattedPath,
 				Glyph:    "images",
 				Label:    ctx.Translate("Screenshots"),
-				IsActive: false,
+				IsActive: app.GetRoute("screenshots").FormattedPath == currentPath,
 			},
 			{
 				Link:  "/help",

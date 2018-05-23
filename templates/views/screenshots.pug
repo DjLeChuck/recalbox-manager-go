@@ -1,0 +1,24 @@
+h1.mt-4.mb-4.border-bottom= .PageTitle
+
+.card.mb-4
+  .card-header Effectuer une capture d'écran
+  .card-body
+    p.card-text Le bouton ci-dessous vous permet de prendre une capture d'écran de l'affichage actuel de recalbox.
+    p.card-text Le résultat sera sauvegardé dans le dossier %s.
+    p
+      button.btn.btn-success Faire une capture
+
+.card-columns
+  {{$hostname := .Hostname}}
+  {{$port := .Port}}
+  {{range $i := .Images}}
+    {{$viewUrl := print "//" $hostname ":" $port "/screenshots/viewer/" .}}
+    {{$deleteUrl := print "//" $hostname ":" $port "/screenshots/delete/" .}}
+    .card
+      img.card-img-top(src={{$viewUrl}} alt={{.}})
+      a.btn.btn-danger.btn-sm.text-white.btn-delete-screenshot(
+        role="button"
+        href={{$deleteUrl}}
+      )
+        i.fas.fa-trash-alt.fa-sm
+  {{end}}

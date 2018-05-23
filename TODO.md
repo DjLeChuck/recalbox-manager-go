@@ -32,7 +32,7 @@ List of things not implemented compared to the actual manager.
 * ALL
 
 ## Screenshots
-* ALL
+* Add the **Take a screenshot** functionality
 
 ## Logs
 * ALL
