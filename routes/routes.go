@@ -30,4 +30,7 @@ func Configure(app *iris.Application) {
 
 	app.Get("/logs", GetLogsHandler).Name = "logs"
 	app.Post("/logs", PostLogsHandler).Name = "logs_form"
+
+	app.Get("/recalbox-conf", GetRecalboxConfHandler).Name = "recalbox-conf"
+	app.Post("/recalbox-conf", GetRecalboxConfHandler).Name = "recalbox-conf_form"
 }

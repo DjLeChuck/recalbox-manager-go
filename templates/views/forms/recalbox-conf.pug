@@ -1,0 +1,13 @@
+{{define "form-recalbox-conf"}}
+{{ $url := urlpath "recalbox-conf_form" }}
+form(method="post" action={{$url}})
+  .card.mb-4
+    .card-header
+      | Chemin d'accès :
+      strong  {{ .ConfPath }}
+    .card-body
+      .form-group
+        textarea.form-control(rows="28" name="content")= .ConfContent
+
+  button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
+{{end}}
