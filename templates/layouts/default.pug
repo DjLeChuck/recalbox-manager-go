@@ -49,24 +49,23 @@ html(lang="fr")
               {{ $glyph := printf "fas fa-%v fa-sm" .Glyph }}
               li.nav-item(class={{.ActiveClass}})
                 if .Children
-                  li.nav-item.dropdown
-                    a#helpMenuLink.nav-link.dropdown-toggle(
-                      href="#"
-                      role="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    )
-                      i(class={{$glyph}})
-                      {{.Label}}
+                  a#helpMenuLink.nav-link.dropdown-toggle(
+                    href="#"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  )
+                    i(class={{$glyph}})
+                    {{.Label}}
 
-                    .dropdown-menu(aria-labelledby="helpMenuLink")
-                      {{range .Children}}
-                        {{ $glyph := printf "fas fa-%v fa-sm" .Glyph }}
-                        a.dropdown-item(href={{.Link}})
-                          i(class={{$glyph}})
-                          {{.Label}}
-                      {{end}}
+                  .dropdown-menu(aria-labelledby="helpMenuLink")
+                    {{range .Children}}
+                      {{ $glyph := printf "fas fa-%v fa-sm" .Glyph }}
+                      a.dropdown-item(href={{.Link}} class={{.ActiveClass}})
+                        i(class={{$glyph}})
+                        {{.Label}}
+                    {{end}}
                 else
                   a.nav-link(href={{.Link}})
                     i(class={{$glyph}})

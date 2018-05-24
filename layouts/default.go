@@ -72,7 +72,8 @@ func New(app *iris.Application) iris.Handler {
 			{
 				Link:  "/help",
 				Glyph: "question-circle",
-				Label: ctx.Translate("Dépannage"), Children: []structs.MenuItem{
+				Label: ctx.Translate("Dépannage"),
+				Children: []structs.MenuItem{
 					{
 						Link:     app.GetRoute("logs").FormattedPath,
 						Glyph:    "file",
@@ -95,8 +96,19 @@ func New(app *iris.Application) iris.Handler {
 		}
 
 		for k, v := range menuEntries {
+			if 0 < len(v.Children) {
+				menuEntries[k].ActiveClass = " dropdown"
+			}
+
+			for ck, cv := range v.Children {
+				if cv.IsActive {
+					menuEntries[k].ActiveClass = menuEntries[k].ActiveClass + " active"
+					menuEntries[k].Children[ck].ActiveClass = "active"
+				}
+			}
+
 			if v.IsActive {
-				menuEntries[k].ActiveClass = "active"
+				menuEntries[k].ActiveClass = menuEntries[k].ActiveClass + " active"
 			}
 		}
 
