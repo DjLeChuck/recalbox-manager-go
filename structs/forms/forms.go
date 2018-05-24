@@ -59,3 +59,8 @@ type Configuration struct {
 	UpdatesEnabled                 bool   `form:"updates-enabled"`
 	UpdatesType                    string `form:"updates-type"`
 }
+
+// Logs represents the form on /logs page.
+type Logs struct {
+	File string `form:"log-file"`
+}

@@ -28,6 +28,11 @@
   configScript = "/recalbox/scripts/recalbox-config.sh"
   screenshotsPath = "/recalbox/share/screenshots/"
   raspi2png = "raspi2png"
+  logsPaths = [
+    "/var/log/messages",
+    "/recalbox/share/system/.emulationstation/es_log.txt",
+    "/recalbox/share/system/logs/recalbox.log",
+  ]
 
   esMenus = [
     'default',

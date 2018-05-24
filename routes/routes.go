@@ -27,4 +27,7 @@ func Configure(app *iris.Application) {
 	app.Get("/screenshots", GetScreenshotsHandler).Name = "screenshots"
 	app.Get("/screenshots/delete/{file:string}", GetScreenshotsDeleteHandler).Name = "screenshots_delete"
 	app.Get("/screenshots/take", GetScreenshotsTakeHandler).Name = "screenshots_take"
+
+	app.Get("/logs", GetLogsHandler).Name = "logs"
+	app.Post("/logs", PostLogsHandler).Name = "logs_form"
 }

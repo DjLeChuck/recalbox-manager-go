@@ -36,7 +36,7 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## Logs
-* ALL
+* *DONE*
 
 ## recalbox.conf
 * ALL

@@ -74,10 +74,10 @@ func New(app *iris.Application) iris.Handler {
 				Glyph: "question-circle",
 				Label: ctx.Translate("Dépannage"), Children: []structs.MenuItem{
 					{
-						Link:     "/logs",
+						Link:     app.GetRoute("logs").FormattedPath,
 						Glyph:    "file",
 						Label:    ctx.Translate("Logs"),
-						IsActive: false,
+						IsActive: app.GetRoute("logs").FormattedPath == currentPath,
 					},
 					{
 						Link:     "/recalbox-conf",

@@ -1,0 +1,11 @@
+h1.mt-4.mb-4.border-bottom= .PageTitle
+
+{{ template "form-logs" . }}
+
+if .LogName
+  .card.mb-4
+    .card-header
+      | Fichier en cours de visualisation :
+      strong  {{ .LogName }}
+    .card-body
+      textarea.form-control(rows="28" readonly)= .LogContent
