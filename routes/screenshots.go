@@ -67,5 +67,5 @@ func GetScreenshotsTakeHandler(ctx iris.Context) {
 		return
 	}
 
-	ctx.Redirect("/screenshots")
+	ctx.Redirect("/screenshots", 303)
 }

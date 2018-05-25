@@ -55,5 +55,5 @@ func PostLogsHandler(ctx iris.Context) {
 
 	sess.Set("AskedLog", form.File)
 
-	ctx.Redirect("/logs")
+	ctx.Redirect("/logs", 303)
 }
