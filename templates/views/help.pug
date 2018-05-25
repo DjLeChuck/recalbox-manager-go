@@ -1,0 +1,38 @@
+h1.mt-4.mb-4.border-bottom= .PageTitle
+
+p Pour toute demandes générales, techniques ou besoin d'aide, vous avez plusieurs choix :
+
+ul
+  {{range $l := .Tr.Links}}
+    li
+      | {{ .Label }}
+      a(href={{.Link}})  {{ .Link }}
+  {{end}}
+
+.card.mb-4
+  .card-header Exécution de recalbox-support.sh
+  .card-body
+    p
+      | Si on vous demande d'envoyer le résultat du script #[code recalbox-support.sh],
+      | vous pouvez le faire automatiquement ci-dessous.
+    p
+      | Vous obtiendrez alors un lien de téléchargement qu'il vous suffira
+      | de copier / coller sur le forum.
+    p
+      {{ $url := urlpath "launch-recalbox-support" }}
+      a.btn.btn-success(href={{$url}} role="button") Exécuter le script
+
+.row
+  .col
+    .card.border-warning.mb-4
+      .card-header.bg-warning.text-white Redémarrage et arrêt d'EmulationStation
+      .card-body
+        a.btn.btn-warning.mr-2.text-white(href={{$url}} role="button") Redémarrer ES
+        a.btn.btn-danger(href={{$url}} role="button") Arrêter ES
+
+  .col
+    .card.border-danger.mb-4
+      .card-header.bg-danger.text-white Redémarrage et arrêt du système
+      .card-body
+        a.btn.btn-warning.mr-2.text-white(href={{$url}} role="button") Redémarrer le système
+        a.btn.btn-danger(href={{$url}} role="button") Arrêter le système

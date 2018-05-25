@@ -34,3 +34,8 @@ type MenuItem struct {
 	Children                        []MenuItem
 	IsActive                        bool
 }
+
+// HelpLink represents an entry of the help links list.
+type HelpLink struct {
+	Link, Label string
+}

@@ -87,10 +87,10 @@ func New(app *iris.Application) iris.Handler {
 						IsActive: app.GetRoute("recalbox-conf").FormattedPath == currentPath,
 					},
 					{
-						Link:     "/help",
+						Link:     app.GetRoute("help").FormattedPath,
 						Glyph:    "question-circle",
 						Label:    ctx.Translate("Dépannage"),
-						IsActive: false,
+						IsActive: app.GetRoute("help").FormattedPath == currentPath,
 					},
 				}},
 		}
