@@ -64,3 +64,8 @@ type Configuration struct {
 type Logs struct {
 	File string `form:"log-file"`
 }
+
+// RecalboxConf represents the form on /recalbox-conf page.
+type RecalboxConf struct {
+	Content string `form:"content"`
+}

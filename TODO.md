@@ -39,7 +39,7 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## recalbox.conf
-* Save recalbox.conf modifications
+* *DONE*
 
 ## Help
 * ALL
