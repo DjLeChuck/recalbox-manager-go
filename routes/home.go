@@ -33,7 +33,7 @@ func GetHomeHandler(ctx iris.Context) {
 			Label: ctx.Translate("Utiliser le clavier virtuel"),
 		},
 		{
-			Link:  "//" + hostname + ":8080/touchepad.html",
+			Link:  "//" + hostname + ":8080/touchpad.html",
 			Image: "/img/touchpad.png",
 			Label: ctx.Translate("Utiliser le touchpad virtuel"),
 		},
