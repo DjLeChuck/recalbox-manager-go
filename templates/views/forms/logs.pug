@@ -1,6 +1,4 @@
-{{define "form-logs"}}
-{{ $url := urlpath "logs_form" }}
-form(method="post" action={{$url}})
+form(method="post" action=(urlpath "logs_form"))
   .card.mb-4
     .card-header Fichiers de logs
     .card-body
@@ -8,10 +6,8 @@ form(method="post" action={{$url}})
         .col-sm-8
           select#log-file.form-control(name="log-file")
             option(value="") –
-            {{range $l := .LogsList}}
-              option(value={{.}}) {{.}}
-            {{end}}
+            each _ in .LogsList
+              option(value=.) {{ . }}
 
         .col-sm-4
           button.btn.btn-success(type="submit") Voir
-{{end}}

@@ -1,6 +1,6 @@
 h1.mt-4.mb-4.border-bottom= .PageTitle
 
-{{ template "form-logs" . }}
+include templates/views/forms/logs
 
 if .LogName
   .card.mb-4
@@ -8,4 +8,4 @@ if .LogName
       | Fichier en cours de visualisation :
       strong  {{ .LogName }}
     .card-body
-      textarea.form-control(rows="28" readonly)= .LogContent
+      textarea.form-control(rows="28" readonly="readonly")= .LogContent

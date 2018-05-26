@@ -1,12 +1,10 @@
-{{define "form-audio"}}
-{{ $url := urlpath "audio_form" }}
-form(method="post" action={{$url}})
+form(method="post" action=(urlpath "audio_form"))
   .card.mb-4
     .card-header {{ .Tr.BgMusic }}
     .card-body
       .alert.alert-warning(role="alert")
         i.fas.fa-exclamation-triangle.fa-sm
-        {{ .Tr.Warning }}
+        | {{ .Tr.Warning }}
       span.switch
         input#audio-bgmusic.switch(
           type="checkbox"
@@ -28,9 +26,8 @@ form(method="post" action={{$url}})
     .card-body
       .form-group
         select#audio-device.form-control(name="audio-device")
-          {{range $key, $value := .Tr.DevicesList}}
-            option(value={{$key}}) {{$value}}
-          {{end}}
+          option(value="") –
+          each _ in .Tr.DevicesList
+            option(value=.Value) {{ .Label }}
 
   button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
-{{end}}

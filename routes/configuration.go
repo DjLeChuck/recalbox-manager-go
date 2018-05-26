@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/structs"
 	"github.com/djlechuck/recalbox-manager/structs/forms"
 	"github.com/djlechuck/recalbox-manager/utils/errors"
 	"github.com/djlechuck/recalbox-manager/utils/recalbox"
@@ -24,10 +25,10 @@ func GetConfigurationHandler(ctx iris.Context) {
 		"KeyboardLayouts":      viper.Get("recalbox.keyboardlayouts"),
 		"SystemLocales":        viper.Get("recalbox.systemlocales"),
 		"Timezones":            viper.Get("recalbox.timezones"),
-		"UpdatesTypes": iris.Map{
-			"stable":   ctx.Translate("Stable"),
-			"beta":     ctx.Translate("Bêta"),
-			"unstable": ctx.Translate("Instable"),
+		"UpdatesTypes": []structs.SelectList{
+			{Value: "stable", Label: ctx.Translate("Stable")},
+			{Value: "beta", Label: ctx.Translate("Bêta")},
+			{Value: "unstable", Label: ctx.Translate("Instable")},
 		},
 	})
 

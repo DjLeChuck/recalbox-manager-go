@@ -6,23 +6,22 @@ h1.mt-4.mb-4.border-bottom= .PageTitle
     p.card-text Le bouton ci-dessous vous permet de prendre une capture d'écran de l'affichage actuel de recalbox.
     p.card-text Le résultat sera sauvegardé dans le dossier %s.
     p
-      {{ $url := urlpath "screenshots_take" }}
-      a.btn.btn-success(role="button" href={{$url}}) Faire une capture
+      a.btn.btn-success(role="button" href=(urlpath "screenshots_take")) Faire une capture
 
 .card-columns
-  {{range $i := .Images}}
-    {{$viewUrl := print "//" $.Hostname ":" $.Port "/screenshots/viewer/" .}}
-    {{$deleteUrl := print "//" $.Hostname ":" $.Port "/screenshots/delete/" .}}
+  each _ in .Images
     .card
-      img.card-img-top(src={{$viewUrl}} alt={{.}})
+      img.card-img-top(
+        src=(print "//" $.Hostname ":" $.Port "/screenshots/viewer/" .)
+        alt=.
+      )
       button.btn.btn-danger.btn-sm.btn-delete-screenshot(
         data-toggle="modal"
         data-target="#deleteModal"
-        data-href={{$deleteUrl}}
-        data-name={{.}}
+        data-href=(print "//" $.Hostname ":" $.Port "/screenshots/delete/" .)
+        data-name=.
       )
         i.fas.fa-trash-alt.fa-sm
-  {{end}}
 
 #deleteModal.modal.fade(
   tabindex="-1" role="dialog"
@@ -37,4 +36,4 @@ h1.mt-4.mb-4.border-bottom= .PageTitle
       .modal-body(data-message="Voulez-vous vraiment supprimer %s ?")
       .modal-footer
         button.btn.btn-default(type="button" data-dismiss="modal") Non
-        a.btn.btn-warning(role="button" href="#" data-href) Oui
+        a.btn.btn-warning(role="button" href="#" data-href="") Oui

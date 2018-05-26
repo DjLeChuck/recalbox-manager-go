@@ -1,12 +1,10 @@
-{{define "form-controllers"}}
-{{ $url := urlpath "controllers_form" }}
-form(method="post" action={{$url}})
+form(method="post" action=(urlpath "controllers_form"))
   .card.mb-4
     .card-header {{ .Tr.Db9.Title }}
     .card-body
       .form-group.row
         label.col-sm-4.col-form-label.text-right(data-switch="db9-enabled")
-          {{ .Tr.Db9.Label.Enabled }}
+          | {{ .Tr.Db9.Label.Enabled }}
         .col-sm-8
           span.switch
             input#db9-enabled.switch(
@@ -17,7 +15,7 @@ form(method="post" action={{$url}})
             label(for="db9-enabled")
       .form-group.row
         label.col-sm-4.col-form-label.text-right(for="db9-args")
-          {{ .Tr.Global.Label.Args }}
+          | {{ .Tr.Global.Label.Args }}
         .col-sm-8
           input#db9-args.form-control(type="text" name="controllers-db9-args")
 
@@ -26,7 +24,7 @@ form(method="post" action={{$url}})
     .card-body
       .form-group.row
         label.col-sm-4.col-form-label.text-right(data-switch="gamecon-enabled")
-          {{ .Tr.Gamecon.Label.Enabled }}
+          | {{ .Tr.Gamecon.Label.Enabled }}
         .col-sm-8
           span.switch
             input#gamecon-enabled.switch(
@@ -37,7 +35,7 @@ form(method="post" action={{$url}})
             label(for="gamecon-enabled")
       .form-group.row
         label.col-sm-4.col-form-label.text-right(for="gamecon-args")
-          {{ .Tr.Global.Label.Args }}
+          | {{ .Tr.Global.Label.Args }}
         .col-sm-8
           input#gamecon-args.form-control(type="text" name="controllers-gamecon-args")
 
@@ -46,7 +44,7 @@ form(method="post" action={{$url}})
     .card-body
       .form-group.row
         label.col-sm-4.col-form-label.text-right(data-switch="gpio-enabled")
-          {{ .Tr.Gpio.Label.Enabled }}
+          | {{ .Tr.Gpio.Label.Enabled }}
         .col-sm-8
           span.switch
             input#gpio-enabled.switch(
@@ -57,7 +55,7 @@ form(method="post" action={{$url}})
             label(for="gpio-enabled")
       .form-group.row
         label.col-sm-4.col-form-label.text-right(for="gpio-args")
-          {{ .Tr.Global.Label.Args }}
+          | {{ .Tr.Global.Label.Args }}
         .col-sm-8
           input#gpio-args.form-control(type="text" name="controllers-gpio-args")
 
@@ -66,7 +64,7 @@ form(method="post" action={{$url}})
     .card-body
       .form-group.row
         label.col-sm-4.col-form-label.text-right(data-switch="ps3-enabled")
-          {{ .Tr.Ps3.Label.Enabled }}
+          | {{ .Tr.Ps3.Label.Enabled }}
         .col-sm-8
           span.switch
             input#ps3-enabled.switch(
@@ -77,12 +75,11 @@ form(method="post" action={{$url}})
             label(for="ps3-enabled")
       .form-group.row
         label.col-sm-4.col-form-label.text-right(for="ps3-driver")
-          {{ .Tr.Ps3.Label.DriverToUse }}
+          | {{ .Tr.Ps3.Label.DriverToUse }}
         .col-sm-8
           select#ps3-driver.form-control(name="controllers-ps3-driver")
-            {{range $key, $value := .Tr.Ps3.DriversList}}
-              option(value={{$key}}) {{$value}}
-            {{end}}
+            option(value="") –
+            each _ in .Tr.Ps3.DriversList
+              option(value=.Value) {{ .Label }}
 
   button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
-{{end}}

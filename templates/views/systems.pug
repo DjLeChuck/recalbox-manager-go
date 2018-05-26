@@ -4,9 +4,9 @@ p.important {{ .Tr.Note }}
 
 if .FormSended
   .alert.alert-success.alert-dismissible.fade.show(role="alert")
-    {{ .FormSended }}
+    | {{ .FormSended }}
 
     button.close(type="button" data-dismiss="alert" aria-label="Close")
       span(aria-hidden="true") &times;
 
-{{ template "form-systems" . }}
+include templates/views/forms/systems.pug

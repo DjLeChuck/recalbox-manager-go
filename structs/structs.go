@@ -1,5 +1,10 @@
 package structs
 
+// AvailableLanguage represents an available language in the menu.
+type AvailableLanguage struct {
+	Locale, Name string
+}
+
 // BiosFile represents a BIOS file.
 type BiosFile struct {
 	Name               string
@@ -38,4 +43,9 @@ type MenuItem struct {
 // HelpLink represents an entry of the help links list.
 type HelpLink struct {
 	Link, Label string
+}
+
+// SelectList represents an entry of a <select> list.
+type SelectList struct {
+	Value, Label string
 }

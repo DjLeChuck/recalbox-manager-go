@@ -70,7 +70,7 @@ func New(app *iris.Application) iris.Handler {
 				IsActive: app.GetRoute("screenshots").FormattedPath == currentPath,
 			},
 			{
-				Link:  "/help",
+				Link:  app.GetRoute("help").FormattedPath,
 				Glyph: "question-circle",
 				Label: ctx.Translate("Dépannage"),
 				Children: []structs.MenuItem{
@@ -112,7 +112,7 @@ func New(app *iris.Application) iris.Handler {
 			}
 		}
 
-		menuLanguages := make(map[string]string)
+		menuLanguages := []structs.AvailableLanguage{}
 		languages := []structs.Language{}
 		err := viper.UnmarshalKey("availableLanguages", &languages)
 
@@ -123,11 +123,19 @@ func New(app *iris.Application) iris.Handler {
 			return
 		}
 
-		for _, v := range languages {
-			menuLanguages[v.Locale] = v.Name
-		}
+		locale := ctx.Values().GetString(ctx.Application().ConfigurationReadOnly().GetTranslateLanguageContextKey())
+		currentLang := ""
 
-		currentLang := menuLanguages[ctx.Values().GetString(ctx.Application().ConfigurationReadOnly().GetTranslateLanguageContextKey())]
+		for _, v := range languages {
+			menuLanguages = append(menuLanguages, structs.AvailableLanguage{
+				Locale: v.Locale,
+				Name:   v.Name,
+			})
+
+			if v.Locale == locale {
+				currentLang = v.Name
+			}
+		}
 
 		ctx.ViewLayout("layouts/default.pug")
 		ctx.ViewData("RecalboxManagerTitle", ctx.Translate("Recalbox Manager"))

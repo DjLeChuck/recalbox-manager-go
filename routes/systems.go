@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/structs"
 	"github.com/djlechuck/recalbox-manager/structs/forms"
 	"github.com/djlechuck/recalbox-manager/utils/errors"
 	"github.com/djlechuck/recalbox-manager/utils/recalbox"
@@ -18,19 +19,17 @@ func GetSystemsHandler(ctx iris.Context) {
 	ctx.ViewData("Tr", iris.Map{
 		"Note":    ctx.Translate("Controllers.Note"),
 		"BtnSave": ctx.Translate("BtnSave"),
-		"RatioList": iris.Map{
-			"":       "-",
-			"auto":   ctx.Translate("Automatique"),
-			"4/3":    "4/3",
-			"16/9":   "16/9",
-			"16/10":  "16/10",
-			"custom": ctx.Translate("Personnalisé"),
+		"RatioList": []structs.SelectList{
+			{Value: "auto", Label: ctx.Translate("Automatique")},
+			{Value: "4/3", Label: "4/3"},
+			{Value: "16/9", Label: "16/9"},
+			{Value: "16/10", Label: "16/10"},
+			{Value: "custom", Label: ctx.Translate("Personnalisé")},
 		},
-		"ShadersetList": iris.Map{
-			"":          "-",
-			"none":      ctx.Translate("Aucun"),
-			"retro":     ctx.Translate("Retro"),
-			"scanlines": ctx.Translate("Scanlines"),
+		"ShadersetList": []structs.SelectList{
+			{Value: "none", Label: ctx.Translate("Aucun")},
+			{Value: "retro", Label: ctx.Translate("Retro")},
+			{Value: "scanlines", Label: ctx.Translate("Scanlines")},
 		},
 	})
 

@@ -3,7 +3,7 @@ h1.mt-4.mb-4.border-bottom= .PageTitle
 p= .Tr.Text1
 
 p.
-  {{ .Tr.Text2 }}
+  | {{ .Tr.Text2 }}
   #[code {{ .BiosPath }}]
 
 p= .Tr.Text3
@@ -19,11 +19,12 @@ p
 
 #collapseExample.collapse
   .card.card-body
-    {{ $url := urlpath "bios_form" }}
-    {{ $urlCheck := urlpath "bios_check" }}
-    form#upload-bios.dropzone(method="post" action={{$url}} data-url-check={{$urlCheck}})
+    form#upload-bios.dropzone(
+      method="post" action=(urlpath "bios_form")
+      data-url-check=(urlpath "bios_check")
+    )
       .fallback
-        input(name="file" type="file" multiple)
+        input(name="file" type="file" multiple="multiple")
         input(type="submit" value="Upload")
 
 table.table.table-striped
@@ -34,21 +35,18 @@ table.table.table-striped
       th.text-center(scope="col")= .Tr.TableHeader.Valid
       th(scope="col")= .Tr.TableHeader.Action
   tbody
-    {{range .BiosList}}
+    each _ in .BiosList
       tr
         td.align-middle {{ .Name }}
         td
           ul.list-unstyled.mb-0
-            {{range .Md5}}
+            each _ in .Md5
               li {{ . }}
-            {{end}}
-        td.text-center.align-middle(data-name={{.Name}})
-          {{ if not .IsPresent }}
+        td.text-center.align-middle(data-name=.Name)
+          if not .IsPresent
             i.fas.fa-question.fa-sm.text-secondary
-          {{ else if .IsValid }}
+          else if .IsValid
             i.fas.fa-check.fa-sm.text-success
-          {{ else }}
+          else
             i.fas.fa-times-circle.fa-sm.text-danger
-          {{ end }}
         td @todo
-    {{end}}

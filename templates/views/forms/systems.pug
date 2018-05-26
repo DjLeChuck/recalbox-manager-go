@@ -1,14 +1,12 @@
-{{define "form-systems"}}
-{{ $url := urlpath "systems_form" }}
-form(method="post" action={{$url}})
+form(method="post" action=(urlpath "systems_form"))
   .card.mb-4
     .card-header Ratio de l'écran
     .card-body
       .form-group
         select#global-ratio.form-control(name="global-ratio")
-          {{range $key, $value := .Tr.RatioList}}
-            option(value={{$key}}) {{$value}}
-          {{end}}
+          option(value="") –
+          each _ in .Tr.RatioList
+            option(value=.Value) {{ .Label }}
 
   .card.mb-4
     .card-header Set de shaders
@@ -18,22 +16,22 @@ form(method="post" action={{$url}})
         ul
           li
             strong scanlines
-            | active les scanlines sur tous les emulateurs
+            |  active les scanlines sur tous les emulateurs
           li
             strong retro
-            | sélectionne le "meilleur" shader pour chaque système, choisi par
+            |  sélectionne le "meilleur" shader pour chaque système, choisi par
             | la communauté.
             br
             | Il vous apportera l'expérience de jeu la plus proche de
             | l'expérience originale
           li
             strong none
-            | ne met aucun shaders.
+            |  ne met aucun shaders.
       .form-group
         select#global-shaderset.form-control(name="global-shaderset")
-          {{range $key, $value := .Tr.ShadersetList}}
-            option(value={{$key}}) {{$value}}
-          {{end}}
+          option(value="") –
+          each _ in .Tr.ShadersetList
+            option(value=.Value) {{ .Label }}
 
   .card.mb-4
     .card-header Lissage des jeux
@@ -53,7 +51,7 @@ form(method="post" action={{$url}})
       p L'option rembobinage vous autorise à effectuer des retours dans le temps lors de votre partie.
       .alert.alert-warning(role="alert")
         i.fas.fa-exclamation-triangle.fa-sm
-        | Cela peut ralentir certains émulateurs (snes, psx) si vous l'activez par défaut.
+        |  Cela peut ralentir certains émulateurs (snes, psx) si vous l'activez par défaut.
       .form-group
         span.switch
           input#global-rewind.switch(
@@ -127,11 +125,11 @@ form(method="post" action={{$url}})
 
           .alert.alert-warning(role="alert")
             i.fas.fa-exclamation-triangle.fa-sm
-            | Le mode Hardcore désactive *toutes* les possibilités de sauvegarder
-            | dans l'émulateur : vous ne pourrez ni sauvegarder ni recharger votre partie en cours de jeu.
+            |  Le mode Hardcore désactive *toutes* les possibilités de sauvegarder
+            |  dans l'émulateur : vous ne pourrez ni sauvegarder ni recharger votre partie en cours de jeu.
             br
             | Vous devrez compléter le jeu et obtenir les hauts-faits du premier
-            | coup, comme c'était le cas sur la console originale !
+            |  coup, comme c'était le cas sur la console originale !
 
           .form-group.row
               label.col-sm-4.col-form-label.text-right(data-switch="global-retroachievements-hardcore")
@@ -146,4 +144,3 @@ form(method="post" action={{$url}})
                   label(for="global-retroachievements-hardcore")
 
   button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}
-{{end}}

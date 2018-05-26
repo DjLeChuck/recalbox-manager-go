@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/structs"
 	"github.com/djlechuck/recalbox-manager/structs/forms"
 	"github.com/djlechuck/recalbox-manager/utils/errors"
 	"github.com/djlechuck/recalbox-manager/utils/recalbox"
@@ -44,11 +45,10 @@ func GetControllersHandler(ctx iris.Context) {
 		},
 		"Ps3": iris.Map{
 			"Title": ctx.Translate("Controllers.Ps3.Title"),
-			"DriversList": iris.Map{
-				"":         "-",
-				"official": ctx.Translate("Officiel"),
-				"shanwan":  ctx.Translate("Shanwan"),
-				"bluez":    ctx.Translate("Bluez 5"),
+			"DriversList": []structs.SelectList{
+				{Value: "official", Label: ctx.Translate("Officiel")},
+				{Value: "shanwan", Label: ctx.Translate("Shanwan")},
+				{Value: "bluez", Label: ctx.Translate("Bluez 5")},
 			},
 			"Label": iris.Map{
 				"Enabled":     ctx.Translate("Controllers.Ps3.Label.Enabled"),

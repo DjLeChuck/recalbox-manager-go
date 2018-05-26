@@ -14,8 +14,7 @@ html(lang="fr")
   body
     header
       nav.navbar.navbar-expand-xl.navbar-dark.fixed-top.bg-dark
-        {{ $url := urlpath "home" }}
-        a.navbar-brand(href={{$url}}) {{ .RecalboxManagerTitle }}
+        a.navbar-brand(href=(urlpath "home")) {{ .RecalboxManagerTitle }}
 
         button.navbar-toggler(
           type="button"
@@ -39,15 +38,13 @@ html(lang="fr")
               ) {{ .CurrentLang }}
 
               .dropdown-menu(aria-labelledby="languageMenuLink")
-                {{range $locale, $name := .AvailableLang}}
-                  {{ $url := (printf "%v?lang=%v" (urlpath "home") $locale) }}
-                  a.dropdown-item(href={{$url}})= $name
-                {{end}}
+                each _ in .AvailableLang
+                  a.dropdown-item(href=(printf "%v?lang=%v" (urlpath "home") .Locale))
+                    | {{ .Name }}
 
           .navbar-nav
-            {{range .MenuEntries}}
-              {{ $glyph := printf "fas fa-%v fa-sm" .Glyph }}
-              li.nav-item(class={{.ActiveClass}})
+            each _ in .MenuEntries
+              li.nav-item(class=.ActiveClass)
                 if .Children
                   a#helpMenuLink.nav-link.dropdown-toggle(
                     href="#"
@@ -56,24 +53,20 @@ html(lang="fr")
                     aria-haspopup="true"
                     aria-expanded="false"
                   )
-                    i(class={{$glyph}})
-                    {{.Label}}
+                    i(class=(printf "fas fa-%v fa-sm" .Glyph))
+                    |  {{.Label}}
 
                   .dropdown-menu(aria-labelledby="helpMenuLink")
-                    {{range .Children}}
-                      {{ $glyph := printf "fas fa-%v fa-sm" .Glyph }}
-                      a.dropdown-item(href={{.Link}} class={{.ActiveClass}})
-                        i(class={{$glyph}})
-                        {{.Label}}
-                    {{end}}
+                    each _ in .Children
+                      a.dropdown-item(href=.Link class=.ActiveClass)
+                        i(class=(printf "fas fa-%v fa-sm" .Glyph))
+                        |  {{.Label}}
                 else
-                  a.nav-link(href={{.Link}})
-                    i(class={{$glyph}})
-                    {{.Label}}
-            {{end}}
+                  a.nav-link(href=.Link)
+                    i(class=(printf "fas fa-%v fa-sm" .Glyph))
+                    |  {{.Label}}
 
-    main.container
-      {{ yield }}
+    main.container {{ yield }}
 
     footer.footer
       nav.navbar.navbar-light.bg-light

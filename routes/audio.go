@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 
 	"github.com/djlechuck/recalbox-manager/store"
+	"github.com/djlechuck/recalbox-manager/structs"
 	"github.com/djlechuck/recalbox-manager/structs/forms"
 	"github.com/djlechuck/recalbox-manager/utils/errors"
 	"github.com/djlechuck/recalbox-manager/utils/recalbox"
@@ -21,11 +22,10 @@ func GetAudioHandler(ctx iris.Context) {
 		"Warning":     ctx.Translate("Audio.Warning"),
 		"VolumeTitle": ctx.Translate("Volume du son"),
 		"DeviceTitle": ctx.Translate("Sortie audio"),
-		"DevicesList": iris.Map{
-			"":          "-",
-			"automatic": ctx.Translate("Automatique"),
-			"hdmi":      ctx.Translate("Prise HDMI"),
-			"jack":      ctx.Translate("Prise Jack"),
+		"DevicesList": []structs.SelectList{
+			{Value: "automatic", Label: ctx.Translate("Automatique")},
+			{Value: "hdmi", Label: ctx.Translate("Prise HDMI")},
+			{Value: "jack", Label: ctx.Translate("Prise Jack")},
 		},
 		"BtnSave": ctx.Translate("BtnSave"),
 	})
