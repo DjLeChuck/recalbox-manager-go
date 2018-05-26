@@ -15,7 +15,7 @@ func convertToSimpleType(v reflect.Value) interface{} {
 	switch v.Interface().(type) {
 	case string:
 		return v.String()
-	case int32, int64:
+	case int:
 		return v.Int()
 	case bool:
 		if v.Bool() == true {
