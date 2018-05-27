@@ -1,3 +1,17 @@
+function callAjax(event) {
+  var $link = $(event.relatedTarget);
+
+  $link.addClass("disabled");
+  $link.find("[data-spinner]").removeClass("d-none");
+
+  $.ajax({
+    url: $link.attr("href")
+  }).always(function () {
+    $link.removeClass("disabled");
+    $link.find("[data-spinner]").addClass("d-none");
+  });
+}
+
 $(function () {
   var $linkContainer = $("[data-link=container]")
 
