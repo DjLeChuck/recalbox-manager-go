@@ -18,12 +18,12 @@ block content
           src=(print "//" $.Hostname ":" $.Port "/screenshots/viewer/" .)
           alt=.
         )
-        button.btn.btn-danger.btn-sm.btn-delete-screenshot(
+        a.btn.btn-danger.btn-sm.btn-delete-screenshot(
           data-toggle="modal"
           data-target="#confirmModal"
           data-message="Voulez-vous vraiment supprimer %s ?"
           data-message-arg=.
-          data-href=(print "//" $.Hostname ":" $.Port "/screenshots/delete/" .)
+          href=(print "//" $.Hostname ":" $.Port "/screenshots/delete/" .)
         )
           i.fas.fa-trash-alt.fa-sm
         a.btn.btn-success.btn-sm.btn-view-screenshot(

@@ -1,12 +1,12 @@
 $(function () {
   $("#confirmModal").on("show.bs.modal", function (event) {
-    var $button = $(event.relatedTarget);
+    var $link = $(event.relatedTarget);
     var $modal = $(this);
-    var content = $button.data("message");
+    var content = $link.data("message");
 
-    $modal.find("[data-href]").attr("href", $button.data('href'));
+    $modal.find("[data-href]").attr("href", $link.attr("href"));
     $modal.find(".modal-body").html(
-      content.replace("%s", "<strong>" + $button.data("message-arg") + "</strong>")
+      content.replace("%s", "<strong>" + $link.data("message-arg") + "</strong>")
     );
   });
 });
