@@ -45,7 +45,7 @@ func main() {
 		f := errors.NewLogFile()
 
 		defer f.Close()
-		app.Logger().SetOutput(errors.NewLogFile())
+		app.Logger().SetOutput(f)
 	}
 
 	if isDebug {
