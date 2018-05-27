@@ -137,7 +137,6 @@ func New(app *iris.Application) iris.Handler {
 			}
 		}
 
-		ctx.ViewLayout("layouts/default.pug")
 		ctx.ViewData("RecalboxManagerTitle", ctx.Translate("Recalbox Manager"))
 		ctx.ViewData("MenuEntries", menuEntries)
 		ctx.ViewData("CurrentLang", currentLang)

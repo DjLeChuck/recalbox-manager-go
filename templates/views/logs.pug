@@ -1,11 +1,14 @@
-h1.mt-4.mb-4.border-bottom= .PageTitle
+extends templates/layouts/default.pug
 
-| {{ render "views/forms/logs.pug" }}
+block content
+  h1.mt-4.mb-4.border-bottom= .PageTitle
 
-if .LogName
-  .card.mb-4
-    .card-header
-      | Fichier en cours de visualisation :
-      strong  {{ .LogName }}
-    .card-body
-      textarea.form-control(rows="28" readonly="readonly")= .LogContent
+  | {{ render "views/forms/logs.pug" }}
+
+  if .LogName
+    .card.mb-4
+      .card-header
+        | Fichier en cours de visualisation :
+        strong  {{ .LogName }}
+      .card-body
+        textarea.form-control(rows="28" readonly="readonly")= .LogContent

@@ -1,12 +1,15 @@
-h1.mt-4.mb-4.border-bottom= .PageTitle
+extends templates/layouts/default.pug
 
-p.important {{ .Tr.Note }}
+block content
+  h1.mt-4.mb-4.border-bottom= .PageTitle
 
-if .FormSended
-  .alert.alert-success.alert-dismissible.fade.show(role="alert")
-    | {{ .FormSended }}
+  p.important {{ .Tr.Note }}
 
-    button.close(type="button" data-dismiss="alert" aria-label="Close")
-      span(aria-hidden="true") &times;
+  if .FormSended
+    .alert.alert-success.alert-dismissible.fade.show(role="alert")
+      | {{ .FormSended }}
 
-| {{ render "views/forms/controllers.pug" }}
+      button.close(type="button" data-dismiss="alert" aria-label="Close")
+        span(aria-hidden="true") &times;
+
+  | {{ render "views/forms/controllers.pug" }}

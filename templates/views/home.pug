@@ -1,12 +1,15 @@
-h1.mt-4.mb-4.border-bottom= .PageTitle
+extends templates/layouts/default.pug
 
-.container
-  .row.justify-content-around
-    each _ in .Tiles
-      .col-sm.text-center.mb-3
-        .card
-          .card-body
-            a(href=.Link target="_blank")
-              img.img-fluid.mb-3(src=.Image alt=.Label)
-              br
-              | {{.Label}}
+block content
+  h1.mt-4.mb-4.border-bottom= .PageTitle
+
+  .container
+    .row.justify-content-around
+      each _ in .Tiles
+        .col-sm.text-center.mb-3
+          .card
+            .card-body
+              a(href=.Link target="_blank")
+                img.img-fluid.mb-3(src=.Image alt=.Label)
+                br
+                | {{.Label}}

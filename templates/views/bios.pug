@@ -1,52 +1,55 @@
-h1.mt-4.mb-4.border-bottom= .PageTitle
+extends templates/layouts/default.pug
 
-p= .Tr.Text1
+block content
+  h1.mt-4.mb-4.border-bottom= .PageTitle
 
-p.
-  | {{ .Tr.Text2 }}
-  #[code {{ .BiosPath }}]
+  p= .Tr.Text1
 
-p= .Tr.Text3
+  p.
+    | {{ .Tr.Text2 }}
+    #[code {{ .BiosPath }}]
 
-p
-  button.btn.btn-primary(
-    type="button"
-    data-toggle="collapse"
-    data-target="#collapseExample"
-    aria-expanded="false"
-    aria-controls="collapseExample"
-  ) {{ .Tr.UploadBiosBtn }}
+  p= .Tr.Text3
 
-#collapseExample.collapse
-  .card.card-body
-    form#upload-bios.dropzone(
-      method="post" action=(urlpath "bios_form")
-      data-url-check=(urlpath "bios_check")
-    )
-      .fallback
-        input(name="file" type="file" multiple="multiple")
-        input(type="submit" value="Upload")
+  p
+    button.btn.btn-primary(
+      type="button"
+      data-toggle="collapse"
+      data-target="#collapseExample"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+    ) {{ .Tr.UploadBiosBtn }}
 
-table.table.table-striped
-  thead
-    tr
-      th(scope="col")= .Tr.TableHeader.Bios
-      th(scope="col")= .Tr.TableHeader.Md5
-      th.text-center(scope="col")= .Tr.TableHeader.Valid
-      th(scope="col")= .Tr.TableHeader.Action
-  tbody
-    each _ in .BiosList
+  #collapseExample.collapse
+    .card.card-body
+      form#upload-bios.dropzone(
+        method="post" action=(urlpath "bios_form")
+        data-url-check=(urlpath "bios_check")
+      )
+        .fallback
+          input(name="file" type="file" multiple="multiple")
+          input(type="submit" value="Upload")
+
+  table.table.table-striped
+    thead
       tr
-        td.align-middle {{ .Name }}
-        td
-          ul.list-unstyled.mb-0
-            each _ in .Md5
-              li {{ . }}
-        td.text-center.align-middle(data-name=.Name)
-          if not .IsPresent
-            i.fas.fa-question.fa-sm.text-secondary
-          else if .IsValid
-            i.fas.fa-check.fa-sm.text-success
-          else
-            i.fas.fa-times-circle.fa-sm.text-danger
-        td @todo
+        th(scope="col")= .Tr.TableHeader.Bios
+        th(scope="col")= .Tr.TableHeader.Md5
+        th.text-center(scope="col")= .Tr.TableHeader.Valid
+        th(scope="col")= .Tr.TableHeader.Action
+    tbody
+      each _ in .BiosList
+        tr
+          td.align-middle {{ .Name }}
+          td
+            ul.list-unstyled.mb-0
+              each _ in .Md5
+                li {{ . }}
+          td.text-center.align-middle(data-name=.Name)
+            if not .IsPresent
+              i.fas.fa-question.fa-sm.text-secondary
+            else if .IsValid
+              i.fas.fa-check.fa-sm.text-success
+            else
+              i.fas.fa-times-circle.fa-sm.text-danger
+          td @todo

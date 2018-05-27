@@ -1,7 +1,10 @@
-h1.mt-4.mb-4.border-bottom recalbox.conf
+extends templates/layouts/default.pug
 
-.bd-callout.bd-callout-info.mb-4
-  | Si jamais les autres vues ne suffisent pas, le contenu du fichier
-  |  recalbox.conf peut-être entièrement vu et modifié via cette interface.
+block content
+  h1.mt-4.mb-4.border-bottom recalbox.conf
 
-| {{ render "views/forms/recalbox-conf.pug" }}
+  .bd-callout.bd-callout-info.mb-4
+    | Si jamais les autres vues ne suffisent pas, le contenu du fichier
+    |  recalbox.conf peut-être entièrement vu et modifié via cette interface.
+
+  | {{ render "views/forms/recalbox-conf.pug" }}
