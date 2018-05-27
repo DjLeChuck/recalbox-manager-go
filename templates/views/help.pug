@@ -21,8 +21,15 @@ block content
         | Vous obtiendrez alors un lien de téléchargement qu'il vous suffira
         | de copier / coller sur le forum.
       p
-        a.btn.btn-success(href=(urlpath "launch-recalbox-support") role="button")
-          | Exécuter le script
+        a.btn.btn-success(
+          href=(urlpath "launch-recalbox-support") role="button"
+          data-ajax
+        )
+         i(data-spinner).fas.fa-spinner.fa-pulse.d-none
+         |  Exécuter le script
+      p.d-none(data-link="container")
+        | Lien de téléchargement à donner :
+        a(href="#" target="_blank")
 
   .row
     .col
@@ -38,3 +45,6 @@ block content
         .card-body
           a.btn.btn-warning.mr-2(href="#" role="button") Redémarrer le système
           a.btn.btn-danger(href="#" role="button") Arrêter le système
+
+block append js
+  script(src="/static/js/modules/help.js")
