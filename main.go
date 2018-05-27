@@ -104,6 +104,6 @@ func main() {
 		}
 	})
 
-	app.Configure(iris.WithConfiguration(iris.TOML("./configs/iris.tml")), layouts.Configure, routes.Configure)
+	app.Configure(layouts.Configure, routes.Configure)
 	app.Run(iris.Addr(":"+viper.GetString("app.port")), iris.WithoutServerError(iris.ErrServerClosed))
 }

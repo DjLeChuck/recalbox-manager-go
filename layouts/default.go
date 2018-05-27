@@ -144,6 +144,8 @@ func New(app *iris.Application) iris.Handler {
 		ctx.ViewData("AvailableLang", menuLanguages)
 		ctx.ViewData("AppVersion", viper.GetString("app.version"))
 
+		ctx.Gzip(true)
+
 		ctx.Next()
 	}
 }
