@@ -8,9 +8,6 @@ if "%platform%" == "rpi" (
   set GOOS=linux
 )
 
-go-bindata templates/...
-bindata assets/...
-
 if "%platform%" == "rpi" (
   go build -ldflags="-s -w" -o recalbox-manager
 ) else (

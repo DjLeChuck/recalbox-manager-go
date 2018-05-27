@@ -70,11 +70,10 @@ func main() {
 		Languages:    irisLanguages})
 	app.Use(globalLocale)
 
-	app.StaticEmbeddedGzip("/static", "./assets", GzipAsset, GzipAssetNames)
+	app.StaticWeb("/static", "./assets")
 	app.StaticWeb("/screenshots/viewer", viper.GetString("recalbox.screenshotsPath"))
 
 	tmpl := iris.Pug("./templates", ".pug")
-	tmpl.Binary(Asset, AssetNames)
 	tmpl.Reload(isDebug) // reload templates on each request (development mode)
 
 	app.RegisterView(tmpl)
