@@ -3,4 +3,5 @@ recalbox-manager
 configs/recalbox.dev.toml
 logs/
 vendor/
+bindata*.go
 !.gitkeep
