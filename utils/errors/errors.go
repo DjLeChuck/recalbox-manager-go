@@ -19,7 +19,7 @@ func getRequestLogs(ctx context.Context) string {
 // NewLogFile opens a file named with the current date and returns it.
 func NewLogFile() *os.File {
 	// open an output file, this will append to the today's file if server restarted.
-	f, err := os.OpenFile("~/logs/recalbox-manager.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	f, err := os.OpenFile("/recalbox/share/system/logs/recalbox-manager.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 
 	if err != nil {
 		panic(err)
