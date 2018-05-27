@@ -74,3 +74,9 @@ body > .container {
   top: 5px;
   right: 5px;
 }
+
+.btn-view-screenshot {
+  position: absolute;
+  top: 40px;
+  right: 5px;
+}

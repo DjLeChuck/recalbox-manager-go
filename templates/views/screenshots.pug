@@ -25,6 +25,11 @@ block content
           data-name=.
         )
           i.fas.fa-trash-alt.fa-sm
+        a.btn.btn-success.btn-sm.btn-view-screenshot(
+          href=(print "//" $.Hostname ":" $.Port "/screenshots/viewer/" .)
+          target="_blank"
+        )
+          i.fas.fa-search.fa-sm
 
   include templates/partials/delete-confirm.pug
 
