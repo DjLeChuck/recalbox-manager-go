@@ -1,0 +1,14 @@
+#deleteModal.modal.fade(
+  tabindex="-1" role="dialog"
+  aria-labelledby="deleteModal" aria-hidden="true"
+)
+  .modal-dialog.modal-dialog-centered(role="document")
+    .modal-content
+      .modal-header
+        h5.modal-title Attention
+        button.close(type="button" data-dismiss="modal" aria-label="Close")
+          span(aria-hidden="true") &times;
+      .modal-body(data-message="Voulez-vous vraiment supprimer %s ?")
+      .modal-footer
+        button.btn.btn-default(type="button" data-dismiss="modal") Non
+        a.btn.btn-warning(role="button" href="#" data-href="") Oui

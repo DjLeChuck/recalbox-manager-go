@@ -3,7 +3,7 @@ extends templates/layouts/default.pug
 block content
   h1.mt-4.mb-4.border-bottom= .PageTitle
 
-  | {{ render "views/forms/logs.pug" }}
+  include templates/views/forms/logs.pug
 
   if .LogName
     .card.mb-4

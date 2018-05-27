@@ -12,4 +12,7 @@ block content
       button.close(type="button" data-dismiss="alert" aria-label="Close")
         span(aria-hidden="true") &times;
 
-  | {{ render "views/forms/controllers.pug" }}
+  include templates/views/forms/controllers.pug
+
+block append js
+  script(src="/static/js/modules/switch.js")
