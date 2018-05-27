@@ -1,6 +1,7 @@
 package recalbox
 
 import (
+	"crypto/rand"
 	"fmt"
 	"os/exec"
 	"reflect"
@@ -73,4 +74,15 @@ func ProcessRecalboxSettingsForm(data map[string]interface{}) (err error) {
 	}
 
 	return nil
+}
+
+// PseudoUuid generates a sort of UUID.
+func PseudoUuid() (string, error) {
+	b := make([]byte, 16)
+	_, err := rand.Read(b)
+	if err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("%X-%X-%X-%X-%X", b[0:4], b[4:6], b[6:8], b[8:10], b[10:]), nil
 }
