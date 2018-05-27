@@ -39,8 +39,8 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## recalbox.conf
-* Add ES actions on buttons
-* Add system actions on buttons
+* *DONE*
 
 ## Help
-* ALL
+* Add ES actions on buttons
+* Add system actions on buttons
