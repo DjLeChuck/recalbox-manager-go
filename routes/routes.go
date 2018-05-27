@@ -37,4 +37,7 @@ func Configure(app *iris.Application) {
 	app.Get("/help", GetHelpHandler).Name = "help"
 
 	app.Get("/help/recalbox-support", GetLaunchRecalboxSupportHandler).Name = "launch-recalbox-support"
+
+	app.Get("/os/reboot", GetRebootOsHandler).Name = "os-reboot"
+	app.Get("/os/shutdown", GetShutdownOsHandler).Name = "os-shutdown"
 }

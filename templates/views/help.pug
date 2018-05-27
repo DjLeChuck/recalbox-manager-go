@@ -43,8 +43,23 @@ block content
       .card.border-danger.mb-4
         .card-header.bg-danger.text-white Redémarrage et arrêt du système
         .card-body
-          a.btn.btn-warning.mr-2(href="#" role="button") Redémarrer le système
-          a.btn.btn-danger(href="#" role="button") Arrêter le système
+          a.btn.btn-warning.mr-2(
+            data-toggle="modal"
+            data-target="#confirmModal"
+            data-message="Voulez-vous vraiment redémarrer le système ?"
+            href=(urlpath "os-reboot")
+            role="button"
+          ) Redémarrer le système
+          a.btn.btn-danger(
+            data-toggle="modal"
+            data-target="#confirmModal"
+            data-message="Voulez-vous vraiment arrêter le système ?"
+            href=(urlpath "os-shutdown")
+            role="button"
+          ) Arrêter le système
+
+  include templates/partials/confirm-modal.pug
 
 block append js
+  script(src="/static/js/modules/confirmModal.js")
   script(src="/static/js/modules/help.js")
