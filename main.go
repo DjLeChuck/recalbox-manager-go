@@ -16,10 +16,6 @@ import (
 )
 
 func main() {
-	f := errors.NewLogFile()
-
-	defer f.Close()
-
 	// Load configuration file
 	viper.SetConfigName("recalbox")
 	viper.SetConfigType("toml")
@@ -46,6 +42,9 @@ func main() {
 	app.Logger().SetLevel(viper.GetString("app.logLevel"))
 
 	if !isDebug {
+		f := errors.NewLogFile()
+
+		defer f.Close()
 		app.Logger().SetOutput(errors.NewLogFile())
 	}
 
