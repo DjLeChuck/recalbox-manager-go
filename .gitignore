@@ -2,4 +2,5 @@ recalbox-manager.exe
 recalbox-manager
 configs/recalbox.dev.toml
 logs/
+vendor/
 !.gitkeep
