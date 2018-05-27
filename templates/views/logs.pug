@@ -1,6 +1,6 @@
 h1.mt-4.mb-4.border-bottom= .PageTitle
 
-include templates/views/forms/logs
+| {{ render "views/forms/logs.pug" }}
 
 if .LogName
   .card.mb-4
