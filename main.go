@@ -77,6 +77,7 @@ func main() {
 	app.StaticWeb("/screenshots/viewer", viper.GetString("recalbox.screenshotsPath"))
 
 	tmpl := iris.Pug("./templates", ".pug")
+	tmpl.Binary(Asset, AssetNames)
 	tmpl.Reload(isDebug) // reload templates on each request (development mode)
 
 	app.RegisterView(tmpl)
