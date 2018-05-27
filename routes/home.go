@@ -24,17 +24,17 @@ func GetHomeHandler(ctx iris.Context) {
 	ctx.ViewData("Tiles", []structs.HomeTile{
 		{
 			Link:  "//" + hostname + ":8080/gamepad.html?analog",
-			Image: "/img/gamepad.png",
+			Image: "/static/img/gamepad.png",
 			Label: ctx.Translate("Utiliser le gamepad virtuel"),
 		},
 		{
 			Link:  "//" + hostname + ":8080/keyboard.html",
-			Image: "/img/keyboard.png",
+			Image: "/static/img/keyboard.png",
 			Label: ctx.Translate("Utiliser le clavier virtuel"),
 		},
 		{
 			Link:  "//" + hostname + ":8080/touchpad.html",
-			Image: "/img/touchpad.png",
+			Image: "/static/img/touchpad.png",
 			Label: ctx.Translate("Utiliser le touchpad virtuel"),
 		},
 	})
