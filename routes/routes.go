@@ -35,4 +35,6 @@ func Configure(app *iris.Application) {
 	app.Post("/recalbox-conf", PostRecalboxConfHandler).Name = "recalbox-conf_form"
 
 	app.Get("/help", GetHelpHandler).Name = "help"
+
+	app.Get("/help/recalbox-support", GetLaunchRecalboxSupportHandler).Name = "launch-recalbox-support"
 }

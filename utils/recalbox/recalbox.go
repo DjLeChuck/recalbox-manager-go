@@ -76,8 +76,8 @@ func ProcessRecalboxSettingsForm(data map[string]interface{}) (err error) {
 	return nil
 }
 
-// PseudoUuid generates a sort of UUID.
-func PseudoUuid() (string, error) {
+// PseudoUUID generates a sort of UUID.
+func PseudoUUID() (string, error) {
 	b := make([]byte, 16)
 	_, err := rand.Read(b)
 	if err != nil {

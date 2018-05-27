@@ -49,3 +49,8 @@ type HelpLink struct {
 type SelectList struct {
 	Value, Label string
 }
+
+// SmartFileLink represents a Link object on SmartFile.
+type SmartFileLink struct {
+	Href string `json:"href"`
+}

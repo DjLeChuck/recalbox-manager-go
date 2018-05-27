@@ -23,12 +23,26 @@
   path = "/recalbox/share/system/.config/manager-web/"
   file = "credentials.auth"
 
+[smartFile]
+  url = "https://app.smartfile.com/api/2"
+  folderName = "/recalbox-support"
+
+  [smartFile.api]
+    upload = "/path/data"
+    link = "/link/"
+
+  [smartFile.keys]
+    public = "xmoZ9l3lL83utppjY7TzPML0jaTUu4"
+    private = "C8SU1dYRj7gFImkEZfMUNm0h6ZGwkP"
+
 [recalbox]
   pythonSettingsFile = "/usr/lib/python2.7/site-packages/configgen/settings/recalboxSettings.pyc"
   configScript = "/recalbox/scripts/recalbox-config.sh"
   confPath = "/recalbox/share/system/recalbox.conf"
   screenshotsPath = "/recalbox/share/screenshots/"
   raspi2png = "raspi2png"
+  supportScript = "/recalbox/scripts/recalbox-support.sh"
+  savesPath = "/recalbox/share/saves"
   logsPaths = [
     "/var/log/messages",
     "/recalbox/share/system/.emulationstation/es_log.txt",

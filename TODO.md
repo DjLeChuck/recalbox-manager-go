@@ -33,13 +33,14 @@ List of things not implemented compared to the actual manager.
 * ALL
 
 ## Screenshots
-* *DONE*
+* Check if system can take screenshot (cat /recalbox/recalbox.arch == rpi)
 
 ## Logs
 * *DONE*
 
 ## recalbox.conf
-* *DONE*
+* Add ES actions on buttons
+* Add system actions on buttons
 
 ## Help
 * ALL
