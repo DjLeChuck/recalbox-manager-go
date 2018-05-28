@@ -23,10 +23,10 @@ block content
       p
         a.btn.btn-success(
           href=(urlpath "launch-recalbox-support") role="button"
-          data-ajax=""
+          data-recalbox-support=""
         )
-         i(data-spinner="").fas.fa-spinner.fa-pulse.d-none
-         |  Exécuter le script
+          i(data-spinner="").fas.fa-spinner.fa-pulse.d-none
+          |  Exécuter le script
       p.d-none(data-link="")
         | Lien de téléchargement à donner :
         a(href="#" target="_blank")
@@ -36,8 +36,28 @@ block content
       .card.border-warning.mb-4
         .card-header.bg-warning Redémarrage et arrêt d'EmulationStation
         .card-body
-          a.btn.btn-warning.mr-2(href="#" role="button") Redémarrer ES
-          a.btn.btn-danger(href="#" role="button") Arrêter ES
+          a.btn.btn-warning.mr-2(
+            href=(urlpath "es-action" "restart")
+            role="button"
+            data-es="restart"
+          )
+            i(data-spinner="").fas.fa-spinner.fa-pulse.d-none
+            |  Redémarrer ES
+          a.btn.btn-danger.d-none(
+            href=(urlpath "es-action" "stop")
+            role="button"
+            data-es="stop"
+            data-es-status-url=(urlpath "es-status")
+          )
+            i(data-spinner="").fas.fa-spinner.fa-pulse.d-none
+            |  Arrêter ES
+          a.btn.btn-success.d-none(
+            href=(urlpath "es-action" "start")
+            role="button"
+            data-es="start"
+          )
+            i(data-spinner="").fas.fa-spinner.fa-pulse.d-none
+            |  Démarrer ES
 
     .col
       .card.border-danger.mb-4

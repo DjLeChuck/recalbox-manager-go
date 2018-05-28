@@ -42,5 +42,4 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## Help
-* Add ES actions on buttons
-* Add system actions on buttons
+* *DONE*

@@ -40,4 +40,7 @@ func Configure(app *iris.Application) {
 
 	app.Get("/os/reboot", GetRebootOsHandler).Name = "os-reboot"
 	app.Get("/os/shutdown", GetShutdownOsHandler).Name = "os-shutdown"
+
+	app.Get("/es/action/{name:string}", GetActionEsHandler).Name = "es-action"
+	app.Get("/es/status", GetStatusEsHandler).Name = "es-status"
 }
