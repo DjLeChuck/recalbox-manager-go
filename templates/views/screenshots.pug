@@ -3,13 +3,14 @@ extends templates/layouts/default.pug
 block content
   h1.mt-4.mb-4.border-bottom= .PageTitle
 
-  .card.mb-4
-    .card-header Effectuer une capture d'écran
-    .card-body
-      p.card-text Le bouton ci-dessous vous permet de prendre une capture d'écran de l'affichage actuel de recalbox.
-      p.card-text Le résultat sera sauvegardé dans le dossier %s.
-      p
-        a.btn.btn-success(role="button" href=(urlpath "screenshots_take")) Faire une capture
+  if .CanTakeScreenshots
+    .card.mb-4
+      .card-header Effectuer une capture d'écran
+      .card-body
+        p.card-text Le bouton ci-dessous vous permet de prendre une capture d'écran de l'affichage actuel de recalbox.
+        p.card-text Le résultat sera sauvegardé dans le dossier %s.
+        p
+          a.btn.btn-success(role="button" href=(urlpath "screenshots_take")) Faire une capture
 
   .card-columns
     each _ in .Images

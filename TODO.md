@@ -33,7 +33,7 @@ List of things not implemented compared to the actual manager.
 * ALL
 
 ## Screenshots
-* Check if system can take screenshot (cat /recalbox/recalbox.arch == rpi)
+* *DONE*
 
 ## Logs
 * *DONE*

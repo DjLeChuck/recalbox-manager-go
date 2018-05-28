@@ -44,6 +44,7 @@
   supportScript = "/recalbox/scripts/recalbox-support.sh"
   savesPath = "/recalbox/share/saves"
   emulationStationPath = "/etc/init.d/S31emulationstation"
+  arch = "/recalbox/recalbox.arch"
   logsPaths = [
     "/var/log/messages",
     "/recalbox/share/system/.emulationstation/es_log.txt",

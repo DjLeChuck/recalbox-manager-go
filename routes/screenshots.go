@@ -13,7 +13,6 @@ import (
 // GetScreenshotsHandler handles the GET requests on /screenshots.
 func GetScreenshotsHandler(ctx iris.Context) {
 	hostname, err := os.Hostname()
-
 	if err != nil {
 		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
 		ctx.StatusCode(500)
@@ -23,7 +22,6 @@ func GetScreenshotsHandler(ctx iris.Context) {
 
 	screenshotsPath := viper.GetString("recalbox.screenshotsPath")
 	list, err := screenshots.ListImages(screenshotsPath)
-
 	if err != nil {
 		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
 		ctx.StatusCode(500)
@@ -35,6 +33,7 @@ func GetScreenshotsHandler(ctx iris.Context) {
 	ctx.ViewData("Images", list)
 	ctx.ViewData("Hostname", hostname)
 	ctx.ViewData("Port", viper.GetInt("app.port"))
+	ctx.ViewData("CanTakeScreenshots", screenshots.CanTakeScreenshot())
 
 	ctx.View("views/screenshots.pug")
 }

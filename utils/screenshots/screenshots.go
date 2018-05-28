@@ -31,6 +31,17 @@ func ListImages(directory string) (list []string, err error) {
 	return list, nil
 }
 
+// CanTakeScreenshot indicates if the system can take a screenshot.
+func CanTakeScreenshot() bool {
+	f := viper.GetString("recalbox.arch")
+	out, err := exec.Command("cat", f).CombinedOutput()
+	if err != nil {
+		return false
+	}
+
+	return "rpi" == string(out)[:3]
+}
+
 // TakeScreenshot calls rapis2png and take a screenshot of the actual recalbox screen.
 func TakeScreenshot(destination string) error {
 	if info, err := os.Stat(destination); err != nil || !info.IsDir() {
