@@ -155,3 +155,21 @@ func PostBiosUploadHandler(ctx iris.Context) {
 
 	ctx.JSON(iris.Map{"success": true})
 }
+
+// GetBiosDeleteHandler handles GET requests on /bios/delete/{file:string}.
+func GetBiosDeleteHandler(ctx iris.Context) {
+	bp := viper.GetString("recalbox.bios.filesPath")
+	f := ctx.Params().Get("file")
+
+	if f != "" {
+		err := os.Remove(bp + f)
+		if err != nil {
+			ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
+			ctx.StatusCode(500)
+
+			return
+		}
+	}
+
+	ctx.Redirect("/bios")
+}

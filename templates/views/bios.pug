@@ -52,7 +52,20 @@ block content
               i.fas.fa-check.fa-sm.text-success
             else
               i.fas.fa-times-circle.fa-sm.text-danger
-          td @todo
+          td
+            if .IsValid
+              a.btn.btn-danger(
+                href=(urlpath "bios_delete" .Name)
+                role="button"
+                data-toggle="modal"
+                data-target="#confirmModal"
+                data-message="Voulez-vous vraiment supprimer %s ?"
+                data-message-arg=.Name
+              )
+                i.fas.fa-trash-alt
+
+  include templates/partials/confirm-modal.pug
 
 block append js
+  script(src="/static/js/modules/confirmModal.js")
   script(src="/static/js/modules/bios.js")

@@ -18,7 +18,6 @@ List of things not implemented compared to the actual manager.
 
 ## BIOS
 * Translate Dropzone terms
-* Add **Action** column actions
 
 ## Controllers
 * *DONE*

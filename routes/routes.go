@@ -14,6 +14,7 @@ func Configure(app *iris.Application) {
 	app.Get("/bios", GetBiosHandler).Name = "bios"
 	app.Get("/bios/check", GetBiosCheckHandler).Name = "bios_check"
 	app.Post("/bios/upload", iris.LimitRequestBodySize(256<<20), PostBiosUploadHandler).Name = "bios_form"
+	app.Get("/bios/delete/{file:string}", GetBiosDeleteHandler).Name = "bios_delete"
 
 	app.Get("/controllers", GetControllersHandler).Name = "controllers"
 	app.Post("/controllers", PostControllersHandler).Name = "controllers_form"
