@@ -22,10 +22,10 @@ func New(app *iris.Application) iris.Handler {
 				IsActive: app.GetRoute("home").FormattedPath == currentPath,
 			},
 			{
-				Link:     "/monitoring",
+				Link:     app.GetRoute("monitoring").FormattedPath,
 				Glyph:    "signal",
 				Label:    ctx.Translate("Monitoring"),
-				IsActive: false,
+				IsActive: app.GetRoute("monitoring").FormattedPath == currentPath,
 			},
 			{
 				Link:     app.GetRoute("audio").FormattedPath,

@@ -44,4 +44,6 @@ func Configure(app *iris.Application) {
 
 	app.Get("/es/action/{name:string}", GetActionEsHandler).Name = "es-action"
 	app.Get("/es/status", GetStatusEsHandler).Name = "es-status"
+
+	app.Get("/monitoring", GetMonitoringHandler).Name = "monitoring"
 }

@@ -1,0 +1,20 @@
+extends templates/layouts/default.pug
+
+block content
+  h1.mt-4.mb-4.border-bottom= .PageTitle
+
+  h2 Processeur
+  .row
+    each _,_ in .Cpu
+      .col-sm-6
+        p Cœur .i
+        p {{ . }} %
+
+  h2 Mémoire
+  .row
+    .col-md-3
+      p Libre : {{ .Memory.Free }} MB
+    .col-md-6
+      p Libre : {{ .Memory.UsedPercent }} %
+    .col-md-3
+      p total : {{ .Memory.Total }} MB
