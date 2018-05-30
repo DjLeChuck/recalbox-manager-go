@@ -3,18 +3,56 @@ extends templates/layouts/default.pug
 block content
   h1.mt-4.mb-4.border-bottom= .PageTitle
 
-  h2 Processeur
+  h2(data-monitoring-url=(urlpath "monitoring")) Processeur
   .row
     each _,_ in .Cpu
       .col-sm-6
         p Cœur .i
-        p {{ . }} %
+        .progress
+          .progress-bar.progress-bar-striped.progress-bar-animated(
+            role="progressbar"
+            aria-valuenow=.
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style=( print "width:" . "%")
+          ) {{ . }}%
 
   h2 Mémoire
   .row
     .col-md-3
-      p Libre : {{ .Memory.Free }} MB
+      p Libre : {{ .Memory.Available }} MB
     .col-md-6
-      p Libre : {{ .Memory.UsedPercent }} %
+      .progress
+        .progress-bar.progress-bar-striped.progress-bar-animated(
+          role="progressbar"
+          aria-valuenow=.Memory.UsedPercent
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style=( print "width:" .Memory.UsedPercent "%")
+        ) {{ .Memory.UsedPercent }}%
     .col-md-3
-      p total : {{ .Memory.Total }} MB
+      p Total : {{ .Memory.Total }} MB
+
+  h2 Systèmes de fichiers
+  .table-responsive
+    table.table
+      thead
+        tr
+          th(scope="col") Périphérique
+          th(scope="col") Montage
+          th(scope="col") Usage
+          th(scope="col") Utilisé
+          th(scope="col") Libre
+          th(scope="col") Total
+      tbody
+        each _,_ in .Disks
+          tr
+            td {{ .Device }}
+            td {{ .Path }}
+            td {{ .UsedPercent }}%
+            td {{ .Used }} GiB
+            td {{ .Free }} GiB
+            td {{ .Total }} GiB
+
+block append js
+  script(src="/static/js/modules/monitoring.js")

@@ -54,3 +54,8 @@ type SelectList struct {
 type SmartFileLink struct {
 	Href string `json:"href"`
 }
+
+// Disk represents a disk mounted on the system.
+type Disk struct {
+	Device, Path, UsedPercent, Used, Free, Total string
+}
