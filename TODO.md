@@ -11,7 +11,7 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## Monitoring
-* ALL
+* *DONE*
 
 ## Audio
 * Always show the slider value

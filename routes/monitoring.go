@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/kataras/iris"
@@ -29,12 +30,20 @@ func GetMonitoringHandler(ctx iris.Context) {
 	vm.Total = vm.Total / 1048576
 
 	// CPU percent usage
-	c, err := cpu.Percent(0, true)
+	cpuTmp, err := cpu.Percent(0, true)
 	if err != nil {
 		ctx.Values().Set("error", errors.FormatErrorForLog(ctx, err.(error)))
 		ctx.StatusCode(500)
 
 		return
+	}
+
+	var cpu []*structs.CPU
+	for i, c := range cpuTmp {
+		cpu = append(cpu, &structs.CPU{
+			Number: i,
+			Value:  fmt.Sprintf("%.2f", c),
+		})
 	}
 
 	// Mounted disks usages
@@ -72,13 +81,12 @@ func GetMonitoringHandler(ctx iris.Context) {
 
 	if ctx.IsAjax() {
 		ctx.JSON(iris.Map{
-			"cpu":    c,
+			"cpu":    cpu,
 			"memory": vm,
-			"disks":  usage,
 		})
 	} else {
 		ctx.ViewData("PageTitle", ctx.Translate("Monitoring"))
-		ctx.ViewData("Cpu", c)
+		ctx.ViewData("Cpu", cpu)
 		ctx.ViewData("Memory", vm)
 		ctx.ViewData("Disks", usage)
 

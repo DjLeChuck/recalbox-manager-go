@@ -7,20 +7,24 @@ block content
   .row
     each _,_ in .Cpu
       .col-sm-6
-        p Cœur .i
+        p Cœur {{ .Number }}
         .progress
           .progress-bar.progress-bar-striped.progress-bar-animated(
             role="progressbar"
-            aria-valuenow=.
+            aria-valuenow=.Value
             aria-valuemin="0"
             aria-valuemax="100"
-            style=( print "width:" . "%")
-          ) {{ . }}%
+            data-cpu=.Number
+            style=( print "width:" .Value "%")
+          ) {{ printf "%.2f" .Value }}%
 
   h2 Mémoire
   .row
     .col-md-3
-      p Libre : {{ .Memory.Available }} MB
+      p
+        | Libre :
+        span(data-memory="available")  {{ .Memory.Available }}
+        |  MB
     .col-md-6
       .progress
         .progress-bar.progress-bar-striped.progress-bar-animated(
@@ -28,10 +32,14 @@ block content
           aria-valuenow=.Memory.UsedPercent
           aria-valuemin="0"
           aria-valuemax="100"
+          data-memory="used"
           style=( print "width:" .Memory.UsedPercent "%")
-        ) {{ .Memory.UsedPercent }}%
+        ) {{ printf "%.2f" .Memory.UsedPercent }}%
     .col-md-3
-      p Total : {{ .Memory.Total }} MB
+      p 
+        | Total :
+        span(data-memory="total")  {{ .Memory.Total }}
+        |  MB
 
   h2 Systèmes de fichiers
   .table-responsive

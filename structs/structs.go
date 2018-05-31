@@ -55,6 +55,12 @@ type SmartFileLink struct {
 	Href string `json:"href"`
 }
 
+// CPU represents a CPU on the system.
+type CPU struct {
+	Number int
+	Value  string
+}
+
 // Disk represents a disk mounted on the system.
 type Disk struct {
 	Device, Path, UsedPercent, Used, Free, Total string
