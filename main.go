@@ -53,7 +53,7 @@ func main() {
 	}
 
 	irisLanguages := make(map[string]string)
-	languages := []structs.Language{}
+	var languages []structs.Language
 	lErr := viper.UnmarshalKey("availableLanguages", &languages)
 
 	if lErr != nil {

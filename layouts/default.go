@@ -112,8 +112,8 @@ func New(app *iris.Application) iris.Handler {
 			}
 		}
 
-		menuLanguages := []structs.AvailableLanguage{}
-		languages := []structs.Language{}
+		var menuLanguages []structs.AvailableLanguage
+		var languages []structs.Language
 		err := viper.UnmarshalKey("availableLanguages", &languages)
 
 		if err != nil {
