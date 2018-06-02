@@ -1,12 +1,15 @@
 package recalbox
 
 import (
+	"bufio"
 	"crypto/rand"
 	"fmt"
+	"os"
 	"os/exec"
 	"reflect"
 	"strings"
 
+	"github.com/djlechuck/recalbox-manager/structs"
 	"github.com/spf13/viper"
 )
 
@@ -51,14 +54,12 @@ func ProcessRecalboxSettingsForm(data map[string]interface{}) (err error) {
 
 	for k, v := range data {
 		value := fmt.Sprintf("%v", v)
-
 		if _, ok := v.(string); ok {
 			value = "'" + v.(string) + "'"
 		}
 
 		normalizedKey := strings.Replace(k, "-", ".", -1)
 		_, err = exec.Command("python", pythonFile, "-command", "save", "-key", normalizedKey, "-value", value).CombinedOutput()
-
 		if err != nil {
 			return err
 		}
@@ -67,7 +68,6 @@ func ProcessRecalboxSettingsForm(data map[string]interface{}) (err error) {
 	if data["audio-volume"] != nil {
 		configScript := viper.GetString("recalbox.configScript")
 		_, err = exec.Command(configScript, "volume", fmt.Sprintf("%v", data["audio-volume"])).CombinedOutput()
-
 		if err != nil {
 			return err
 		}
@@ -85,4 +85,51 @@ func PseudoUUID() (string, error) {
 	}
 
 	return fmt.Sprintf("%X-%X-%X-%X-%X", b[0:4], b[4:6], b[6:8], b[8:10], b[10:]), nil
+}
+
+// GetConfValue returns the value of the given key of recalbox.conf file.
+func GetConfValue(keys []string) (map[string]*structs.RecalboxConfValue, error) {
+	file := viper.GetString("recalbox.confPath")
+	// keysStr := strings.Replace(strings.Join(keys, "|"), ".", "\\.", -1)
+	res := make(map[string]*structs.RecalboxConfValue)
+
+	f, err := os.Open(file)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+
+	scanner := bufio.NewScanner(f)
+
+	for len(keys) > 0 && scanner.Scan() {
+		l := scanner.Text()
+
+		for i, t := range keys {
+			if strings.Contains(l, t) {
+				parts := strings.Split(l, "=")
+				disabled := false
+
+				name := parts[0]
+				if name[0:1] == ";" {
+					name = name[1:]
+					disabled = true
+				}
+
+				res[name] = &structs.RecalboxConfValue{
+					Value:    parts[1],
+					Disabled: disabled,
+				}
+
+				// Remove element from slice
+				keys[i] = keys[len(keys)-1]
+				keys = keys[:len(keys)-1]
+			}
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }

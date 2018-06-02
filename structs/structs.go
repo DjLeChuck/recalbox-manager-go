@@ -65,3 +65,9 @@ type CPU struct {
 type Disk struct {
 	Device, Path, UsedPercent, Used, Free, Total string
 }
+
+// RecalboxConfValue represents a value of recalbox.conf file.
+type RecalboxConfValue struct {
+	Value    string
+	Disabled bool
+}
