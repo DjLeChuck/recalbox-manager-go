@@ -28,21 +28,7 @@ html(lang="fr")
 
         #navbarCollapse.collapse.navbar-collapse
           .navbar-nav.mr-auto
-            li.nav-item.dropdown
-              a#languageMenuLink.nav-link.dropdown-toggle(
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              )
-                i.fas.fa-language.fa-lg
-                |  {{ .CurrentLang }}
-
-              .dropdown-menu(aria-labelledby="languageMenuLink")
-                each _ in .AvailableLang
-                  a.dropdown-item(href=(printf "%v?lang=%v" (urlpath "home") .Locale))
-                    | {{ .Name }}
+            include templates/partials/language-menu.pug
 
           .navbar-nav
             each _ in .MenuEntries
@@ -68,8 +54,27 @@ html(lang="fr")
                     i(class=(printf "fas fa-%v fa-sm" .Glyph))
                     |  {{.Label}}
 
-    main.container
-      block content
+    .container-fluid.content
+      .row
+        .col-md-2.d-none.d-md-block.bg-light.sidebar
+          .sidebar-sticky.mt-4
+            ul.nav.flex-column
+              include templates/partials/language-menu.pug
+
+              each _ in .MenuEntries
+                if .Children
+                  each _ in .Children
+                    li.nav-item(class=.ActiveClass)
+                      a.nav-link(href=.Link)
+                        i(class=(printf "fas fa-%v fa-sm" .Glyph))
+                        |  {{.Label}}
+                else
+                  li.nav-item(class=.ActiveClass)
+                    a.nav-link(href=.Link)
+                      i(class=(printf "fas fa-%v fa-sm" .Glyph))
+                      |  {{.Label}}
+        main.col-md-9.ml-sm-auto.col-lg-10.px-4
+          block content
 
     footer.footer
       nav.navbar.navbar-light.bg-light

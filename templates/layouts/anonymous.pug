@@ -15,21 +15,7 @@ html(lang="fr")
         a.navbar-brand(href=(urlpath "login")) {{ .RecalboxManagerTitle }}
 
         .navbar-nav.mr-auto
-          li.nav-item.dropdown
-            a#languageMenuLink.nav-link.dropdown-toggle(
-              href="#"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            )
-              i.fas.fa-language.fa-lg
-              |  {{ .CurrentLang }}
-
-            .dropdown-menu(aria-labelledby="languageMenuLink")
-              each _ in .AvailableLang
-                a.dropdown-item(href=(printf "%v?lang=%v" (urlpath "home") .Locale))
-                  | {{ .Name }}
+          include templates/partials/language-menu.pug
 
     main.container
       block content
