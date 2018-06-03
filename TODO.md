@@ -7,11 +7,14 @@ List of things not implemented compared to the actual manager.
 * Set forms default values
 * Add flash messages on actions (file deleted, catchable errors, etc.)
 
+## Security
+* Encode password with recalbox script
+
 ## Home
 * *DONE*
 
 ## Monitoring
-* *DONE*
+* Add temperature
 
 ## Audio
 * Always show the slider value

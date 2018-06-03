@@ -1,0 +1,17 @@
+form(method="post" action=(urlpath "login_form"))
+  .card.mb-4
+    .card-header Identifiants de connexion
+    .card-body
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="username")
+          | Identifiant
+        .col-sm-8
+          input#username.form-control(type="text" name="username")
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="password")
+          | Mot de passe
+        .col-sm-8
+          input#password.form-control(type="password" name="password")
+
+  button.btn.btn-success(type="submit") Se connecter

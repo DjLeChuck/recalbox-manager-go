@@ -1,5 +1,11 @@
 package forms
 
+// Login represents the form on /login page.
+type Login struct {
+	Username string `form:"username"`
+	Password string `form:"password"`
+}
+
 // Audio represents the form on /audio page.
 type Audio struct {
 	BackgroundMusic bool   `form:"audio-bgmusic"`

@@ -1,5 +1,17 @@
 package structs
 
+// Credentials represents the login/password used to access to the manager.
+type Credentials struct {
+	Login, Password string
+}
+
+// Authentication represents the state of the application authentication.
+type Authentication struct {
+	Enabled         bool
+	Credentials     Credentials
+	IsAuthenticated bool
+}
+
 // AvailableLanguage represents an available language in the menu.
 type AvailableLanguage struct {
 	Locale, Name string

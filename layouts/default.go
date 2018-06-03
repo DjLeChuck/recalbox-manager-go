@@ -1,17 +1,43 @@
 package layouts
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"os"
+
 	"github.com/kataras/iris"
 
 	"github.com/spf13/viper"
 
+	"github.com/djlechuck/recalbox-manager/store"
 	"github.com/djlechuck/recalbox-manager/structs"
 	"github.com/djlechuck/recalbox-manager/utils/errors"
 )
 
-// New returns a new handler which adds some headers and view data
-// describing the application, i.e the owner, the startup time.
+// New returns a new handler which adds some view data.
 func New(app *iris.Application) iris.Handler {
+	// Check if authentication is required
+	var credentials structs.Credentials
+	path := viper.GetString("auth.path") + viper.GetString("auth.file")
+	authentication := &structs.Authentication{
+		Enabled:         true,
+		Credentials:     credentials,
+		IsAuthenticated: false,
+	}
+
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		authentication.Enabled = false
+	} else {
+		content, err := ioutil.ReadFile(path)
+		if err == nil {
+			if err := json.Unmarshal(content, &credentials); err != nil {
+				panic(err)
+			}
+
+			authentication.Credentials = credentials
+		}
+	}
+
 	return func(ctx iris.Context) {
 		currentPath := ctx.Path()
 		menuEntries := []structs.MenuItem{
@@ -142,14 +168,18 @@ func New(app *iris.Application) iris.Handler {
 		ctx.ViewData("CurrentLang", currentLang)
 		ctx.ViewData("AvailableLang", menuLanguages)
 		ctx.ViewData("AppVersion", viper.GetString("app.version"))
+		ctx.ViewData("NeedAuth", authentication.Enabled)
 
 		ctx.Gzip(true)
+
+		sess := store.Sessions.Start(ctx)
+		sess.Set("authentication", authentication)
 
 		ctx.Next()
 	}
 }
 
-// Configure creates a new layout middleware and registers that to the app.
+// Configure creates a new layout middleware and registers itself to the app.
 func Configure(app *iris.Application) {
 	h := New(app)
 	app.Use(h)
