@@ -1,5 +1,25 @@
 package structs
 
+// Credentials represents the login/password used to access to the manager.
+type Credentials struct {
+	Login    string `json:"login"`
+	Password string `json:"password"`
+}
+
+// Authentication represents the state of the application authentication.
+type Authentication struct {
+	Enabled         bool
+	Credentials     Credentials
+	IsAuthenticated bool
+}
+
+// Reset Authentication with new Credentials.
+func (a *Authentication) Reset(cred Credentials) {
+	a.Enabled = true
+	a.Credentials = cred
+	a.IsAuthenticated = false
+}
+
 // AvailableLanguage represents an available language in the menu.
 type AvailableLanguage struct {
 	Locale, Name string

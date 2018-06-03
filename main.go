@@ -46,9 +46,7 @@ func main() {
 
 		defer f.Close()
 		app.Logger().SetOutput(f)
-	}
-
-	if isDebug {
+	} else {
 		app.Use(logger.New()) // log the requests to the terminal.
 	}
 

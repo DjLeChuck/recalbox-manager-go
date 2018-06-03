@@ -35,7 +35,9 @@ html(lang="fr")
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-              ) {{ .CurrentLang }}
+              )
+                i.fas.fa-language.fa-lg
+                |  {{ .CurrentLang }}
 
               .dropdown-menu(aria-labelledby="languageMenuLink")
                 each _ in .AvailableLang
@@ -71,8 +73,14 @@ html(lang="fr")
 
     footer.footer
       nav.navbar.navbar-light.bg-light
-        span.navbar-text
-          em {{ .AppVersion }} alpha
+        .navbar-nav.mr-auto
+          span.navbar-text
+            em {{ .AppVersion }} alpha
+        if .NeedAuth
+          .navbar-nav
+            a.nav-link(href=(urlpath "logout"))
+              i.fas.fa-sign-out-alt.fa-lg
+              |  Déconnexion
 
     block js
       script(src="/static/js/jquery-3.3.1.min.js")

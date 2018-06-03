@@ -1,0 +1,32 @@
+form(method="post" action=(urlpath "security_form"))
+  .card.mb-4
+    .card-header Authentification requise
+    .card-body
+      span.switch
+        input#need-auth.switch(
+          type="checkbox"
+          name="need-auth"
+          value="1"
+        )
+        label(for="need-auth")
+
+  .card.mb-4
+    .card-header Identifiants de connexion
+    .card-body
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="username")
+          | Identifiant
+        .col-sm-8
+          input#username.form-control(type="text" name="username")
+
+      .alert.alert-warning(role="alert")
+        i.fas.fa-exclamation-triangle.fa-sm
+        |  Le mot de passe n'est pas visible pour des raisons de sécurité.
+
+      .form-group.row
+        label.col-sm-4.col-form-label.text-right(for="password")
+          | Mot de passe
+        .col-sm-8
+          input#password.form-control(type="password" name="password")
+
+  button.btn.btn-success(type="submit") {{ .Tr.BtnSave }}

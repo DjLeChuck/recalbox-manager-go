@@ -1,0 +1,8 @@
+extends templates/layouts/default.pug
+
+block content
+  h1.mt-4.mb-4.border-bottom= .PageTitle
+
+  p Cette page permet de sécuriser l'accès à Recalbox Manager grâce à un identifiant et un mot de passe.
+
+  include templates/views/forms/security.pug
