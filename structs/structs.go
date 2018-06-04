@@ -91,3 +91,11 @@ type RecalboxConfValue struct {
 	Value    string
 	Disabled bool
 }
+
+// Temperature represents the current temperature of the device.
+type Temperature struct {
+	Current        float64
+	CurrentPercent float64
+	Max            float64
+	Color          string
+}

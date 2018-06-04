@@ -14,7 +14,7 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## Monitoring
-* Add temperature
+* *DONE*
 
 ## Audio
 * Always show the slider value

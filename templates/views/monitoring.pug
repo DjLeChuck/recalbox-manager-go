@@ -18,7 +18,7 @@ block content
             style=( print "width:" .Value "%")
           ) {{ printf "%.2f" .Value }}%
 
-  h2 Mémoire
+  h2.mt-4 Mémoire
   .row
     .col-md-3
       p
@@ -41,7 +41,18 @@ block content
         span(data-memory="total")  {{ .Memory.Total }}
         |  MB
 
-  h2 Systèmes de fichiers
+  if .Temperature
+    h2.mt-4 Température CPU
+    .clearfix
+      div(data-temperature="" class=(print "c100 p" .Temperature.CurrentPercent " " .Temperature.Color))
+        span(title=(print .Temperature.Current "°c / " .Temperature.Max "°c"))
+          | {{ .Temperature.Current }}°c
+
+        .slice
+          .bar
+          .fill
+
+  h2.mt-4 Systèmes de fichiers
   .table-responsive
     table.table
       thead

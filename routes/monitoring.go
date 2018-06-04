@@ -2,7 +2,10 @@ package routes
 
 import (
 	"fmt"
+	"math"
+	"os/exec"
 	"strconv"
+	"strings"
 
 	"github.com/kataras/iris"
 
@@ -81,15 +84,46 @@ func GetMonitoringHandler(ctx iris.Context) {
 
 	if ctx.IsAjax() {
 		ctx.JSON(iris.Map{
-			"cpu":    cpu,
-			"memory": vm,
+			"cpu":         cpu,
+			"memory":      vm,
+			"temperature": getTemperature(),
 		})
 	} else {
 		ctx.ViewData("PageTitle", ctx.Translate("Monitoring"))
 		ctx.ViewData("Cpu", cpu)
 		ctx.ViewData("Memory", vm)
 		ctx.ViewData("Disks", usage)
+		ctx.ViewData("Temperature", getTemperature())
 
 		ctx.View("views/monitoring.pug")
+	}
+}
+
+func getTemperature() *structs.Temperature {
+	out, err := exec.Command("cat", "/sys/class/thermal/thermal_zone0/temp").CombinedOutput()
+	if err != nil {
+		return nil
+	}
+
+	t, err := strconv.ParseFloat(strings.Trim(string(out), "\n"), 64)
+	if err != nil {
+		return nil
+	}
+
+	t = t / 1000
+	percent := math.Floor(t)
+	var color string
+
+	if percent > 70 {
+		color = "orange"
+	} else if percent < 30 {
+		color = "green"
+	}
+
+	return &structs.Temperature{
+		Current:        math.Round(t),
+		CurrentPercent: percent,
+		Max:            100,
+		Color:          color,
 	}
 }
