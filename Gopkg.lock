@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "code.cloudfoundry.org/bytefmt"
+  packages = ["."]
+  revision = "b31f603f5e1e047fdb38584e1a922dcc5c4de5c8"
+
+[[projects]]
   name = "github.com/BurntSushi/toml"
   packages = ["."]
   revision = "b26d9c308763d68093482582cea63d69be07a0f0"
@@ -376,6 +382,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2f5fe808ea81642cc03869541956570615727d949946433765cbd511bf9507ba"
+  inputs-digest = "d3e4070cd8924755fdf77ff8470c8fec6e18e3b0d113194c0611fbc292cfc6cb"
   solver-name = "gps-cdcl"
   solver-version = 1
