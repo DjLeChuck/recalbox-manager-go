@@ -17,7 +17,7 @@ List of things not implemented compared to the actual manager.
 * *DONE*
 
 ## Audio
-* Always show the slider value
+* *DONE*
 
 ## BIOS
 * Translate Dropzone terms

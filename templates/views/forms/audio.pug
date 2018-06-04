@@ -16,10 +16,15 @@ form(method="post" action=(urlpath "audio_form"))
   .card.mb-4
     .card-header {{ .Tr.VolumeTitle }}
     .card-body
-      input#audio-volume.custom-range(
-        type="range" name="audio-volume"
-        min="0" max="100" step="1"
-      )
+      .form-group.row
+        span.col-sm-1.text-center(data-volume="") 100
+        .col-sm-11
+          input#audio-volume.custom-range(
+            type="range"
+            name="audio-volume"
+            step="1"
+            value="100"
+          )
 
   .card.mb-4
     .card-header {{ .Tr.DeviceTitle }}
