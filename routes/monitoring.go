@@ -9,6 +9,7 @@ import (
 
 	"github.com/kataras/iris"
 
+	"code.cloudfoundry.org/bytefmt"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
@@ -74,9 +75,9 @@ func GetMonitoringHandler(ctx iris.Context) {
 			Device:      s.Device,
 			Path:        u.Path,
 			UsedPercent: strconv.FormatFloat(u.UsedPercent, 'f', 2, 64),
-			Used:        strconv.FormatUint(u.Used/1024/1024/1024, 10),
-			Free:        strconv.FormatUint(u.Free/1024/1024/1024, 10),
-			Total:       strconv.FormatUint(u.Total/1024/1024/1024, 10),
+			Used:        bytefmt.ByteSize(u.Used),
+			Free:        bytefmt.ByteSize(u.Free),
+			Total:       bytefmt.ByteSize(u.Total),
 		}
 
 		usage = append(usage, disk)

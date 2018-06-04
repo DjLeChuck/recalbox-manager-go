@@ -68,10 +68,18 @@ block content
           tr
             td {{ .Device }}
             td {{ .Path }}
-            td {{ .UsedPercent }}%
-            td {{ .Used }} GiB
-            td {{ .Free }} GiB
-            td {{ .Total }} GiB
+            td
+              .progress
+                .progress-bar.progress-bar-striped.progress-bar-animated(
+                  role="progressbar"
+                  aria-valuenow=.UsedPercent
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style=( print "width:" .UsedPercent "%")
+                ) {{ .UsedPercent }}%
+            td {{ .Used }}
+            td {{ .Free }}
+            td {{ .Total }}
 
 block append js
   script(src="/static/js/modules/monitoring.js")
