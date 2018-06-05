@@ -4,6 +4,10 @@
   logLevel = "warning"
   version = "v2.3.0"
 
+[api]
+  port = 8081
+  url = "127.0.0.1"
+
 [[availableLanguages]]
   Locale = "en-US"
   Name = "English"

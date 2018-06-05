@@ -1,0 +1,8 @@
+extends templates/layouts/default.pug
+
+block content
+  h1.mt-4.mb-4.border-bottom= .PageTitle
+
+  ul
+  each _,_ in .Systems
+    li {{ . }}

@@ -84,10 +84,10 @@ func New(app *iris.Application) iris.Handler {
 				IsActive: app.GetRoute("configuration").FormattedPath == currentPath,
 			},
 			{
-				Link:     "/roms",
+				Link:     app.GetRoute("roms").FormattedPath,
 				Glyph:    "save",
 				Label:    ctx.Translate("ROMs"),
-				IsActive: false,
+				IsActive: app.GetRoute("roms").FormattedPath == currentPath,
 			},
 			{
 				Link:     app.GetRoute("screenshots").FormattedPath,

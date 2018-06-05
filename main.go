@@ -9,6 +9,7 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/djlechuck/recalbox-manager/api"
 	"github.com/djlechuck/recalbox-manager/layouts"
 	"github.com/djlechuck/recalbox-manager/routes"
 	"github.com/djlechuck/recalbox-manager/structs"
@@ -100,6 +101,6 @@ func main() {
 		}
 	})
 
-	app.Configure(layouts.Configure, routes.Configure)
+	app.Configure(api.Configure, layouts.Configure, routes.Configure)
 	app.Run(iris.Addr(":"+viper.GetString("app.port")), iris.WithoutServerError(iris.ErrServerClosed))
 }

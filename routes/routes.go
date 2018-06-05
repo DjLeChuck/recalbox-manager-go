@@ -59,5 +59,7 @@ func Configure(app *iris.Application) {
 
 		manager.Get("/security", GetSecurityHandler).Name = "security"
 		manager.Post("/security", PostSecurityHandler).Name = "security_form"
+
+		manager.Get("/roms", GetRomsHandler).Name = "roms"
 	})
 }
